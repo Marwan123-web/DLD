@@ -1,0 +1,137 @@
+@use '../../../../../styles/breakpoints' as *;
+
+.org-chart-section {
+  padding-block: 4rem;
+  background: var(--color-bg-light);
+  overflow-x: auto;
+}
+
+.org-title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 .5rem;
+  text-align: center;
+}
+
+.org-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0 0 2.5rem;
+}
+
+.org-tree {
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Boxes
+.org-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: .75rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  min-width: 160px;
+  max-width: 220px;
+  gap: .2rem;
+
+  strong {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    line-height: 1.3;
+  }
+
+  span {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    line-height: 1.3;
+  }
+
+  &.root {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary);
+    strong { color: #fff; }
+    span { color: rgba(255,255,255,.75); }
+    min-width: 220px;
+  }
+
+  &.l1 {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    strong { color: #fff; }
+    span { color: rgba(255,255,255,.82); }
+  }
+
+  &.l2 {
+    background: var(--color-white);
+    border-color: var(--color-primary-light);
+    min-width: 140px;
+    max-width: 170px;
+
+    &.sm strong { font-size: 11px; }
+  }
+}
+
+// Levels
+.org-level {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.root-level { margin-block-end: 0; }
+
+.l1-level { align-items: flex-start; gap: 3rem; }
+
+.l2-level {
+  display: flex;
+  justify-content: center;
+  gap: .75rem;
+  margin-block-start: 0;
+}
+
+// Branches
+.org-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.org-branch-sm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Connectors
+.connector-v {
+  width: 2px;
+  height: 24px;
+  background: var(--color-primary-light);
+}
+
+.connector-v-top {
+  width: 2px;
+  height: 24px;
+  background: var(--color-primary-light);
+}
+
+.connector-h {
+  height: 2px;
+  background: var(--color-primary-light);
+  align-self: stretch;
+  margin-inline: auto;
+
+  &.two-col  { width: 55%; }
+  &.three-col { width: 80%; }
+  &.four-col  { width: 90%; }
+}

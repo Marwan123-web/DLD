@@ -1,0 +1,72 @@
+@use '../../../../../styles/breakpoints' as *;
+
+.empower-section {
+  position: relative;
+  padding-block: 6rem;
+  overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+}
+
+.empower-photo {
+  position: absolute;
+  inset: 0;
+  background: url('/assets/images/about-dubai.jpg') center / cover no-repeat;
+}
+
+.empower-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to inline-end,
+    rgba(27, 94, 69, 0.92) 0%,
+    rgba(27, 94, 69, 0.70) 60%,
+    rgba(27, 94, 69, 0.40) 100%
+  );
+}
+
+.empower-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+}
+
+.empower-label {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-block-end: 1rem;
+}
+
+.empower-title {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: var(--weight-bold);
+  color: #fff;
+  margin: 0 0 1.25rem;
+  line-height: 1.2;
+}
+
+.empower-subtitle {
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.82);
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+.empower-cta {
+  display: inline-block;
+  padding: .75rem 1.75rem;
+  background: #fff;
+  color: var(--color-primary-dark);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: opacity var(--transition-base);
+
+  &:hover { opacity: .88; }
+}

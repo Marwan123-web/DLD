@@ -1,0 +1,33 @@
+@use '../../../../../styles/breakpoints' as *;
+
+.initiatives-section {
+  padding-block: 4rem;
+  background: var(--color-primary-dark);
+
+  // Override section-header colors for dark bg
+  ::ng-deep {
+    .section-label { background: rgba(255,255,255,0.15); color: #fff; }
+    .section-title { color: #fff; }
+    .section-subtitle { color: rgba(255,255,255,0.75); }
+  }
+}
+
+.initiatives-scroll {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding-block-end: 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+
+  > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  &::-webkit-scrollbar { height: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
+}

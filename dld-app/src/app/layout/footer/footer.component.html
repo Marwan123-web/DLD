@@ -1,0 +1,92 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container-xxl">
+
+    <!-- Row 1: Brand + nav columns -->
+    <div class="footer-top">
+
+      <!-- Brand block -->
+      <div class="footer-brand">
+        <a routerLink="/" class="footer-logo-link" aria-label="Dubai Land Department — Home">
+          <img
+            src="assets/icons/logo/dld-emblem.svg"
+            alt=""
+            aria-hidden="true"
+            class="footer-emblem"
+            width="48" height="48"
+          />
+          <span class="footer-brand-names">
+            <span class="footer-brand-ar" lang="ar">دائرة الأراضي والأملاك دبي</span>
+            <span class="footer-brand-en">Dubai Land Department</span>
+          </span>
+        </a>
+
+        <p class="footer-tagline">{{ tr.t('footer.tagline') }}</p>
+
+        <!-- Social links -->
+        <div class="footer-social" role="list" [attr.aria-label]="'Social media links'">
+          <a
+            role="listitem"
+            href="https://x.com/DLD_Dubai"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label="Dubai Land Department on X (Twitter)"
+          >
+            <img src="assets/icons/social/x.svg" alt="" aria-hidden="true" width="18" height="18">
+          </a>
+          <a
+            role="listitem"
+            href="https://www.youtube.com/@DLD_Dubai"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label="Dubai Land Department on YouTube"
+          >
+            <img src="assets/icons/social/youtube.svg" alt="" aria-hidden="true" width="18" height="18">
+          </a>
+        </div>
+
+        <!-- Last updated -->
+        <p class="footer-last-updated">
+          {{ tr.tInterp('footer.last_updated', { date: lastUpdated }) }}
+        </p>
+      </div>
+
+      <!-- Nav column 1 -->
+      <nav class="footer-nav-col" [attr.aria-label]="'Footer navigation column 1'">
+        <ul role="list">
+          @for (link of col1Links; track link.path) {
+            <li>
+              <a [routerLink]="link.path" class="footer-link">
+                {{ tr.t(link.labelKey) }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <!-- Nav column 2 -->
+      <nav class="footer-nav-col" [attr.aria-label]="'Footer navigation column 2'">
+        <ul role="list">
+          @for (link of col2Links; track link.path) {
+            <li>
+              <a [routerLink]="link.path" class="footer-link">
+                {{ tr.t(link.labelKey) }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <!-- AMBIGUITY: Third footer column content not fully legible in screenshots. -->
+      <!-- Placeholder — add links when confirmed. -->
+
+    </div>
+
+    <!-- Row 2: Copyright -->
+    <div class="footer-bottom">
+      <p class="footer-copyright">{{ tr.t('footer.copyright') }}</p>
+    </div>
+
+  </div>
+</footer>

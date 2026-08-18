@@ -1,0 +1,8 @@
+<!-- PLACEHOLDER: Replace with official DLD crest/emblem SVG from brand team -->
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="24" cy="24" r="22" stroke="#22A87C" stroke-width="2.5"/>
+  <circle cx="24" cy="24" r="15" stroke="#22A87C" stroke-width="1.5"/>
+  <path d="M24 6 L24 42 M6 24 L42 24" stroke="#22A87C" stroke-width="1" opacity="0.4"/>
+  <circle cx="24" cy="24" r="5" fill="#22A87C"/>
+  <path d="M14 14 L24 8 L34 14 L38 24 L34 34 L24 40 L14 34 L10 24 Z" stroke="#22A87C" stroke-width="1.2" fill="none" opacity="0.6"/>
+</svg>

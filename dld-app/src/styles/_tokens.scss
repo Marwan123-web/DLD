@@ -1,0 +1,48 @@
+// AMBIGUITY: All color values are approximate, inferred from design screenshots.
+// Request official DLD brand palette and replace these before launch.
+
+:root {
+  // --- Colors ---
+  --color-primary:        #22A87C; // Main interactive green (buttons, active states)
+  --color-primary-dark:   #1B5E45; // Sections: DLD Initiatives, App Download
+  --color-primary-light:  #D4F0E5; // Tinted backgrounds, hover states
+  --color-navy:           #192032; // Navbar, footer
+  --color-navy-light:     #243050; // Navbar hover, footer hover
+  --color-white:          #FFFFFF;
+  --color-bg:             #F4F9F6; // Default section background
+  --color-bg-tint:        #EBF5F0; // Page canvas background (mint-green)
+  --color-bg-light:       #F8FAF9; // Alternate section backgrounds
+  --color-text-primary:   #1A2235;
+  --color-text-muted:     #6B7280;
+  --color-border:         #E5E7EB;
+
+  // --- Spacing ---
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  // --- Border radius ---
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-pill: 24px;
+  --radius-full: 9999px;
+
+  // --- Shadows ---
+  --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.08);
+  --shadow-navbar:  0 2px 8px  rgba(0, 0, 0, 0.12);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  // --- Transitions ---
+  --transition-base: 200ms ease;
+  --transition-slow: 350ms ease;
+}

@@ -1,0 +1,167 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "trainings": "Trainings & Programs",
+    "open_data": "Open Data & Insights",
+    "news": "News and Media",
+    "help": "Help and Support",
+    "search": "Search",
+    "notifications": "Notifications",
+    "profile": "My Profile",
+    "language": "عربي",
+    "menu_open": "Open navigation menu",
+    "menu_close": "Close navigation menu"
+  },
+  "hero": {
+    "title": "Dubai Land Department",
+    "subtitle": "Dubai Land Department seeks to achieve the objectives of Dubai Government's strategy in the real estate sector, and improve land registration procedures.",
+    "search_placeholder": "Search for services, properties, or information...",
+    "search_cta": "Search"
+  },
+  "services": {
+    "popular_label": "POPULAR SERVICES",
+    "title": "Popular Services & Tools",
+    "subtitle": "Discover additional tools including property indexes, valuations, certificates, and digital services",
+    "view_more": "View More"
+  },
+  "service": {
+    "rental_index": {
+      "title": "Rental Index",
+      "desc": "Check average rental values for any area and property type"
+    },
+    "charge_index": {
+      "title": "Service Charge Index",
+      "desc": "View average service charges for any community and building"
+    },
+    "valuation": {
+      "title": "Property Valuation",
+      "desc": "Get an official DLD-certified property valuation report"
+    },
+    "ejari": {
+      "title": "Download Rental Certificate (Ejari)",
+      "desc": "Download your registered Ejari certificate instantly"
+    },
+    "cert": {
+      "title": "To Whom It May Concern Certificate",
+      "desc": "Obtain an official DLD certificate confirming your ownership"
+    },
+    "status": {
+      "title": "Property Status Enquiry",
+      "desc": "Check your property status, ownership, and registration"
+    }
+  },
+  "initiatives": {
+    "label": "DLD INITIATIVES",
+    "title": "DLD Initiatives",
+    "subtitle": "Fostering innovation & collaboration through cutting-edge research, technology development, & strategic partnerships",
+    "apply_now": "Apply now",
+    "learn_more": "Learn more",
+    "register_interest": "Register Interest"
+  },
+  "transactions": {
+    "title": "Real Estate Transactions",
+    "subtitle": "Stay ahead with the latest real estate transactions in Dubai. Gain accurate, real-time market insights to make smarter, data-driven decisions",
+    "analytics_tab": "Analytics",
+    "map_tab": "Map",
+    "total_label": "Total Transactions",
+    "explore_map": "Explore Transactions Map"
+  },
+  "app": {
+    "download_title": "Download Dubai REST APP Now",
+    "download_subtitle": "The Dubai REST Application is an integrated smart real estate platform developed by Dubai Land Department to deliver seamless access to property and real estate services through a unified mobile experience.",
+    "available_on": "Available on All Platforms"
+  },
+  "about": {
+    "page_label": "ABOUT DLD",
+    "who_we_are": "Who We Are",
+    "tagline": "Trusted by millions, built on integrity, driving Dubai's property market since 1960.",
+    "stats": {
+      "transactions_value": "500K+",
+      "transactions_label": "Annual Transactions",
+      "index_value": "AED 1288",
+      "index_label": "Dubai Data 2025",
+      "rating_value": "4.5+",
+      "rating_label": "Service Rating"
+    },
+    "cornerstone_title": "The Cornerstone of Dubai's Real Estate Ecosystem.",
+    "cornerstone_body": "Dubai Land Department regulates and promotes Dubai's real estate sector by providing efficient, transparent, and innovative services that support sustainable development and investor confidence.",
+    "values": {
+      "label": "OUR VALUES",
+      "trust": "TRUST",
+      "vision": "VISION",
+      "growth": "GROWTH",
+      "integrity": "INTEGRITY"
+    },
+    "empower_label": "OUR MISSION",
+    "empower_title": "Empowering the Real Estate Community",
+    "empower_subtitle": "Through seamless services, smart legislation, integrated data, digital infrastructure, and skilled human capital",
+    "strategic_map_label": "OUR STRATEGIC MAP",
+    "strategic_map_title": "Our Strategic Pillars",
+    "achievements_label": "OUR ACHIEVEMENTS",
+    "achievements_title": "Our Achievements"
+  },
+  "strategic_map": {
+    "financing": {
+      "title": "Financing RE Model",
+      "desc": "Enable civic systems and ecosystems for the real estate sector"
+    },
+    "innovation": {
+      "title": "RE Innovation Platform",
+      "desc": "Enable a private-driven and collaborative real estate development"
+    },
+    "agile": {
+      "title": "Agile R&D",
+      "desc": "Cultivate a flourishing digital ecosystem with smart private-sector partnerships"
+    }
+  },
+  "leadership": {
+    "label": "ABOUT DLD",
+    "title": "Leadership & Organization",
+    "messages_title": "Messages from Leadership",
+    "org_chart_title": "Organization Chart",
+    "read_message": "Read Message"
+  },
+  "news": {
+    "latest_label": "LATEST NEWS",
+    "latest_title": "Latest News",
+    "latest_subtitle": "Stay updated with the latest developments in Dubai's real estate sector",
+    "all_title": "All News",
+    "all_subtitle": "Explore all of our news and stay updated",
+    "read_more": "Read More",
+    "load_more": "Load More",
+    "showing_count": "Showing {{shown}} out of {{total}} results"
+  },
+  "footer": {
+    "tagline": "Shaping Dubai's real estate future through innovation and excellence.",
+    "copyright": "© 2026 Dubai Land Department – All Right Reserved",
+    "last_updated": "Last updated on {{date}}"
+  },
+  "toolbar": {
+    "chat": "Chat with us",
+    "services": "Services",
+    "survey": "Survey",
+    "locations": "Locations",
+    "announcements": "Announcements",
+    "contact": "Contact Us",
+    "dubai_ae": "dubai.ae",
+    "language": "Language",
+    "ai": "AI Assistant"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "back": "Back",
+    "learn_more": "Learn more",
+    "apply_now": "Apply now",
+    "view_all": "View All",
+    "close": "Close",
+    "skip_to_content": "Skip to main content"
+  },
+  "not_found": {
+    "title": "Page Not Found",
+    "subtitle": "The page you are looking for does not exist.",
+    "go_home": "Return to Home"
+  }
+}

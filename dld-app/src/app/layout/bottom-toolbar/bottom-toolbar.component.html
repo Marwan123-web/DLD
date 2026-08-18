@@ -1,0 +1,27 @@
+<div class="toolbar" role="toolbar" aria-label="Quick access toolbar">
+  @for (item of items; track item.icon) {
+    <a
+      class="toolbar-item"
+      [href]="item.href"
+      [attr.aria-label]="tr.t(item.labelKey)"
+      [attr.target]="item.href.startsWith('http') ? '_blank' : null"
+      [attr.rel]="item.href.startsWith('http') ? 'noopener noreferrer' : null"
+    >
+      <svg
+        class="toolbar-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        width="22"
+        height="22"
+      >
+        <path [attr.d]="item.svgPath"/>
+      </svg>
+      <span class="toolbar-label">{{ tr.t(item.labelKey) }}</span>
+    </a>
+  }
+</div>

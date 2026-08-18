@@ -1,0 +1,94 @@
+@use '../../../../../styles/breakpoints' as *;
+
+.values-section {
+  position: relative;
+  padding-block: 6rem;
+  overflow: hidden;
+  background: var(--color-navy);
+}
+
+.values-bg-photo {
+  position: absolute;
+  inset: 0;
+  background: url('/assets/images/about-dubai-night.jpg') center / cover no-repeat;
+  opacity: .25;
+}
+
+.values-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(25,32,50,.92) 40%, rgba(25,32,50,.6) 100%);
+}
+
+.watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 3rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.wm-word {
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: var(--weight-bold);
+  color: rgba(255,255,255,0.04);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.values-content {
+  position: relative;
+  z-index: 1;
+}
+
+.values-label {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-block-end: .75rem;
+}
+
+.values-title {
+  font-size: clamp(var(--text-lg), 3vw, var(--text-xl));
+  font-weight: var(--weight-bold);
+  color: #fff;
+  margin: 0 0 3rem;
+  max-width: 480px;
+  line-height: 1.3;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 640px;
+
+  @include bp-up('md') { grid-template-columns: repeat(4, 1fr); max-width: 100%; }
+}
+
+.value-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(4px);
+}
+
+.value-name {
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: #fff;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}

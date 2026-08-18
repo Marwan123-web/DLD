@@ -1,0 +1,56 @@
+@use '../../../styles/breakpoints' as *;
+@use '../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.toolbar {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 1030;
+  background: var(--color-navy);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+.toolbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 60px;
+  padding: var(--space-2) var(--space-2);
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color var(--transition-base), background var(--transition-base);
+  border-block-start: 2px solid transparent;
+
+  &:hover {
+    color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.04);
+    border-block-start-color: var(--color-primary);
+  }
+
+  &:focus-visible { @include focus-ring; }
+}
+
+.toolbar-icon {
+  flex-shrink: 0;
+}
+
+.toolbar-label {
+  font-size: 0.625rem;   // 10px — intentionally small for toolbar
+  font-weight: var(--weight-regular);
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+
+  @include bp-down('sm') { display: none; }
+}

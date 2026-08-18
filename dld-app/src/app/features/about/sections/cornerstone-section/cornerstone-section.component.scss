@@ -1,0 +1,73 @@
+@use '../../../../../styles/breakpoints' as *;
+
+.cornerstone-section {
+  padding-block: 5rem;
+  background: var(--color-white);
+}
+
+.cornerstone-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+
+  @include bp-up('lg') {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 5rem;
+  }
+}
+
+.cornerstone-visual {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  background: var(--color-bg-tint);
+  border-radius: 50%;
+}
+
+.cs-emblem { opacity: .9; }
+
+.cornerstone-content { max-width: 620px; }
+
+.cs-label {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-block-end: .75rem;
+}
+
+.cs-title {
+  font-size: clamp(var(--text-lg), 3vw, var(--text-xl));
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 1.25rem;
+  line-height: 1.25;
+}
+
+.cs-body {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin: 0 0 1rem;
+}
+
+.cs-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-block-start: .5rem;
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &::after { content: ' →'; }
+  &:hover { text-decoration: underline; }
+}

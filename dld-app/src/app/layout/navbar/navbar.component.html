@@ -1,0 +1,173 @@
+<header class="site-header" role="banner">
+  <nav class="navbar" role="navigation" [attr.aria-label]="tr.t('nav.home')">
+    <div class="container-xxl navbar-inner">
+
+      <!-- Brand -->
+      <a class="navbar-brand" routerLink="/" (click)="closeMenu()" [attr.aria-label]="'Dubai Land Department'">
+        <img
+          src="assets/icons/logo/dld-emblem.svg"
+          alt=""
+          aria-hidden="true"
+          class="brand-emblem"
+          width="40" height="40"
+        />
+        <span class="brand-text">
+          <span class="brand-ar" lang="ar">دائرة الأراضي والأملاك</span>
+          <span class="brand-divider" aria-hidden="true"></span>
+          <span class="brand-en">Dubai Land Department</span>
+        </span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <ul class="nav-links" role="list" aria-label="Primary navigation">
+        @for (link of navLinks; track link.path) {
+          <li class="nav-item" [class.has-dropdown]="link.hasDropdown">
+            @if (link.hasDropdown) {
+              <button
+                class="nav-link nav-link-btn"
+                [class.active]="false"
+                [attr.aria-expanded]="isDropdownOpen(link.dropdownId!)"
+                [attr.aria-haspopup]="true"
+                (click)="toggleDropdown(link.dropdownId!)"
+              >
+                {{ tr.t(link.labelKey) }}
+                <svg class="chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" width="12" height="12">
+                  <path d="M2 5l6 6 6-6"/>
+                </svg>
+              </button>
+              <!-- AMBIGUITY: Dropdown content for Services/Trainings/etc. is out of scope. -->
+              <!-- Placeholder dropdown panel — populate in future phases. -->
+              @if (isDropdownOpen(link.dropdownId!)) {
+                <div class="dropdown-panel" role="region">
+                  <a
+                    [routerLink]="link.path"
+                    class="dropdown-item"
+                    (click)="activeDropdown.set(null)"
+                  >{{ tr.t(link.labelKey) }}</a>
+                </div>
+              }
+            } @else {
+              <a
+                class="nav-link"
+                [routerLink]="link.path"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: link.exact }"
+              >{{ tr.t(link.labelKey) }}</a>
+            }
+          </li>
+        }
+      </ul>
+
+      <!-- Right actions (desktop) -->
+      <div class="nav-actions" role="group" [attr.aria-label]="tr.t('nav.search')">
+
+        <!-- Search -->
+        <button class="action-btn" [attr.aria-label]="tr.t('nav.search')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="20" height="20">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+
+        <!-- Notifications -->
+        <button class="action-btn" [attr.aria-label]="tr.t('nav.notifications')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="20" height="20">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </button>
+
+        <!-- Profile -->
+        <button class="action-btn action-btn--avatar" [attr.aria-label]="tr.t('nav.profile')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="20" height="20">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </button>
+
+        <!-- Language toggle -->
+        <button
+          class="action-btn lang-toggle"
+          (click)="tr.toggleLang()"
+          [attr.aria-label]="'Switch to ' + tr.t('nav.language')"
+          [attr.lang]="tr.currentLang() === 'en' ? 'ar' : 'en'"
+        >
+          <span class="flag-uae" aria-hidden="true">🇦🇪</span>
+          <span class="lang-label">{{ tr.t('nav.language') }}</span>
+        </button>
+
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="hamburger-btn"
+        [attr.aria-label]="menuLabel()"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-controls="mobile-drawer"
+        (click)="toggleMenu()"
+      >
+        @if (isMenuOpen()) {
+          <!-- Close icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" width="24" height="24">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        } @else {
+          <!-- Hamburger icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" width="24" height="24">
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+          </svg>
+        }
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  @if (isMenuOpen()) {
+    <div
+      class="drawer-overlay"
+      (click)="closeMenu()"
+      aria-hidden="true"
+    ></div>
+  }
+
+  <!-- Mobile drawer -->
+  <nav
+    id="mobile-drawer"
+    class="mobile-drawer"
+    [class.is-open]="isMenuOpen()"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="tr.t('nav.menu_open')"
+    [attr.aria-hidden]="!isMenuOpen()"
+  >
+    <ul class="drawer-nav" role="list">
+      @for (link of navLinks; track link.path) {
+        <li>
+          <a
+            class="drawer-link"
+            [routerLink]="link.path"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: link.exact }"
+            (click)="closeMenu()"
+          >
+            {{ tr.t(link.labelKey) }}
+            @if (link.hasDropdown) {
+              <svg class="chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" width="14" height="14">
+                <path d="M6 2l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            }
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Language toggle in drawer -->
+    <div class="drawer-footer">
+      <button class="drawer-lang-btn" (click)="tr.toggleLang()">
+        <span class="flag-uae" aria-hidden="true">🇦🇪</span>
+        {{ tr.t('nav.language') }}
+      </button>
+    </div>
+  </nav>
+
+</header>
