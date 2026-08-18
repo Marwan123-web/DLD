@@ -1,0 +1,75 @@
+<section class="persona-section">
+  <!-- Tab row -->
+  <div class="container box">
+    <div class="persona-tabs" role="tablist" aria-label="Service personas">
+      @for (tab of tabs; track tab.id) {
+        <button
+          class="persona-tab"
+          [class.active]="activeTabId() === tab.id"
+          role="tab"
+          [attr.aria-selected]="activeTabId() === tab.id"
+          [attr.aria-controls]="'panel-' + tab.id"
+          [attr.tabindex]="activeTabId() === tab.id ? 0 : -1"
+          (click)="setTab(tab.id)"
+          (keydown)="onKeydown($event, tab.id)"
+        >
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+               width="24" height="24" aria-hidden="true">
+            <path [attr.d]="tab.icon"/>
+          </svg>
+          <span class="tab-label text-start">{{ tab.label }}</span>
+          @if (activeTabId() === tab.id) {
+            <span class="tab-tail" aria-hidden="true"></span>
+          }
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Panel -->
+  @for (tab of tabs; track tab.id) {
+    @if (activeTabId() === tab.id) {
+      <div class="persona-panel" [id]="'panel-' + tab.id" role="tabpanel" [attr.aria-labelledby]="tab.id">
+        <div class="container">
+          <div class="panel-header">
+            <span class="panel-eyebrow">{{ tab.eyebrow }}</span>
+            <h2 class="panel-title">{{ tab.heading }}</h2>
+            <p class="panel-sub">{{ tab.subtitle }}</p>
+          </div>
+          <div class="services-grid">
+            @for (svc of tab.services; track svc.id) {
+              <div class="svc-card">
+                <div class="svc-card-top">
+                  <div class="svc-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                         width="24" height="24" aria-hidden="true">
+                      <path [attr.d]="svc.icon"/>
+                    </svg>
+                  </div>
+                  
+                </div>
+                <div class="svc-card-bottom">
+                  <div class="svc-text">
+                    <h3 class="svc-title">{{ svc.title }}</h3>
+                    <p class="svc-desc">{{ svc.description }}</p>
+                  </div>
+                  <a [href]="svc.link" class="svc-arrow-btn" [attr.aria-label]="'Go to ' + svc.title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                         width="16" height="16" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            }
+          </div>
+          <div class="panel-cta">
+            <button class="btn-outline-pill">{{ tab.ctaLabel }}</button>
+          </div>
+        </div>
+      </div>
+    }
+  }
+</section>

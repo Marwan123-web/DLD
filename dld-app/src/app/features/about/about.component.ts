@@ -59,6 +59,9 @@ import { PartnersSectionComponent } from '../home/sections/partners-section/part
     </main>
   `,
   styles: [`
+    #main-content{
+      padding-top: 120px;
+    }
     .leadership-cta-section {
       padding-block: 4rem;
       background: var(--color-bg-light);

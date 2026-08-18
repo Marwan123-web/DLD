@@ -24,6 +24,9 @@ import { PageHeroComponent } from '../../../shared/components/page-hero/page-her
     </main>
   `,
   styles: [`
+    #main-content{
+      padding-top: 120px;
+    }
     .stub-body {
       padding-block: 4rem;
       text-align: center;

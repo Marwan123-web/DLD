@@ -1,172 +1,151 @@
-<header class="site-header" role="banner">
-  <nav class="navbar" role="navigation" [attr.aria-label]="tr.t('nav.home')">
-    <div class="container-xxl navbar-inner">
+<header class="site-header" [class.is-scrolled]="isScrolled()" role="banner">
 
-      <!-- Brand -->
-      <a class="navbar-brand" routerLink="/" (click)="closeMenu()" [attr.aria-label]="'Dubai Land Department'">
-        <img
-          src="assets/icons/logo/dld-emblem.svg"
-          alt=""
-          aria-hidden="true"
-          class="brand-emblem"
-          width="40" height="40"
-        />
-        <span class="brand-text">
-          <span class="brand-ar" lang="ar">دائرة الأراضي والأملاك</span>
-          <span class="brand-divider" aria-hidden="true"></span>
-          <span class="brand-en">Dubai Land Department</span>
-        </span>
+  <!-- Green top accent bar (visible in transparent state only) -->
+  <div class="header-accent" aria-hidden="true"></div>
+
+  <!-- TRANSPARENT STATE -->
+  <div class="header-transparent">
+
+    <!-- Logo row: Gov logo left, LD logo right -->
+    <div class="container-xxl logo-row">
+      <a routerLink="/" aria-label="Dubai Land Department Home">
+        <img src="assets/images/logo.svg" alt="Government of Dubai" class="logo-gov" />
       </a>
+      <a routerLink="/" aria-label="Land Department">
+        <img src="assets/images/logo2.svg" alt="Land Department" class="logo-ld" />
+      </a>
+    </div>
 
-      <!-- Desktop nav links -->
-      <ul class="nav-links" role="list" aria-label="Primary navigation">
-        @for (link of navLinks; track link.path) {
-          <li class="nav-item" [class.has-dropdown]="link.hasDropdown">
-            @if (link.hasDropdown) {
-              <button
-                class="nav-link nav-link-btn"
-                [class.active]="false"
-                [attr.aria-expanded]="isDropdownOpen(link.dropdownId!)"
-                [attr.aria-haspopup]="true"
-                (click)="toggleDropdown(link.dropdownId!)"
-              >
-                {{ tr.t(link.labelKey) }}
-                <svg class="chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" width="12" height="12">
-                  <path d="M2 5l6 6 6-6"/>
-                </svg>
-              </button>
-              <!-- AMBIGUITY: Dropdown content for Services/Trainings/etc. is out of scope. -->
-              <!-- Placeholder dropdown panel — populate in future phases. -->
-              @if (isDropdownOpen(link.dropdownId!)) {
-                <div class="dropdown-panel" role="region">
-                  <a
-                    [routerLink]="link.path"
-                    class="dropdown-item"
-                    (click)="activeDropdown.set(null)"
-                  >{{ tr.t(link.labelKey) }}</a>
-                </div>
-              }
-            } @else {
-              <a
-                class="nav-link"
-                [routerLink]="link.path"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: link.exact }"
-              >{{ tr.t(link.labelKey) }}</a>
-            }
-          </li>
-        }
-      </ul>
-
-      <!-- Right actions (desktop) -->
-      <div class="nav-actions" role="group" [attr.aria-label]="tr.t('nav.search')">
-
-        <!-- Search -->
-        <button class="action-btn" [attr.aria-label]="tr.t('nav.search')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="20" height="20">
+    <!-- Nav row (desktop) -->
+    <div class="container-xxl nav-row">
+      <nav aria-label="Main navigation" class="main-nav">
+        <ul class="nav-list" role="list">
+          @for (link of navLinks; track link.path) {
+            <li>
+              <a [routerLink]="link.path" class="nav-link-t" routerLinkActive="active-t"
+                 [routerLinkActiveOptions]="{ exact: !!link.exact }">
+                {{ link.label }}
+                @if (link.hasDropdown) {
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true">
+                    <path d="M2 5l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                }
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+      <div class="nav-utils-t">
+        <button class="util-search-pill" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
           </svg>
+          Search...
         </button>
-
-        <!-- Notifications -->
-        <button class="action-btn" [attr.aria-label]="tr.t('nav.notifications')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="20" height="20">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        <button class="util-icon-btn" aria-label="Accessibility">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="5" r="2"/><path d="M12 22v-8m0 0l-4-4m4 4l4-4M6 9l6-2 6 2"/>
           </svg>
         </button>
-
-        <!-- Profile -->
-        <button class="action-btn action-btn--avatar" [attr.aria-label]="tr.t('nav.profile')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="20" height="20">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
+        <button class="util-lang-btn" (click)="tr.toggleLang()">العربية</button>
+        <button class="util-login-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
           </svg>
+          Login
         </button>
-
-        <!-- Language toggle -->
-        <button
-          class="action-btn lang-toggle"
-          (click)="tr.toggleLang()"
-          [attr.aria-label]="'Switch to ' + tr.t('nav.language')"
-          [attr.lang]="tr.currentLang() === 'en' ? 'ar' : 'en'"
-        >
-          <span class="flag-uae" aria-hidden="true">🇦🇪</span>
-          <span class="lang-label">{{ tr.t('nav.language') }}</span>
-        </button>
-
       </div>
-
-      <!-- Mobile hamburger -->
-      <button
-        class="hamburger-btn"
-        [attr.aria-label]="menuLabel()"
-        [attr.aria-expanded]="isMenuOpen()"
-        aria-controls="mobile-drawer"
-        (click)="toggleMenu()"
-      >
-        @if (isMenuOpen()) {
-          <!-- Close icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" width="24" height="24">
-            <path d="M18 6L6 18M6 6l12 12"/>
-          </svg>
-        } @else {
-          <!-- Hamburger icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" width="24" height="24">
-            <path d="M3 12h18M3 6h18M3 18h18"/>
-          </svg>
-        }
+      <!-- Mobile hamburger (transparent state) -->
+      <button class="hamburger-t" [class.is-open]="isMenuOpen()" (click)="toggleMenu()"
+              [attr.aria-expanded]="isMenuOpen()" aria-label="Toggle menu" aria-controls="offcanvas-drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24" aria-hidden="true">
+          @if (isMenuOpen()) {
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          } @else {
+            <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round" stroke-linejoin="round"/>
+          }
+        </svg>
       </button>
-
     </div>
-  </nav>
+  </div>
 
-  <!-- Mobile overlay -->
+  <!-- PILL STATE -->
+  <div class="header-pill" [class.visible]="isScrolled()">
+    <div class="pill-inner">
+      <!-- Left: emblem -->
+      <a routerLink="/" class="pill-emblem-link" aria-label="Dubai Land Department Home">
+        <img src="assets/images/logosignle.svg" alt="" class="pill-emblem" aria-hidden="true" />
+      </a>
+      <!-- Center: nav links -->
+      <nav aria-label="Main navigation compact" class="pill-nav">
+        <ul class="nav-list pill-nav-list" role="list">
+          @for (link of navLinks; track link.path) {
+            <li>
+              <a [routerLink]="link.path" class="nav-link-p" routerLinkActive="active-p"
+                 [routerLinkActiveOptions]="{ exact: !!link.exact }">
+                {{ link.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+      <!-- Right: utilities -->
+      <div class="pill-utils">
+        <button class="util-search-pill pill-search" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          Search...
+        </button>
+        <button class="util-icon-btn dark" aria-label="Accessibility">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+            <circle cx="12" cy="5" r="2"/><path d="M12 22v-8m0 0l-4-4m4 4l4-4M6 9l6-2 6 2"/>
+          </svg>
+        </button>
+        <button class="util-lang-btn dark" (click)="tr.toggleLang()">العربية</button>
+        <button class="util-login-filled">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          Login
+        </button>
+        <div class="pill-avatar" aria-hidden="true">
+          <img src="assets/images/logo2signle.svg" alt="" />
+        </div>
+      </div>
+      <!-- Mobile hamburger (pill state) -->
+      <button class="hamburger-p" [class.is-open]="isMenuOpen()" (click)="toggleMenu()"
+              [attr.aria-expanded]="isMenuOpen()" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22" aria-hidden="true">
+          @if (isMenuOpen()) {
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          } @else {
+            <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round" stroke-linejoin="round"/>
+          }
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- OFFCANVAS OVERLAY -->
   @if (isMenuOpen()) {
-    <div
-      class="drawer-overlay"
-      (click)="closeMenu()"
-      aria-hidden="true"
-    ></div>
+    <div class="offcanvas-overlay" (click)="closeMenu()" aria-hidden="true"></div>
   }
 
-  <!-- Mobile drawer -->
-  <nav
-    id="mobile-drawer"
-    class="mobile-drawer"
-    [class.is-open]="isMenuOpen()"
-    role="dialog"
-    aria-modal="true"
-    [attr.aria-label]="tr.t('nav.menu_open')"
-    [attr.aria-hidden]="!isMenuOpen()"
-  >
-    <ul class="drawer-nav" role="list">
+  <!-- OFFCANVAS DRAWER -->
+  <nav id="offcanvas-drawer" class="offcanvas-drawer" [class.is-open]="isMenuOpen()"
+       role="dialog" aria-modal="true" [attr.aria-hidden]="!isMenuOpen()" aria-label="Navigation menu">
+    <ul role="list" class="offcanvas-list">
       @for (link of navLinks; track link.path) {
         <li>
-          <a
-            class="drawer-link"
-            [routerLink]="link.path"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: link.exact }"
-            (click)="closeMenu()"
-          >
-            {{ tr.t(link.labelKey) }}
-            @if (link.hasDropdown) {
-              <svg class="chevron" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" width="14" height="14">
-                <path d="M6 2l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none"/>
-              </svg>
-            }
+          <a [routerLink]="link.path" class="offcanvas-link" routerLinkActive="active" (click)="closeMenu()">
+            {{ link.label }}
           </a>
         </li>
       }
     </ul>
-
-    <!-- Language toggle in drawer -->
-    <div class="drawer-footer">
-      <button class="drawer-lang-btn" (click)="tr.toggleLang()">
-        <span class="flag-uae" aria-hidden="true">🇦🇪</span>
-        {{ tr.t('nav.language') }}
-      </button>
+    <div class="offcanvas-footer">
+      <button class="util-lang-btn dark" (click)="tr.toggleLang()">العربية</button>
     </div>
   </nav>
 

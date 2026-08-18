@@ -1,20 +1,54 @@
-// AMBIGUITY: All color values are approximate, inferred from design screenshots.
-// Request official DLD brand palette and replace these before launch.
-
 :root {
   // --- Colors ---
-  --color-primary:        #22A87C; // Main interactive green (buttons, active states)
-  --color-primary-dark:   #1B5E45; // Sections: DLD Initiatives, App Download
-  --color-primary-light:  #D4F0E5; // Tinted backgrounds, hover states
-  --color-navy:           #192032; // Navbar, footer
-  --color-navy-light:     #243050; // Navbar hover, footer hover
-  --color-white:          #FFFFFF;
-  --color-bg:             #F4F9F6; // Default section background
-  --color-bg-tint:        #EBF5F0; // Page canvas background (mint-green)
-  --color-bg-light:       #F8FAF9; // Alternate section backgrounds
-  --color-text-primary:   #1A2235;
-  --color-text-muted:     #6B7280;
-  --color-border:         #E5E7EB;
+  --color-primary:       #00A776;
+  --color-primary-hover: #008F65;
+  --color-primary-dark:  #0C6B4A;
+  --color-primary-light: #E6F7F2;
+  --color-navy:          #141D2D;
+  --color-heading:       #16233B;
+  --color-body:          #5A5F5C;
+  --color-muted:         #6B7280;
+  --color-card-bg:       #F5F5F5;
+  --color-border:        #E9EBEA;
+  --color-white:         #FFFFFF;
+  --color-bg:            #F8FAF9;
+  --color-bg-tint:       #E6F7F2;
+  --color-gray: #8C8C8C;
+  // Legacy aliases (keep for backward compat with other pages)
+  --color-text-primary:  #16233B;
+  --color-text-muted:    #6B7280;
+  --color-navy-light:    #243050;
+  --color-bg-light:      #F8FAF9;
+
+  // App-section gradient
+  --gradient-app: linear-gradient(135deg, #0C6B4A 0%, #00A776 100%);
+
+  // Chart/Donut colors
+  --chart-green:  #00A776;
+  --chart-blue:   #2F80ED;
+  --chart-purple: #7A5AF8;
+  --chart-yellow: #F5C542;
+
+  // --- Border radius ---
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-tabs: 12px;
+  --radius-pill: 999px;
+
+  // Legacy alias
+  --radius-full: 9999px;
+
+  // --- Shadows ---
+  --shadow-card:    0 2px 16px rgba(0,0,0,0.08);
+  --shadow-navbar:  0 4px 24px rgba(0,0,0,0.12);
+  --shadow-pill:    0 8px 32px rgba(0,0,0,0.14);
+  --shadow-dropdown: 0 8px 24px rgba(0,0,0,0.12);
+
+  // --- Transitions ---
+  --transition-base: 200ms ease;
+  --transition-slow: 350ms ease;
 
   // --- Spacing ---
   --space-1:  4px;
@@ -30,19 +64,23 @@
   --space-20: 80px;
   --space-24: 96px;
 
-  // --- Border radius ---
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
-  --radius-pill: 24px;
-  --radius-full: 9999px;
+  // --- Typography weights ---
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
 
-  // --- Shadows ---
-  --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.08);
-  --shadow-navbar:  0 2px 8px  rgba(0, 0, 0, 0.12);
-  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.12);
+  // --- Font sizes ---
+  --text-hero: clamp(2.5rem, 5vw, 3.25rem);
+  --text-xl:   clamp(1.75rem, 3vw, 2.5rem);
+  --text-lg:   clamp(1.25rem, 2vw, 1.5rem);
+  --text-md:   1.125rem;
+  --text-base: 0.9375rem;
+  --text-sm:   0.8125rem;
+  --text-xs:   0.6875rem;
 
-  // --- Transitions ---
-  --transition-base: 200ms ease;
-  --transition-slow: 350ms ease;
+  // Line heights (keep legacy)
+  --line-height-heading: 1.25;
+  --line-height-body:    1.6;
 }

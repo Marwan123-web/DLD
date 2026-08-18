@@ -1,95 +1,78 @@
-@use '../../../../../styles/breakpoints' as *;
-
 .app-section {
-  padding-block: 5rem;
-  background: var(--color-primary-dark);
-  color: #fff;
+  padding-block: 4rem;
   overflow: hidden;
+  background: var(--color-bg);
+
 }
 
 .app-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-
-  @include bp-up('lg') {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
+  background: var(--gradient-app);
+  padding: 48px;
+  border-radius: 32px;
+  display: grid; grid-template-columns: 1fr 420px;
+  gap: 2rem; align-items: center;
+  @media (max-width: 991px) { grid-template-columns: 1fr; }
 }
 
-.app-text {
-  max-width: 520px;
+.app-pre {
+  font-size: var(--text-md); color: rgba(255, 255, 255, 0.8);
+  margin: 0; font-weight: var(--weight-regular);
 }
 
-.app-eyebrow {
-  display: inline-block;
-  background: rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.9);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: .25rem 1rem;
-  border-radius: var(--radius-pill);
-  margin-block-end: 1rem;
+.app-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #fff; font-weight: var(--weight-regular);
+  margin: 0 0 1.25rem; line-height: 1.15;
 }
 
-.app-title {
-  font-size: clamp(var(--text-xl), 3vw, 2.5rem);
-  font-weight: var(--weight-bold);
-  color: #fff;
-  margin: 0 0 1rem;
-  line-height: 1.25;
-}
+.app-heading-bold { font-weight: var(--weight-bold); }
 
 .app-desc {
-  font-size: var(--text-base);
-  color: rgba(255,255,255,0.78);
-  line-height: 1.6;
-  margin: 0 0 2rem;
+  font-size: var(--text-base); color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7; margin: 0 0 1.5rem; max-width: 500px;
+}
+
+.app-platforms {
+  font-size: var(--text-sm); color: rgba(255, 255, 255, 0.75); margin: 0 0 1.25rem;
+  strong { color: #fff; }
 }
 
 .store-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
 }
 
 .store-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
+  display: flex; align-items: center; gap: 0.625rem;
   padding: 0.625rem 1.25rem;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-md);
-  color: #fff;
-  text-decoration: none;
+  color: #fff; text-decoration: none;
   transition: background var(--transition-base);
-
-  &:hover { background: rgba(255,255,255,0.2); }
+  &:hover { background: rgba(255, 255, 255, 0.22); }
 }
 
 .badge-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-
+  display: flex; flex-direction: column; line-height: 1.2;
   small { font-size: 10px; opacity: 0.75; }
   strong { font-size: var(--text-base); font-weight: var(--weight-medium); }
 }
 
-.app-mockup {
-  flex-shrink: 0;
-  img {
-    width: 260px;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+.app-phones {
+  position: relative;
+  height: 420px;
+  display: flex; align-items: flex-end; justify-content: center;
+  @media (max-width: 991px) { height: 280px; }
+}
 
-    @include bp-up('md') { width: 320px; }
-  }
+.phones-main {
+  height: 100%; width: auto; object-fit: contain;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.35));
+}
+
+.phones-overlay {
+  position: absolute; bottom: 40px; left: -20px;
+  height: 45%; width: auto; object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
+  @media (max-width: 991px) { height: 35%; bottom: 20px; left: 0; }
 }

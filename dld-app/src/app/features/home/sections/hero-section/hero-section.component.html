@@ -1,0 +1,41 @@
+<section class="hero" aria-label="Hero">
+  <!-- Background image -->
+  <div class="hero-bg" aria-hidden="true"></div>
+
+  <!-- Centered content -->
+  <div class="hero-content">
+    <h1 class="hero-title">{{ tr.t('hero.title') }}</h1>
+    <p class="hero-subtitle">{{ tr.t('hero.subtitle') }}</p>
+
+    <!-- Search bar -->
+    <div class="hero-search">
+      <input type="search" class="hero-search-input"
+             [placeholder]="tr.t('hero.search_placeholder')"
+             aria-label="Search DLD services" />
+      <button class="hero-search-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Suggestion chips -->
+    <div class="hero-chips" role="list">
+      @for (chip of chips; track chip) {
+        <button class="hero-chip" role="listitem">{{ chip }}</button>
+      }
+    </div>
+
+    <!-- Carousel dots -->
+    <!-- <div class="hero-dots" aria-label="Slide indicators" role="group">
+      @for (dot of [0,1,2,3,4,5]; track dot) {
+        <span class="hero-dot" [class.active]="dot === 1" aria-hidden="true"></span>
+      }
+    </div> -->
+  </div>
+
+  <!-- Floating avatar (right edge) -->
+  <!-- <div class="hero-avatar" aria-hidden="true">
+    <img src="assets/images/logo2outline.svg" alt="" />
+  </div> -->
+</section>

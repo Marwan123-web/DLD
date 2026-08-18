@@ -1,12 +1,10 @@
 // @use rules must appear first in Dart Sass
+@use 'styles/fonts';
 @use 'styles/tokens';
 @use 'styles/typography';
 
 // Bootstrap — loaded as @import because Bootstrap uses @import internally.
 // Must come after @use declarations.
-// AMBIGUITY: Bootstrap RTL stylesheet is loaded dynamically by TranslationService
-// when dir switches to 'rtl'. For full RTL support, TranslationService appends
-// a <link rel="stylesheet"> for bootstrap.rtl.min.css at runtime.
 @import 'bootstrap/scss/bootstrap';
 
 // Global resets
@@ -42,9 +40,11 @@ html {
   scroll-behavior: smooth;
 }
 
-// Reserve space at bottom for the fixed bottom toolbar (~56px on mobile, ~64px on desktop)
 body {
-  padding-block-end: 64px;
+  padding-block-end: 0;
+  font-family: var(--font-family-base);
+  background: var(--color-body);
+
 }
 
 // Section label chip — shared visual pattern across pages

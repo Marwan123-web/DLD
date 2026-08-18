@@ -36,6 +36,9 @@ import { OrgChartComponent } from './org-chart/org-chart.component';
     </main>
   `,
   styles: [`
+    #main-content{
+      padding-top: 120px;
+    }
     .messages-section {
       padding-block: 4rem;
       background: var(--color-bg-light);

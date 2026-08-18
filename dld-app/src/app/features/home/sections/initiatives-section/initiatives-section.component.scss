@@ -1,33 +1,90 @@
-@use '../../../../../styles/breakpoints' as *;
-
 .initiatives-section {
-  padding-block: 4rem;
-  background: var(--color-primary-dark);
+  padding-block: 5rem;
+  background: #fff;
+  overflow: hidden;
+}
 
-  // Override section-header colors for dark bg
-  ::ng-deep {
-    .section-label { background: rgba(255,255,255,0.15); color: #fff; }
-    .section-title { color: #fff; }
-    .section-subtitle { color: rgba(255,255,255,0.75); }
-  }
+.section-head {
+  text-align: center;
+  margin-block-end: 3rem;
+}
+
+.initiatives-title {
+  font-size: var(--text-xl); font-weight: var(--weight-bold);
+  color: var(--color-heading); margin: 0 0 0.75rem;
+}
+
+.initiatives-sub {
+  font-size: var(--text-base); color: var(--color-body);
+  max-width: 600px; margin-inline: auto; line-height: 1.6;
 }
 
 .initiatives-scroll {
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
+  display: flex; gap: 5rem;
+  padding-inline: max(1.5rem, calc((100vw - 1200px) / 2));
   padding-block-end: 1rem;
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.3) transparent;
+  scrollbar-width: none;
 
-  > * {
-    scroll-snap-align: start;
-    flex-shrink: 0;
-  }
+  &::-webkit-scrollbar { display: none; }
+}
 
-  &::-webkit-scrollbar { height: 4px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
+.initiative-card {
+  position: relative;
+  min-width: 340px; width: 340px; height: 420px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  background: var(--color-heading);
+}
+
+.card-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0.6;
+  transition: transform 0.5s ease;
+}
+
+.initiative-card:hover .card-bg { transform: scale(1.04); }
+
+.card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+}
+
+.card-content {
+  position: absolute; inset-block-end: 0; inset-inline: 0;
+  padding: 1.75rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+
+.card-date {
+  position: absolute;
+  inset-block-start: -280px; inset-inline-end: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff; font-size: var(--text-xs);
+  padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);
+  backdrop-filter: blur(4px);
+}
+
+.card-title {
+  color: #fff; font-size: var(--text-lg); font-weight: var(--weight-bold);
+  margin: 0; line-height: 1.3;
+}
+
+.card-desc {
+  color: rgba(255, 255, 255, 0.8); font-size: var(--text-sm); margin: 0; line-height: 1.5;
+}
+
+.card-arrow-btn {
+  align-self: flex-end;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--color-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; margin-block-start: 0.5rem;
+  transition: background var(--transition-base);
+  &:hover { background: var(--color-primary-hover); }
 }

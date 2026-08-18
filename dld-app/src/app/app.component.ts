@@ -3,14 +3,18 @@ import { RouterOutlet } from '@angular/router';
 import { TranslationService } from './core/services/translation.service';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { BottomToolbarComponent } from './layout/bottom-toolbar/bottom-toolbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, BottomToolbarComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app.component.html',
+  template: `
+    <a href="#main-content" class="skip-to-content">{{ tr.t('common.skip_to_content') }}</a>
+    <app-navbar />
+    <router-outlet />
+    <app-footer />
+  `,
   styleUrl: './app.component.scss',
 })
 export class AppComponent {

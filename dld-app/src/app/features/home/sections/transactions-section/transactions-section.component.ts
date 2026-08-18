@@ -1,127 +1,54 @@
-import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
-import { TranslationService } from '../../../../core/services/translation.service';
-import { SectionHeaderComponent } from '../../../../shared/components/section-header/section-header.component';
-import { TabGroupComponent, Tab } from '../../../../shared/components/tab-group/tab-group.component';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartData, ChartOptions } from 'chart.js';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import * as L from 'leaflet';
+import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
 
-const TABS: Tab[] = [
-  { id: 'analytics', label: 'Analytics' },
-  { id: 'map',       label: 'Map' },
+interface DonutSegment {
+  id: string;
+  label: string;
+  value: number;
+  color: string;
+}
+
+const SEGMENTS: DonutSegment[] = [
+  { id: 'mortgaged', label: 'Mortgaged', value: 435, color: '#00A776' },
+  { id: 'cash',      label: 'Cash',      value: 280, color: '#2F80ED' },
+  { id: 'gift',      label: 'Gift',       value: 85,  color: '#7A5AF8' },
 ];
 
-const CHART_DATA: ChartData<'doughnut'> = {
-  labels: ['Villas & Houses', 'Apartments', 'Commercial', 'Land Plots'],
-  datasets: [{
-    data: [38, 44, 11, 7],
-    backgroundColor: ['#22A87C', '#192032', '#3ABFA0', '#6B7280'],
-    borderWidth: 0,
-    hoverOffset: 6,
-  }],
-};
-
-const CHART_OPTIONS: ChartOptions<'doughnut'> = {
-  responsive: true,
-  maintainAspectRatio: false,
-  cutout: '68%',
-  plugins: {
-    legend: {
-      position: 'right',
-      labels: {
-        font: { family: 'Dubai, sans-serif', size: 13 },
-        padding: 16,
-        usePointStyle: true,
-        pointStyleWidth: 10,
-      },
-    },
-    tooltip: {
-      callbacks: {
-        label: (ctx) => ` ${ctx.label}: ${ctx.raw}%`,
-      },
-    },
-  },
-};
-
-// Dubai Marina approximate center
-const MAP_CENTER: L.LatLngTuple = [25.0819, 55.1367];
-const MOCK_PINS = [
-  { latlng: [25.0776, 55.1390] as L.LatLngTuple, title: 'Palm Jumeirah — AED 4.2M' },
-  { latlng: [25.0855, 55.1402] as L.LatLngTuple, title: 'Dubai Marina — AED 1.8M' },
-  { latlng: [25.0690, 55.1350] as L.LatLngTuple, title: 'JBR — AED 2.3M' },
-  { latlng: [25.0944, 55.1534] as L.LatLngTuple, title: 'JLT — AED 1.1M' },
-  { latlng: [25.0611, 55.1277] as L.LatLngTuple, title: 'Discovery Gardens — AED 0.7M' },
+const PRICE_MARKERS = [
+  { id: '1', label: 'AED 650K',  top: '30%', left: '12%', color: 'navy'   as const },
+  { id: '2', label: 'AED 850K',  top: '45%', left: '25%', color: 'navy'   as const },
+  { id: '3', label: 'AED 1.2M',  top: '25%', left: '40%', color: 'navy'   as const },
+  { id: '4', label: 'AED 1.45M', top: '55%', left: '52%', color: 'navy'   as const },
+  { id: '5', label: 'AED 1.9M',  top: '35%', left: '60%', color: 'yellow' as const },
+  { id: '6', label: 'AED 1.45M', top: '65%', left: '65%', color: 'navy'   as const },
+  { id: '7', label: 'AED 2.9M',  top: '20%', left: '72%', color: 'navy'   as const },
+  { id: '8', label: 'AED 3.5M',  top: '50%', left: '78%', color: 'navy'   as const },
+  { id: '9', label: 'AED 1.45M', top: '70%', left: '35%', color: 'navy'   as const },
 ];
+
+const DONUT_RADIUS = 70;
+const DONUT_CIRCUMFERENCE = 2 * Math.PI * DONUT_RADIUS;
 
 @Component({
   selector: 'app-transactions-section',
   standalone: true,
-  imports: [SectionHeaderComponent, TabGroupComponent, BaseChartDirective, LeafletModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <section class="transactions-section" aria-labelledby="transactions-heading">
-      <div class="container">
-        <app-section-header
-          label="Transactions"
-          title="Real Estate Transactions"
-          subtitle="Live analytics and map view of Dubai's real estate transaction data."
-        />
-
-        <app-tab-group
-          [tabs]="tabs"
-          initialId="analytics"
-          ariaLabel="Transaction view"
-          (tabChange)="onTabChange($event)"
-        />
-
-        @if (activeTab() === 'analytics') {
-          <div class="chart-wrap" aria-label="Transaction type breakdown donut chart">
-            <canvas baseChart
-              [data]="chartData"
-              [options]="chartOptions"
-              type="doughnut"
-            ></canvas>
-          </div>
-        }
-
-        @if (activeTab() === 'map') {
-          <div
-            class="map-wrap"
-            leaflet
-            [leafletOptions]="mapOptions"
-            [leafletLayers]="mapLayers"
-          ></div>
-        }
-      </div>
-    </section>
-  `,
+  templateUrl: './transactions-section.component.html',
   styleUrl: './transactions-section.component.scss',
 })
 export class TransactionsSectionComponent {
-  readonly tr = inject(TranslationService);
-  readonly tabs = TABS;
-  readonly activeTab = signal('analytics');
-  readonly chartData = CHART_DATA;
-  readonly chartOptions = CHART_OPTIONS;
+  readonly activeView = signal<'analytics' | 'map'>('analytics');
+  readonly priceMarkers = PRICE_MARKERS;
+  readonly circumference = DONUT_CIRCUMFERENCE;
 
-  readonly mapOptions: L.MapOptions = {
-    layers: [
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 18,
-      }),
-    ],
-    zoom: 13,
-    center: L.latLng(...MAP_CENTER),
-  };
-
-  // Marker overlays added separately so mapOptions stays declarative
-  readonly mapLayers: L.Layer[] = MOCK_PINS.map(pin =>
-    L.marker(pin.latlng).bindPopup(pin.title)
-  );
-
-  onTabChange(id: string): void {
-    this.activeTab.set(id);
-  }
+  readonly donutSegments = computed(() => {
+    const total = SEGMENTS.reduce((s, x) => s + x.value, 0);
+    let offset = 0;
+    return SEGMENTS.map(seg => {
+      const dash = (seg.value / total) * DONUT_CIRCUMFERENCE;
+      const co = offset;
+      offset += dash;
+      return { ...seg, dash, offset: co, gap: DONUT_CIRCUMFERENCE - dash };
+    });
+  });
 }

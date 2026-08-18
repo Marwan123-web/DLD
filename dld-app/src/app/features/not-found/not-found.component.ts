@@ -15,8 +15,11 @@ import { TranslationService } from '../../core/services/translation.service';
     </main>
   `,
   styles: [`
+    #main-content{
+      padding-top: 120px;
+    }
     .not-found-page {
-      min-height: 60vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;

@@ -1,0 +1,20 @@
+// Placeholder @font-face — swap real Dubai font later by editing path + family name only
+/*
+@font-face {
+  font-family: 'DLDFont';
+  src: url('/assets/fonts/DLD/DubaiW23-Regular.woff2') format('woff2');
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: 'DLDFont';
+  src: url('/assets/fonts/DLD/DubaiW23-Medium.woff2') format('woff2');
+  font-weight: 500; font-display: swap;
+}
+@font-face {
+  font-family: 'DLDFont';
+  src: url('/assets/fonts/DLD/DubaiW23-Bold.woff2') format('woff2');
+  font-weight: 700; font-display: swap;
+}
+*/
+
+$font-family-base: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;

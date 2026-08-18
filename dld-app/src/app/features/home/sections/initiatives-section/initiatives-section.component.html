@@ -1,0 +1,27 @@
+<section class="initiatives-section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="initiatives-title">DLD Initiatives</h2>
+      <p class="initiatives-sub">Fostering innovation &amp; collaboration through cutting-edge research, technology development, &amp; strategic partnerships</p>
+    </div>
+  </div>
+  <div class="initiatives-scroll container">
+    @for (item of initiatives; track item.id) {
+      <article class="initiative-card">
+        <div class="card-bg" [style.background-image]="'url(' + item.imageUrl + ')'"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <span class="card-date">{{ item.date }}</span>
+          <h3 class="card-title">{{ item.title }}</h3>
+          <p class="card-desc">{{ item.description }}</p>
+          <a href="#" class="card-arrow-btn" [attr.aria-label]="'Learn more about ' + item.title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                 width="16" height="16" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+    }
+  </div>
+</section>

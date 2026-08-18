@@ -1,0 +1,132 @@
+<section class="tx-section">
+  <div class="container">
+    <div class="tx-header">
+      <div>
+        <h2 class="tx-title">Real Estate Transactions</h2>
+        <p class="tx-sub">Stay ahead with the latest real estate transactions in Dubai. Gain accurate, real-time market insights to make smarter, data-driven decisions.</p>
+      </div>
+      <div class="tx-date-input">
+        <input type="text" placeholder="DD/MM/YYYY" class="date-input" aria-label="Select date" />
+        <svg class="date-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Toggle pills -->
+    <div class="tx-toggle container" role="group" aria-label="View mode">
+      <button class="toggle-pill" [class.active]="activeView() === 'analytics'" (click)="activeView.set('analytics')">Analytics</button>
+      <button class="toggle-pill" [class.active]="activeView() === 'map'" (click)="activeView.set('map')">Map</button>
+    </div>
+
+    @switch (activeView()) {
+      @case ('analytics') {
+        <!-- Donut chart panel -->
+        <div class="analytics-panel">
+          <div class="donut-wrap">
+            <svg viewBox="0 0 200 200" width="260" height="260" role="img" aria-label="Transaction type breakdown">
+              <!-- Background ring -->
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#E9EBEA" stroke-width="28"/>
+              <!-- Segments -->
+              @for (seg of donutSegments(); track seg.id) {
+                <circle
+                  cx="100" cy="100" r="70"
+                  fill="none"
+                  [attr.stroke]="seg.color"
+                  stroke-width="28"
+                  [attr.stroke-dasharray]="seg.dash + ' ' + seg.gap"
+                  [attr.stroke-dashoffset]="-seg.offset"
+                  stroke-linecap="round"
+                  transform="rotate(-90 100 100)"
+                />
+              }
+            </svg>
+            <div class="donut-center">
+              <span class="donut-label">Total Transactions</span>
+              <span class="donut-value">1.64 B</span>
+              <span class="donut-date-pill">12th May 2025</span>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="donut-legend">
+            @for (seg of donutSegments(); track seg.id) {
+              <div class="legend-item">
+                <span class="legend-dot" [style.background]="seg.color"></span>
+                <span class="legend-label">{{ seg.label }}</span>
+                <span class="legend-value">{{ seg.value }}</span>
+              </div>
+            }
+          </div>
+
+          <!-- Tooltip pill -->
+          <div class="donut-tooltip" aria-live="polite">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Mortgaged : 435
+          </div>
+        </div>
+      }
+      @case ('map') {
+        <!-- Map panel -->
+        <div class="map-panel">
+          <div class="map-wrap">
+            <!-- Placeholder map -->
+            <div class="map-placeholder" aria-label="Dubai transaction map">
+              <div class="map-grid-overlay" aria-hidden="true"></div>
+              <span class="map-placeholder-text">Dubai Transactions Map</span>
+            </div>
+
+            <!-- Price markers -->
+            @for (marker of priceMarkers; track marker.id) {
+              <div class="price-marker" [class.yellow]="marker.color === 'yellow'"
+                   [style.top]="marker.top" [style.left]="marker.left">
+                {{ marker.label }}
+              </div>
+            }
+
+            <!-- Zoom controls -->
+            <div class="zoom-controls">
+              <button class="zoom-btn" aria-label="Zoom in">+</button>
+              <button class="zoom-btn" aria-label="Zoom out">−</button>
+            </div>
+
+            <!-- Legend -->
+            <div class="map-legend">
+              <p class="legend-title">Price Range</p>
+              <div class="legend-item"><span class="legend-swatch navy"></span>Under AED 1M</div>
+              <div class="legend-item"><span class="legend-swatch green"></span>AED 1M–3M</div>
+              <div class="legend-item"><span class="legend-swatch blue"></span>AED 3M–6M</div>
+              <div class="legend-item"><span class="legend-swatch yellow"></span>Over AED 6M</div>
+            </div>
+          </div>
+
+          <!-- Info card -->
+          <div class="area-info-card">
+            <span class="area-eyebrow">AREA</span>
+            <h3 class="area-name">CREEK HARBOUR</h3>
+            <div class="area-stats">
+              <div class="area-stat">
+                <span class="stat-label">Number of Transactions</span>
+                <span class="stat-value">847</span>
+              </div>
+              <div class="area-stat">
+                <span class="stat-label">Total Worth (AED)</span>
+                <span class="stat-value">3,124,580,000</span>
+              </div>
+              <div class="area-stat">
+                <span class="stat-label">Avg. Price / Sq.Ft</span>
+                <span class="stat-value">AED 1,920</span>
+              </div>
+              <div class="area-stat">
+                <span class="stat-label">Total Area (Sq.Mt)</span>
+                <span class="stat-value">412,360</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</section>

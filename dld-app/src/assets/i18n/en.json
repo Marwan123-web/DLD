@@ -1,30 +1,45 @@
 {
   "nav": {
     "home": "Home",
-    "about": "About Us",
+    "about": "About DLD",
     "services": "Services",
     "trainings": "Trainings & Programs",
     "open_data": "Open Data & Insights",
     "news": "News and Media",
     "help": "Help and Support",
     "search": "Search",
+    "search_placeholder": "Search...",
     "notifications": "Notifications",
     "profile": "My Profile",
-    "language": "عربي",
+    "language": "العربية",
+    "login": "Login",
+    "accessibility": "Accessibility",
     "menu_open": "Open navigation menu",
     "menu_close": "Close navigation menu"
   },
   "hero": {
     "title": "Dubai Land Department",
     "subtitle": "Dubai Land Department seeks to achieve the objectives of Dubai Government's strategy in the real estate sector, and improve land registration procedures.",
-    "search_placeholder": "Search for services, properties, or information...",
-    "search_cta": "Search"
+    "search_placeholder": "I want to ....",
+    "search_cta": "Search",
+    "chip_rent": "I want to rent a property",
+    "chip_register_co": "I want to register my real estate company",
+    "chip_verify_deed": "I want to verify a title deed",
+    "chip_own": "I want to own a property",
+    "chip_develop": "I want to develop a project"
   },
   "services": {
     "popular_label": "POPULAR SERVICES",
+    "popular_eyebrow": "All users Features",
+    "popular_title": "Popular Services & Tools",
+    "popular_sub": "Discover additional tools including property indexes, valuations, certificates, and digital services.",
+    "owner_eyebrow": "12 SERVICES",
+    "owner_title": "Owner Services",
+    "owner_sub": "Everything you need to manage your properties in Dubai.",
     "title": "Popular Services & Tools",
     "subtitle": "Discover additional tools including property indexes, valuations, certificates, and digital services",
-    "view_more": "View More"
+    "view_more": "View More",
+    "view_all_owner": "View All Owner Services"
   },
   "service": {
     "rental_index": {
@@ -62,16 +77,36 @@
   },
   "transactions": {
     "title": "Real Estate Transactions",
-    "subtitle": "Stay ahead with the latest real estate transactions in Dubai. Gain accurate, real-time market insights to make smarter, data-driven decisions",
+    "subtitle": "Stay ahead with the latest real estate transactions in Dubai. Gain accurate, real-time market insights to make smarter, data-driven decisions.",
     "analytics_tab": "Analytics",
     "map_tab": "Map",
     "total_label": "Total Transactions",
+    "donut_total": "Total Transactions",
+    "donut_value": "1.64 B",
+    "donut_date": "12th May 2025",
+    "area_label": "AREA",
+    "creek_harbour": "CREEK HARBOUR",
+    "stat_tx_label": "Number of Transactions",
+    "stat_tx_val": "847",
+    "stat_worth_label": "Total Worth (AED)",
+    "stat_worth_val": "3,124,580,000",
+    "stat_avg_label": "Avg. Price / Sq.Ft",
+    "stat_avg_val": "AED 1,920",
+    "stat_area_label": "Total Area (Sq.Mt)",
+    "stat_area_val": "412,360",
     "explore_map": "Explore Transactions Map"
   },
   "app": {
     "download_title": "Download Dubai REST APP Now",
     "download_subtitle": "The Dubai REST Application is an integrated smart real estate platform developed by Dubai Land Department to deliver seamless access to property and real estate services through a unified mobile experience.",
-    "available_on": "Available on All Platforms"
+    "available_on": "Available on All Platforms",
+    "pre_title": "Download",
+    "title": "Dubai REST APP Now",
+    "subtitle": "The Dubai REST Application is an integrated smart real estate platform developed by Dubai Land Department to deliver seamless access to property and real estate services through a unified mobile experience. The application simplifies real estate transactions, service requests, and property management by providing secure, efficient, and user centric digital services.",
+    "all_platforms": "All Platforms",
+    "app_store": "App Store",
+    "google_play": "Google Play",
+    "app_gallery": "AppGallery"
   },
   "about": {
     "page_label": "ABOUT DLD",
@@ -135,8 +170,10 @@
   },
   "footer": {
     "tagline": "Shaping Dubai's real estate future through innovation and excellence.",
-    "copyright": "© 2026 Dubai Land Department – All Right Reserved",
-    "last_updated": "Last updated on {{date}}"
+    "copyright": "Copyright © 2026 Dubai Land Department – All Right Reserved",
+    "last_updated": "last updated on 13 May 2026 – 08:05 AM",
+    "col1_title": "",
+    "col2_title": ""
   },
   "toolbar": {
     "chat": "Chat with us",
