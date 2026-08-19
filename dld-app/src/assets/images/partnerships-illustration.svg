@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- Globe -->
+  <circle cx="200" cy="200" r="120" fill="#E6F7F2" stroke="#00A776" stroke-width="2" opacity="0.5"/>
+  <circle cx="200" cy="200" r="120" stroke="#00A776" stroke-width="1.5" fill="none"/>
+  <!-- Latitude lines -->
+  <ellipse cx="200" cy="200" rx="120" ry="40" stroke="#00A776" stroke-width="1" opacity="0.3" fill="none"/>
+  <ellipse cx="200" cy="160" rx="100" ry="30" stroke="#00A776" stroke-width="1" opacity="0.3" fill="none"/>
+  <ellipse cx="200" cy="240" rx="100" ry="30" stroke="#00A776" stroke-width="1" opacity="0.3" fill="none"/>
+  <!-- Longitude lines -->
+  <line x1="200" y1="80" x2="200" y2="320" stroke="#00A776" stroke-width="1" opacity="0.3"/>
+  <path d="M140 90 Q200 200 140 310" stroke="#00A776" stroke-width="1" opacity="0.3" fill="none"/>
+  <path d="M260 90 Q200 200 260 310" stroke="#00A776" stroke-width="1" opacity="0.3" fill="none"/>
+  <!-- Connection points (cities) -->
+  <circle cx="200" cy="150" r="8" fill="#00A776"/>
+  <circle cx="150" cy="190" r="8" fill="#0C6B4A"/>
+  <circle cx="250" cy="210" r="8" fill="#00A776"/>
+  <circle cx="175" cy="250" r="6" fill="#0C6B4A" opacity="0.7"/>
+  <circle cx="230" cy="170" r="6" fill="#00A776" opacity="0.7"/>
+  <!-- Connection lines -->
+  <line x1="200" y1="150" x2="150" y2="190" stroke="#00A776" stroke-width="1.5" opacity="0.6"/>
+  <line x1="150" y1="190" x2="250" y2="210" stroke="#00A776" stroke-width="1.5" opacity="0.6"/>
+  <line x1="200" y1="150" x2="250" y2="210" stroke="#00A776" stroke-width="1.5" opacity="0.6"/>
+  <line x1="150" y1="190" x2="175" y2="250" stroke="#00A776" stroke-width="1" opacity="0.4"/>
+  <line x1="250" y1="210" x2="230" y2="170" stroke="#00A776" stroke-width="1" opacity="0.4"/>
+  <!-- Handshake icon at center -->
+  <path d="M185 200 Q200 190 215 200 L215 215 Q200 225 185 215 Z" fill="#00A776" opacity="0.8"/>
+</svg>

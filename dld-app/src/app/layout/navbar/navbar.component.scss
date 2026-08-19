@@ -274,3 +274,180 @@
 .pill-nav {
   @media (max-width: 991px) { display: none !important; }
 }
+
+// ── MEGA-MENU ─────────────────────────────────────────────────────────────────
+.has-mega-menu {
+  position: static;
+}
+
+.nav-btn-t {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-chevron {
+  transition: transform var(--transition-base);
+  &.rotated { transform: rotate(180deg); }
+}
+
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  width: min(960px, calc(100vw - 2rem));
+  background: #fff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-dropdown);
+  z-index: 500;
+  padding: var(--space-6);
+  animation: megaFadeIn 150ms ease;
+}
+
+@keyframes megaFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.mega-header {
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+  margin-block-end: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.mega-title {
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+}
+
+.mega-tagline {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.mega-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.mega-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  transition: background var(--transition-base);
+  &:hover { background: var(--color-bg); }
+}
+
+.mega-col-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-light);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-primary-dark);
+  margin-block-end: var(--space-2);
+  flex-shrink: 0;
+}
+
+.mega-col-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+  margin: 0;
+}
+
+.mega-col-caption {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin: 0 0 var(--space-3);
+}
+
+.mega-link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.mega-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-body);
+  text-decoration: none;
+  padding-block: var(--space-1);
+  transition: color var(--transition-base);
+  &::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  &:hover { color: var(--color-primary); }
+  &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 2px; }
+}
+
+.mega-full-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  text-decoration: none;
+  margin-block-start: var(--space-3);
+  transition: gap var(--transition-base);
+  &:hover { gap: var(--space-3); }
+  &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 2px; }
+}
+
+// Offcanvas sub-menu
+.offcanvas-group { list-style: none; }
+.offcanvas-toggle {
+  width: 100%;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: #fff;
+  svg { transition: transform var(--transition-base); &.rotated { transform: rotate(180deg); } }
+}
+.offcanvas-sub {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) 0 var(--space-2) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.offcanvas-sub-link {
+  display: block;
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  padding-block: var(--space-2);
+  &:hover { color: #fff; }
+}
+
+// Pill state: active mega-menu trigger
+.mega-open { color: var(--color-primary) !important; }

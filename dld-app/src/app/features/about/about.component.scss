@@ -1,0 +1,223 @@
+/* =========================================================
+   About Page — layout styles
+   ========================================================= */
+
+/* WHO WE ARE
+   --------------------------------------------------------- */
+.wwa-section {
+  padding-block: var(--space-20);
+  background: var(--color-white);
+}
+
+.wwa-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.wwa-para {
+  font-size: var(--text-base);
+  color: var(--color-body);
+  line-height: 1.75;
+  margin-block-end: var(--space-4);
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .wwa-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .wwa-visual {
+    order: -1;
+  }
+}
+
+/* VALUES
+   --------------------------------------------------------- */
+.values-section {
+  padding-block: var(--space-20);
+  background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.values-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+  position: relative;
+}
+
+.values-watermark-side {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.values-card {
+  background: var(--color-primary-dark);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  color: var(--color-white);
+}
+
+.values-eyebrow {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-block-end: var(--space-3);
+}
+
+.values-heading {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: #fff;
+  margin-block: 0 var(--space-6);
+  line-height: 1.25;
+}
+
+/* Override icon-list text for dark background */
+.values-card ::ng-deep .il-text {
+  color: rgba(255,255,255,0.9);
+}
+
+@media (max-width: 768px) {
+  .values-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .values-watermark-side {
+    display: none;
+  }
+}
+
+/* VISION / MISSION
+   --------------------------------------------------------- */
+.vm-section {
+  /* intentionally no padding — photos flush to edges */
+}
+
+.vm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  min-height: 500px;
+}
+
+.vm-photo {
+  background-size: cover;
+  background-position: center;
+  min-height: 250px;
+}
+
+.vm-green {
+  background: var(--gradient-app);
+  padding: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vm-navy {
+  background: var(--color-navy);
+  padding: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vm-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-block-end: var(--space-4);
+  margin-block-start: 0;
+}
+
+.vm-text {
+  color: var(--color-white);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.vm-sub {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  margin-block-start: var(--space-4);
+  margin-block-end: 0;
+}
+
+@media (max-width: 768px) {
+  .vm-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+/* STRATEGIC MAP
+   --------------------------------------------------------- */
+.strat-section {
+  padding-block: var(--space-20);
+  background: var(--color-bg);
+}
+
+.strat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-block-start: var(--space-8);
+}
+
+@media (max-width: 992px) {
+  .strat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .strat-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ACHIEVEMENTS
+   --------------------------------------------------------- */
+.ach-section {
+  padding-block: var(--space-20);
+  background: var(--color-white);
+}
+
+.ach-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-block: var(--space-8);
+}
+
+@media (max-width: 992px) {
+  .ach-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .ach-stat-grid {
+    grid-template-columns: 1fr;
+  }
+}

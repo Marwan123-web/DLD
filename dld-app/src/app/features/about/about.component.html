@@ -1,0 +1,140 @@
+<main id="main-content">
+  <!-- HERO -->
+  <app-page-hero
+    title="Who We Are"
+    subtitle="Trusted by millions. Built on integrity. Driving Dubai's property market since 1960."
+    [breadcrumbs]="breadcrumbs"
+    illustrationSrc="assets/images/about-illustration.svg"
+    illustrationAlt=""
+    watermark="About DLD"
+  />
+
+  <!-- STATS BAR -->
+  <app-stat-bar [stats]="stats" />
+
+  <!-- WHO WE ARE -->
+  <section id="about" class="wwa-section">
+    <div class="container-xxl">
+      <div class="wwa-layout">
+        <div class="wwa-visual">
+          <app-illustration-card
+            src="assets/images/property-ownership.svg"
+            alt="Property Ownership"
+          />
+        </div>
+        <div class="wwa-content">
+          <app-section-header
+            eyebrow="WHO WE ARE"
+            title="The Cornerstone of Dubai's Real Estate Ecosystem."
+            [underline]="true"
+          />
+          <p class="wwa-para">
+            Dubai Land Department was established to create a thriving, transparent, and sustainable
+            real estate market in Dubai. As the regulatory authority, DLD oversees all property
+            transactions, ensures investor confidence, and drives innovation across the sector.
+          </p>
+          <p class="wwa-para">
+            From digitizing property registration to pioneering real estate tokenization, DLD leads
+            the transformation of Dubai into a global real estate capital attracting investors from
+            over 175 nationalities.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="values" class="values-section">
+    <div class="container-xxl values-layout">
+      <div class="values-watermark-side">
+        <app-watermark-text
+          [lines]="['TRUST', 'VISION', 'GROWTH', 'INTEGRITY']"
+          color="rgba(0,167,118,0.12)"
+        />
+      </div>
+      <div class="values-card">
+        <span class="values-eyebrow">VALUES</span>
+        <h2 class="values-heading">Our Core Values</h2>
+        <app-icon-list [items]="valuesItems" />
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION / MISSION -->
+  <section id="vision" class="vm-section">
+    <div class="vm-grid">
+      <div
+        class="vm-photo"
+        style="background-image: url('assets/images/about-dubai.jpg')"
+        role="img"
+        aria-label="Dubai skyline"
+      ></div>
+      <div class="vm-green">
+        <h3 class="vm-label">Our Vision</h3>
+        <p class="vm-text">The World Leader in Real Estate Investments</p>
+      </div>
+      <div class="vm-navy">
+        <h3 class="vm-label">Our Mission</h3>
+        <p class="vm-text">Empowering the Real Estate Community</p>
+        <p class="vm-sub">
+          Through seamless services, smart legislation, integrated data, digital infrastructure,
+          and skilled human capital.
+        </p>
+      </div>
+      <div
+        class="vm-photo"
+        style="background-image: url('assets/images/about-dubai-night.jpg')"
+        role="img"
+        aria-label="Dubai waterfront at night"
+      ></div>
+    </div>
+  </section>
+
+  <!-- STRATEGIC MAP -->
+  <section id="strategic-map" class="strat-section">
+    <div class="container-xxl">
+      <app-section-header
+        eyebrow="BUILDING THE FUTURE"
+        title="OUR STRATEGIC MAP"
+        subtitle="The DLD strategy map guiding our transformation of Dubai's real-estate sector."
+        align="center"
+      />
+      <div class="strat-grid">
+        @for (card of strategicCards; track card.number) {
+          <app-numbered-card
+            [number]="card.number"
+            [eyebrow]="card.eyebrow"
+            [icon]="card.icon"
+            [title]="card.title"
+            [bullets]="card.bullets"
+          />
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements" class="ach-section">
+    <div class="container-xxl">
+      <app-section-header
+        eyebrow="MILESTONES & RECOGNITION"
+        title="OUR ACHIEVEMENTS"
+        subtitle="Highlighting the achievements, awards, and milestones driving Dubai Land Department's vision for a smarter real estate future."
+        align="center"
+      />
+      <div class="ach-stat-grid">
+        @for (stat of achievementStats; track stat.label) {
+          <app-stat-card
+            [value]="stat.value"
+            [label]="stat.label"
+            [icon]="stat.icon"
+          />
+        }
+      </div>
+      <app-timeline [items]="timelineItems" />
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <app-partners-section />
+</main>

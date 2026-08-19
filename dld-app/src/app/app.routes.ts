@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 
-// AMBIGUITY: SSR omitted per brief; consider enabling for SEO on government content pages.
 export const routes: Routes = [
   {
     path: '',
@@ -9,13 +8,13 @@ export const routes: Routes = [
     title: 'Dubai Land Department',
   },
   {
-    path: 'about',
+    path: 'about-dld',
     children: [
       {
         path: '',
         loadComponent: () =>
           import('./features/about/about.component').then(m => m.AboutComponent),
-        title: 'About Us | Dubai Land Department',
+        title: 'Who We Are | Dubai Land Department',
       },
       {
         path: 'leadership',
@@ -24,6 +23,14 @@ export const routes: Routes = [
             m => m.LeadershipComponent
           ),
         title: 'Leadership & Organization | Dubai Land Department',
+      },
+      {
+        path: 'partnerships',
+        loadComponent: () =>
+          import('./features/about/partnerships/partnerships.component').then(
+            m => m.PartnershipsComponent
+          ),
+        title: 'Partnership & International Relations | Dubai Land Department',
       },
     ],
   },
@@ -46,7 +53,6 @@ export const routes: Routes = [
       },
     ],
   },
-  // Out-of-scope placeholders (scaffold for future phases)
   {
     path: 'services',
     loadComponent: () =>

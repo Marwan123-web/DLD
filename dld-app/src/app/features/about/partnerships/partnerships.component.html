@@ -1,0 +1,89 @@
+<main id="main-content">
+  <!-- HERO -->
+  <app-page-hero
+    title="Partnership &amp; International Relations"
+    subtitle="Building strategic partnerships that strengthen collaboration and drive the future of Dubai's real estate sector."
+    [breadcrumbs]="breadcrumbs"
+    illustrationSrc="assets/images/partnerships-illustration.svg"
+    watermark="Partnerships"
+  />
+
+  <!-- COMMITMENT SECTION -->
+  <section id="commitment" class="commitment-section">
+    <div class="container-xxl">
+      <div class="commitment-layout">
+        <div class="commitment-photo">
+          <img
+            src="assets/images/about-dubai.jpg"
+            alt="Dubai skyline representing partnerships"
+            loading="lazy"
+          />
+        </div>
+        <div class="commitment-content">
+          <app-section-header
+            eyebrow="OUR COMMITMENT"
+            title="Building Partnerships Through Excellence"
+            [underline]="true"
+          />
+          <p>
+            <strong>Dubai Land Department</strong> works through the directives of His Highness
+            Sheikh Mohammed bin Rashid Al Maktoum, Vice President and Prime Minister of the UAE,
+            Ruler of Dubai, to achieve a vision that places Dubai as the best city in the world to
+            live in. The department is committed to building strong partnerships that enhance
+            collaboration, drive innovation and support the development of Dubai's real estate
+            sector. Through strategic alliances with government entities, private organizations, and
+            international bodies, DLD aims to create a world-class real estate environment that
+            attracts investors, protects the rights of all parties, and fosters sustainable growth.
+            Our partnership approach is guided by principles of transparency, mutual benefit, and a
+            shared commitment to excellence. We work closely with our partners to develop and
+            implement policies, initiatives, and services that advance the goals of Dubai's real
+            estate sector and contribute to the overall prosperity of the emirate. We welcome
+            organizations and institutions that share our vision to apply the forms online for a
+            partnership or communication with the department.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND (id="contact" for mega-menu anchor) -->
+  <app-cta-band
+    id="contact"
+    title="Interested in Partnering with DLD?"
+    subtitle="We welcome strategic partnerships that advance Dubai real estate globally. Submit your partnership proposal."
+    buttonLabel="Submit a Partnership Proposal"
+    buttonUrl="#contact"
+  />
+
+  <!-- PARTNERS FILTER SECTION -->
+  <section id="partners" class="partners-filter-section">
+    <div class="container-xxl">
+      <div class="pf-top">
+        <app-filter-pills
+          [pills]="pills"
+          [active]="activeFilter()"
+          (selected)="onFilterChange($event)"
+        />
+      </div>
+
+      <div class="pf-content" [attr.data-filter]="activeFilter()">
+        <div class="pf-watermark-wrap" aria-hidden="true">
+          <app-watermark-text
+            [lines]="[activeWatermark()]"
+            color="rgba(0,167,118,0.06)"
+          />
+        </div>
+        <app-section-header
+          [eyebrow]="activeSectionEyebrow()"
+          [title]="activeSectionTitle()"
+          [underline]="true"
+          [subtitle]="activeSectionSubtitle()"
+        />
+        <app-partner-logo-grid [partners]="activePartners()" />
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS FOOTER -->
+  <app-partners-section />
+</main>

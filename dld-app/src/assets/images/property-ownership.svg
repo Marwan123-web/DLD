@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- House base -->
+  <rect x="80" y="180" width="240" height="180" rx="8" fill="#E6F7F2" stroke="#00A776" stroke-width="2"/>
+  <!-- Roof -->
+  <path d="M60 185 L200 80 L340 185 Z" fill="#00A776" opacity="0.8"/>
+  <path d="M60 185 L200 80 L340 185 Z" stroke="#0C6B4A" stroke-width="2" fill="none"/>
+  <!-- Door -->
+  <rect x="165" y="280" width="70" height="80" rx="6" fill="#0C6B4A"/>
+  <circle cx="226" cy="320" r="5" fill="#E6F7F2"/>
+  <!-- Windows -->
+  <rect x="100" y="210" width="60" height="55" rx="5" fill="white" stroke="#00A776" stroke-width="1.5"/>
+  <line x1="130" y1="210" x2="130" y2="265" stroke="#00A776" stroke-width="1"/>
+  <line x1="100" y1="237" x2="160" y2="237" stroke="#00A776" stroke-width="1"/>
+  <rect x="240" y="210" width="60" height="55" rx="5" fill="white" stroke="#00A776" stroke-width="1.5"/>
+  <line x1="270" y1="210" x2="270" y2="265" stroke="#00A776" stroke-width="1"/>
+  <line x1="240" y1="237" x2="300" y2="237" stroke="#00A776" stroke-width="1"/>
+  <!-- Key -->
+  <circle cx="340" cy="100" r="30" fill="#00A776" opacity="0.15" stroke="#00A776" stroke-width="2"/>
+  <circle cx="340" cy="100" r="15" fill="none" stroke="#0C6B4A" stroke-width="3"/>
+  <line x1="350" y1="110" x2="375" y2="135" stroke="#0C6B4A" stroke-width="3" stroke-linecap="round"/>
+  <line x1="368" y1="128" x2="368" y2="138" stroke="#0C6B4A" stroke-width="3" stroke-linecap="round"/>
+  <line x1="375" y1="135" x2="375" y2="145" stroke="#0C6B4A" stroke-width="3" stroke-linecap="round"/>
+  <!-- Ground -->
+  <ellipse cx="200" cy="365" rx="150" ry="10" fill="#00A776" opacity="0.08"/>
+</svg>

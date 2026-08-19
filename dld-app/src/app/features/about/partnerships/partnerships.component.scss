@@ -1,0 +1,74 @@
+/* =========================================================
+   Partnerships Page — layout styles
+   ========================================================= */
+
+#main-content {
+  padding-block-start: 0;
+}
+
+/* COMMITMENT SECTION
+   --------------------------------------------------------- */
+.commitment-section {
+  padding-block: var(--space-20);
+  background: var(--color-white);
+}
+
+.commitment-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.commitment-photo {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-xl);
+    max-height: 480px;
+    display: block;
+  }
+}
+
+.commitment-content {
+  p {
+    font-size: var(--text-base);
+    color: var(--color-body);
+    line-height: 1.75;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .commitment-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .commitment-photo {
+    order: -1;
+  }
+}
+
+/* PARTNERS FILTER SECTION
+   --------------------------------------------------------- */
+.partners-filter-section {
+  padding-block: var(--space-20);
+  background: var(--color-bg);
+  position: relative;
+}
+
+.pf-top {
+  margin-block-end: var(--space-10);
+}
+
+.pf-content {
+  position: relative;
+}
+
+.pf-watermark-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}

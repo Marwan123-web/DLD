@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- Building -->
+  <rect x="80" y="120" width="160" height="220" rx="8" fill="#E6F7F2" stroke="#00A776" stroke-width="2"/>
+  <rect x="100" y="80" width="120" height="160" rx="6" fill="#fff" stroke="#00A776" stroke-width="2"/>
+  <!-- Windows -->
+  <rect x="115" y="100" width="30" height="25" rx="3" fill="#00A776" opacity="0.3"/>
+  <rect x="155" y="100" width="30" height="25" rx="3" fill="#00A776" opacity="0.3"/>
+  <rect x="195" y="100" width="30" height="25" rx="3" fill="#00A776" opacity="0.3"/>
+  <rect x="115" y="140" width="30" height="25" rx="3" fill="#00A776" opacity="0.5"/>
+  <rect x="155" y="140" width="30" height="25" rx="3" fill="#00A776" opacity="0.3"/>
+  <rect x="195" y="140" width="30" height="25" rx="3" fill="#00A776" opacity="0.5"/>
+  <rect x="115" y="180" width="30" height="25" rx="3" fill="#00A776" opacity="0.3"/>
+  <rect x="155" y="180" width="30" height="25" rx="3" fill="#00A776" opacity="0.5"/>
+  <rect x="195" y="180" width="30" height="25" rx="3" fill="#00A776" opacity="0.3"/>
+  <!-- Door -->
+  <rect x="143" y="290" width="35" height="50" rx="4" fill="#0C6B4A"/>
+  <!-- Shield -->
+  <path d="M280 60 L330 80 L330 140 Q330 170 280 190 Q230 170 230 140 L230 80 Z" fill="#00A776" opacity="0.15" stroke="#00A776" stroke-width="2"/>
+  <path d="M280 85 L308 98 L308 138 Q308 158 280 170 Q252 158 252 138 L252 98 Z" fill="#00A776" opacity="0.25"/>
+  <!-- Checkmark in shield -->
+  <path d="M265 128 L276 139 L298 112" stroke="#0C6B4A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Ground -->
+  <ellipse cx="200" cy="345" rx="140" ry="12" fill="#00A776" opacity="0.1"/>
+</svg>

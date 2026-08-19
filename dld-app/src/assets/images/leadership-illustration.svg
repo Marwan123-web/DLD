@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- Central person -->
+  <circle cx="200" cy="140" r="40" fill="#E6F7F2" stroke="#00A776" stroke-width="2"/>
+  <circle cx="200" cy="125" r="18" fill="#00A776" opacity="0.6"/>
+  <path d="M165 175 Q200 200 235 175" stroke="#00A776" stroke-width="2" fill="none"/>
+  <!-- Left person -->
+  <circle cx="100" cy="200" r="28" fill="#E6F7F2" stroke="#00A776" stroke-width="1.5"/>
+  <circle cx="100" cy="188" r="12" fill="#00A776" opacity="0.4"/>
+  <path d="M77 218 Q100 232 123 218" stroke="#00A776" stroke-width="1.5" fill="none"/>
+  <!-- Right person -->
+  <circle cx="300" cy="200" r="28" fill="#E6F7F2" stroke="#00A776" stroke-width="1.5"/>
+  <circle cx="300" cy="188" r="12" fill="#0C6B4A" opacity="0.4"/>
+  <path d="M277 218 Q300 232 323 218" stroke="#00A776" stroke-width="1.5" fill="none"/>
+  <!-- Connections -->
+  <line x1="162" y1="162" x2="123" y2="185" stroke="#00A776" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="238" y1="162" x2="277" y2="185" stroke="#00A776" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- Stars/achievements -->
+  <path d="M200 240 L204 252 L216 252 L207 260 L210 272 L200 265 L190 272 L193 260 L184 252 L196 252 Z" fill="#00A776" opacity="0.7"/>
+  <!-- Organization lines going down -->
+  <line x1="200" y1="272" x2="200" y2="295" stroke="#00A776" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <line x1="200" y1="295" x2="130" y2="295" stroke="#00A776" stroke-width="1.5"/>
+  <line x1="200" y1="295" x2="270" y2="295" stroke="#00A776" stroke-width="1.5"/>
+  <rect x="110" y="295" width="40" height="25" rx="4" fill="#E6F7F2" stroke="#00A776" stroke-width="1.5"/>
+  <rect x="180" y="295" width="40" height="25" rx="4" fill="#E6F7F2" stroke="#00A776" stroke-width="1.5"/>
+  <rect x="250" y="295" width="40" height="25" rx="4" fill="#E6F7F2" stroke="#00A776" stroke-width="1.5"/>
+</svg>
