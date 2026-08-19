@@ -24,7 +24,7 @@ import { DatePipe } from '@angular/common';
                 {{ article().date | date:'d MMM yyyy' }}
               </time>
               <span class="nc-hero-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" class="rtl-flip">
                   <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
@@ -52,7 +52,7 @@ import { DatePipe } from '@angular/common';
           <p class="nc-list-excerpt">{{ article().excerpt }}</p>
           <a [href]="'/news/' + article().slug" class="nc-read-more">
             Read More
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true" class="rtl-flip">
               <path d="M9 18l6-6-6-6"/>
             </svg>
           </a>

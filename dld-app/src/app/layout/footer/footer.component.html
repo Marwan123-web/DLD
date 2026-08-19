@@ -5,7 +5,7 @@
         <!-- Brand -->
         <div class="footer-brand">
           <img src="assets/images/logo2outline.svg" alt="Dubai Land Department" class="footer-logo" />
-          <p class="footer-tagline">Shaping Dubai's real estate future through innovation and excellence.</p>
+          <p class="footer-tagline">{{ tr.t('footer.tagline') }}</p>
           <div class="footer-social" role="list" aria-label="Social media">
             <a href="#" class="social-btn" aria-label="Facebook" role="listitem">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
@@ -37,19 +37,19 @@
         <!-- Col 1 -->
         <nav class="footer-col" aria-label="Site links column 1">
           <ul role="list">
-            <li><a routerLink="/" class="footer-link">Home</a></li>
-            <li><a routerLink="/about-dld" class="footer-link">About Us</a></li>
-            <li><a routerLink="/services" class="footer-link">Services</a></li>
-            <li><a routerLink="/trainings" class="footer-link">Trainings &amp; Programs</a></li>
+            <li><a routerLink="/" class="footer-link">{{ tr.t('nav.home') }}</a></li>
+            <li><a routerLink="/about-dld" class="footer-link">{{ tr.t('nav.about') }}</a></li>
+            <li><a routerLink="/services" class="footer-link">{{ tr.t('nav.services') }}</a></li>
+            <li><a routerLink="/trainings" class="footer-link">{{ tr.t('nav.trainings') }}</a></li>
           </ul>
         </nav>
 
         <!-- Col 2 -->
         <nav class="footer-col" aria-label="Site links column 2">
           <ul role="list">
-            <li><a routerLink="/open-data" class="footer-link">Open Data &amp; Insights</a></li>
-            <li><a routerLink="/news-media/latest-news" class="footer-link">News and Media</a></li>
-            <li><a routerLink="/help" class="footer-link">Help and Support</a></li>
+            <li><a routerLink="/open-data" class="footer-link">{{ tr.t('nav.open_data') }}</a></li>
+            <li><a routerLink="/news-media/latest-news" class="footer-link">{{ tr.t('nav.news') }}</a></li>
+            <li><a routerLink="/help" class="footer-link">{{ tr.t('nav.help') }}</a></li>
           </ul>
         </nav>
       </div>

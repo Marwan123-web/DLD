@@ -32,7 +32,7 @@
   }
 
   .date-icon {
-    position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+    position: absolute; inset-inline-end: 0.75rem; top: 50%; transform: translateY(-50%);
     color: var(--color-muted); pointer-events: none;
   }
 }
@@ -112,7 +112,8 @@
 }
 
 .donut-tooltip {
-  position: absolute; top: 1rem; left: 50%;
+  position: absolute; top: 1rem; inset-inline-start: 50%;
+  transform: translateX(calc(var(--dir, 1) * -50%));
   background: var(--color-navy); color: #fff;
   font-size: var(--text-xs); font-weight: var(--weight-medium);
   padding: 0.35rem 0.85rem; border-radius: var(--radius-pill);
@@ -166,7 +167,7 @@
 }
 
 .zoom-controls {
-  position: absolute; top: 1rem; right: 1rem;
+  position: absolute; top: 1rem; inset-inline-end: 1rem;
   display: flex; flex-direction: column; gap: 4px;
 }
 
@@ -180,7 +181,7 @@
 }
 
 .map-legend {
-  position: absolute; bottom: 1rem; right: 1rem;
+  position: absolute; inset-block-end: 1rem; inset-inline-end: 1rem;
   background: #fff; border-radius: var(--radius-lg);
   padding: 0.875rem 1rem; box-shadow: var(--shadow-card);
   min-width: 160px;

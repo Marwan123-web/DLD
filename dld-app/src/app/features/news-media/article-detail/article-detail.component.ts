@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { NewsService } from '../../../core/services/news.service';
 import { NewsCardComponent } from '../../../shared/components/news-card/news-card.component';
 import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
+import { TranslationService } from '../../../core/services/translation.service';
 
 @Component({
   selector: 'app-news-media-article-detail',
@@ -18,6 +19,7 @@ import { PartnersSectionComponent } from '../../home/sections/partners-section/p
 export class ArticleDetailComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly svc = inject(NewsService);
+  readonly tr = inject(TranslationService);
 
   private readonly articleId = toSignal(
     this.route.params.pipe(map(p => p['id'] as string)),

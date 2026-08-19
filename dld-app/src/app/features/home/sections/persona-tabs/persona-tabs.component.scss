@@ -72,14 +72,14 @@
 }
 .tab-tail {
   position: absolute;
-  bottom: -10px;
-  left: 20%;
-  transform: translateX(-50%);
+  inset-block-end: -10px;
+  inset-inline-start: 20%;
+  transform: translateX(calc(var(--dir, 1) * -50%));
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 10px solid var(--color-primary);
+  border-inline-start: 8px solid transparent;
+  border-inline-end: 8px solid transparent;
+  border-block-start: 10px solid var(--color-primary);
 }
 
 .persona-panel {

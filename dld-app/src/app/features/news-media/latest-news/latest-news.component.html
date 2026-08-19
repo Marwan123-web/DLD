@@ -4,14 +4,14 @@
   <div class="page-title-area">
     <div class="main-container">
       <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-        <a routerLink="/">Home</a>
+        <a routerLink="/">{{ tr.t('nav.home') }}</a>
         <span class="sep" aria-hidden="true">/</span>
-        <a routerLink="/news-media/latest-news">News &amp; Media</a>
+        <a routerLink="/news-media/latest-news">{{ tr.t('news.breadcrumb') }}</a>
         <span class="sep" aria-hidden="true">/</span>
-        <span class="current" aria-current="page">Latest News</span>
+        <span class="current" aria-current="page">{{ tr.t('news.latest_title') }}</span>
       </nav>
-      <h1 class="page-h1">Latest News</h1>
-      <p class="page-subtitle">Stay updated with the latest developments in Dubai's real estate sector.</p>
+      <h1 class="page-h1">{{ tr.t('news.latest_title') }}</h1>
+      <p class="page-subtitle">{{ tr.t('news.latest_subtitle') }}</p>
     </div>
   </div>
 
@@ -19,8 +19,8 @@
   <section class="featured-section" aria-labelledby="featured-heading">
     <div class="main-container">
       <div class="section-intro">
-        <span class="section-label">Featured</span>
-        <h2 id="featured-heading" class="section-title">Top Stories</h2>
+        <span class="section-label">{{ tr.t('news.featured_label') }}</span>
+        <h2 id="featured-heading" class="section-title">{{ tr.t('news.top_stories') }}</h2>
       </div>
       <div class="featured-grid" role="list" aria-label="Featured news articles">
         @for (article of featured; track article.id) {
@@ -33,7 +33,7 @@
                 class="slide-arrow"
                 [attr.aria-label]="'Read article: ' + article.title"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" class="rtl-flip">
                   <path d="M9 18l6-6-6-6"/>
                 </svg>
               </a>
@@ -48,40 +48,40 @@
   <section class="all-news-section" aria-labelledby="all-news-heading">
     <div class="main-container">
       <div class="section-intro">
-        <span class="section-label">All News</span>
-        <h2 id="all-news-heading" class="section-title">Explore all of our news and stay updated</h2>
+        <span class="section-label">{{ tr.t('news.all_title') }}</span>
+        <h2 id="all-news-heading" class="section-title">{{ tr.t('news.all_subtitle') }}</h2>
       </div>
 
       <!-- Filter bar -->
-      <div class="filter-bar" role="search" aria-label="Filter articles">
+      <div class="filter-bar" role="search" [attr.aria-label]="tr.t('news.filter_search')">
         <input
           type="search"
           class="filter-input"
-          placeholder="Search"
-          aria-label="Search articles"
+          [placeholder]="tr.t('news.filter_search')"
+          [attr.aria-label]="tr.t('news.filter_search')"
           (input)="onSearch($event)"
         />
         <input
           type="date"
           class="filter-input"
-          placeholder="Open From"
-          aria-label="Date from"
+          [placeholder]="tr.t('news.filter_date_from')"
+          [attr.aria-label]="tr.t('news.filter_date_from')"
           (change)="onDateFrom($event)"
         />
         <input
           type="date"
           class="filter-input"
-          placeholder="Open To"
-          aria-label="Date to"
+          [placeholder]="tr.t('news.filter_date_to')"
+          [attr.aria-label]="tr.t('news.filter_date_to')"
           (change)="onDateTo($event)"
         />
         <select
           class="filter-input filter-select"
-          aria-label="Filter by category"
+          [attr.aria-label]="tr.t('news.filter_categories')"
           (change)="setCategory($any($event.target).value)"
         >
           @for (cat of categories; track cat) {
-            <option [value]="cat">{{ cat === 'all' ? 'Categories' : cat }}</option>
+            <option [value]="cat">{{ cat === 'all' ? tr.t('news.filter_categories') : cat }}</option>
           }
         </select>
       </div>
@@ -93,7 +93,7 @@
             <app-news-card [article]="article" variant="hero" />
           </div>
         } @empty {
-          <p class="no-results" role="status">No articles found matching your criteria.</p>
+          <p class="no-results" role="status">{{ tr.t('news.no_results') }}</p>
         }
       </div>
 
@@ -101,7 +101,7 @@
       @if (totalResults() > 0) {
         <div class="pagination-row" aria-label="Pagination">
           <span class="pagination-info">
-            Showing {{ showingFrom() }} to {{ showingTo() }} of {{ totalResults() }} Results
+            {{ tr.tInterp('news.showing', { from: showingFrom(), to: showingTo(), total: totalResults() }) }}
           </span>
 
           <div class="page-numbers" role="list" aria-label="Page numbers">
@@ -112,7 +112,7 @@
               aria-label="Previous page"
               role="listitem"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" class="rtl-flip">
                 <path d="M15 18l-6-6 6-6"/>
               </svg>
             </button>
@@ -135,7 +135,7 @@
               aria-label="Next page"
               role="listitem"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" class="rtl-flip">
                 <path d="M9 18l6-6-6-6"/>
               </svg>
             </button>
@@ -147,9 +147,9 @@
               aria-label="Results per page"
               disabled
             >
-              <option value="6">6 per page</option>
+              <option value="6">6 {{ tr.t('news.per_page') }}</option>
             </select>
-            <label class="goto-label" for="goto-page">Go to Page</label>
+            <label class="goto-label" for="goto-page">{{ tr.t('news.go_to_page') }}</label>
             <input
               id="goto-page"
               type="number"

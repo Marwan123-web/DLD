@@ -14,7 +14,7 @@ export interface TimelineItem {
     <div class="timeline-wrap">
       <div class="timeline-track" role="list">
         @for (item of items(); track item.year; let i = $index) {
-          <div class="tl-item" role="listitem">
+          <div class="tl-item flex-grow-1" role="listitem">
             <div class="tl-connector">
               <div class="tl-line tl-line-before" [class.invisible]="i === 0"></div>
               <div class="tl-dot"></div>

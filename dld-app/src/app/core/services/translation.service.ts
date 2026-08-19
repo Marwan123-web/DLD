@@ -11,18 +11,22 @@ const DICTIONARIES: Record<Lang, Record<string, unknown>> = {
 
 // Bootstrap RTL stylesheet loaded dynamically on direction switch.
 const BOOTSTRAP_RTL_LINK_ID = 'bootstrap-rtl';
+const STORAGE_KEY = 'dld_lang';
 
 @Injectable({ providedIn: 'root' })
 export class TranslationService {
-  readonly currentLang = signal<Lang>('en');
+  readonly currentLang = signal<Lang>(
+    (localStorage.getItem(STORAGE_KEY) as Lang | null) === 'ar' ? 'ar' : 'en'
+  );
   readonly isRtl = computed(() => this.currentLang() === 'ar');
 
   constructor() {
-    // Apply direction, language attribute, and Bootstrap RTL stylesheet
-    // to <html> whenever currentLang changes.
+    // Persist language, update <html> dir/lang, and toggle Bootstrap RTL
+    // whenever currentLang changes.
     effect(() => {
       const lang = this.currentLang();
       const isRtl = lang === 'ar';
+      localStorage.setItem(STORAGE_KEY, lang);
       const html = document.documentElement;
       html.setAttribute('lang', lang);
       html.setAttribute('dir', isRtl ? 'rtl' : 'ltr');

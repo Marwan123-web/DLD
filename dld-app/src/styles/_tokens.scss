@@ -1,9 +1,13 @@
 :root {
+  // --- Direction: 1 = LTR, -1 = RTL (used in calc() for direction-aware transforms) ---
+  --dir: 1;
+
   // --- Colors ---
   --color-primary:       #00A776;
   --color-primary-hover: #008F65;
   --color-primary-dark:  #0C6B4A;
   --color-primary-light: #E6F7F2;
+  --color-primary-bg: #E6F7ED;
   --color-navy:          #141D2D;
   --color-heading:       #16233B;
   --color-body:          #5A5F5C;

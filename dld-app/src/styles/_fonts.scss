@@ -18,3 +18,7 @@
 */
 
 $font-family-base: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+// Arabic fallback stack — activated when dir="rtl"
+// Noto Sans Arabic provides good coverage; Dubai font can be swapped in later
+$font-family-arabic: 'Noto Sans Arabic', 'Dubai', 'Tahoma', 'Arial', sans-serif;

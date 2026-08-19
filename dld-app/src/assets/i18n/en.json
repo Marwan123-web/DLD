@@ -15,7 +15,45 @@
     "login": "Login",
     "accessibility": "Accessibility",
     "menu_open": "Open navigation menu",
-    "menu_close": "Close navigation menu"
+    "menu_close": "Close navigation menu",
+    "mega": {
+      "about": {
+        "tagline": "Learn who we are, our leadership and our partnerships.",
+        "who_caption": "Discover DLD",
+        "link_values": "Values",
+        "link_vision": "Vision & Mission",
+        "link_strategic": "Strategic Map",
+        "link_achievements": "Our Achievements",
+        "leadership_caption": "How we are led",
+        "link_message": "Management's Message",
+        "link_org": "Organization Chart",
+        "partnership_title": "Partnership & International Relations",
+        "partnership_caption": "Our network",
+        "link_partnership": "Partnership",
+        "link_contact_partners": "Contact the Partnerships Team",
+        "link_partners": "Our Partners"
+      },
+      "news": {
+        "tagline": "Stay updated with the latest news from Dubai Land Department.",
+        "latest_caption": "All news & updates",
+        "link_market": "Market Updates",
+        "link_regulatory": "Regulatory Updates",
+        "link_events": "Events & Forums",
+        "full_latest": "All News",
+        "ann_title": "Announcements",
+        "ann_caption": "Official announcements",
+        "link_announcements": "Announcements",
+        "link_initiatives": "Initiatives",
+        "link_press": "Press Releases",
+        "full_ann": "All Announcements",
+        "media_title": "Media Center",
+        "media_caption": "Photos & videos",
+        "link_photos": "Photo Gallery",
+        "link_videos": "Video Library",
+        "link_press_kit": "Press Kit",
+        "full_media": "Media Center"
+      }
+    }
   },
   "hero": {
     "title": "Dubai Land Department",
@@ -161,12 +199,42 @@
   "news": {
     "latest_label": "LATEST NEWS",
     "latest_title": "Latest News",
-    "latest_subtitle": "Stay updated with the latest developments in Dubai's real estate sector",
+    "latest_subtitle": "Stay updated with the latest developments in Dubai's real estate sector.",
     "all_title": "All News",
     "all_subtitle": "Explore all of our news and stay updated",
+    "breadcrumb": "News & Media",
+    "featured_label": "Featured",
+    "top_stories": "Top Stories",
+    "filter_search": "Search",
+    "filter_date_from": "Open From",
+    "filter_date_to": "Open To",
+    "filter_categories": "Categories",
+    "view_details": "View Details",
+    "no_results": "No articles found matching your criteria.",
+    "showing": "Showing {{from}} to {{to}} of {{total}} Results",
+    "per_page": "per page",
+    "go_to_page": "Go to Page",
     "read_more": "Read More",
     "load_more": "Load More",
     "showing_count": "Showing {{shown}} out of {{total}} results"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "subtitle": "Discover the latest events and insights shaping Dubai's real estate landscape.",
+    "section_title": "Initiatives",
+    "section_subtitle": "Explore all of our news and stay updated",
+    "no_results": "No initiatives found matching your criteria.",
+    "view_details": "View Details"
+  },
+  "article": {
+    "breadcrumb": "Article",
+    "related_title": "Related Articles",
+    "show_more": "Show more",
+    "not_found": "Article not found.",
+    "back_link": "Back to Latest News",
+    "overview": "Overview",
+    "highlights": "Key Highlights",
+    "looking_ahead": "Looking Ahead"
   },
   "footer": {
     "tagline": "Shaping Dubai's real estate future through innovation and excellence.",

@@ -4,6 +4,7 @@
 
 :root {
   --font-family-base: #{$font-family-base};
+  --font-family-arabic: #{$font-family-arabic};
 
   --line-height-heading: 1.25;
   --line-height-body:    1.6;
@@ -22,4 +23,18 @@ h1, h2, h3, h4, h5, h6 {
   line-height: var(--line-height-heading);
   font-weight: var(--weight-bold);
   color: var(--color-heading);
+}
+
+// Arabic typography
+[dir="rtl"] body {
+  font-family: var(--font-family-arabic);
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--font-family-arabic);
 }

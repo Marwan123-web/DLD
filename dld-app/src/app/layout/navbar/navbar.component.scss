@@ -2,7 +2,7 @@
 :host {
   display: block;
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0; inset-inline: 0;
   z-index: 1040;
   pointer-events: none;
 }
@@ -89,7 +89,7 @@
 
   &.active-t {
     color: #fff;
-    border-block-end-color: var(--color-primary);
+    border-block-end-color: var(--color-white);
   }
 }
 
@@ -168,7 +168,7 @@
 
 // ─── Pill state ─────────────────────────────────────────────────────────────
 .header-pill {
-  position: fixed; top: 14px; left: 20px; right: 20px;
+  position: fixed; top: 14px; inset-inline: 20px;
   background: #fff; border-radius: var(--radius-pill);
   box-shadow: var(--shadow-pill);
   opacity: 0; transform: translateY(-12px);
@@ -315,14 +315,16 @@
 .mega-menu {
   position: fixed;
   z-index: 1039;
-  top: 116px;   /* below transparent header: 3px accent + ~64px logo-row + ~49px nav-row */
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.97);
+  top: 130px;   /* below transparent header: 3px accent + ~64px logo-row + ~49px nav-row */
+  inset-inline: 0;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1.5px solid var(--color-white);
+  box-shadow: 0px 18px 44px rgba(13, 51, 33, 0.14);
+  border-radius: 24px;
+  width: 90%;
+  margin-inline:auto ;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   animation: megaFadeIn 150ms ease;
 }
 
@@ -330,8 +332,7 @@
 :host-context(.is-scrolled) .mega-menu,
 .is-scrolled .mega-menu {
   top: 80px;   /* pill top(14px) + pill height(~58px) + gap(8px) */
-  left: 20px;
-  right: 20px;
+  inset-inline: 20px;
   border-radius: var(--radius-xl);
 }
 
@@ -351,6 +352,7 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
+  flex-direction: column;
 }
 
 .mega-title {
@@ -374,9 +376,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding: var(--space-5);
+  padding: var(--space-8);
   border-radius: var(--radius-lg);
-  background: var(--color-white);
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid var(--color-border);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
   transition: border-color var(--transition-base), box-shadow var(--transition-base);

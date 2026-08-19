@@ -20,7 +20,7 @@
     <div class="main-container nav-row">
       <nav aria-label="Main navigation" class="main-nav">
         <ul class="nav-list" role="list">
-          @for (link of navLinks; track link.path) {
+          @for (link of navLinks(); track link.path) {
             <li [class.has-mega-menu]="!!link.megaKey">
               @if (link.megaKey) {
                 <button
@@ -53,23 +53,23 @@
         </ul>
       </nav>
       <div class="nav-utils-t">
-        <button class="util-search-pill" aria-label="Search">
+        <button class="util-search-pill" [attr.aria-label]="tr.t('nav.search')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
           </svg>
-          Search...
+          {{ tr.t('nav.search_placeholder') }}
         </button>
-        <button class="util-icon-btn" aria-label="Accessibility">
+        <button class="util-icon-btn" [attr.aria-label]="tr.t('nav.accessibility')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
             <circle cx="12" cy="5" r="2"/><path d="M12 22v-8m0 0l-4-4m4 4l4-4M6 9l6-2 6 2"/>
           </svg>
         </button>
-        <button class="util-lang-btn" (click)="tr.toggleLang()">العربية</button>
+        <button class="util-lang-btn" (click)="tr.toggleLang()">{{ tr.t('nav.language') }}</button>
         <button class="util-login-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
             <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
           </svg>
-          Login
+          {{ tr.t('nav.login') }}
         </button>
       </div>
       <!-- Mobile hamburger (transparent state) -->
@@ -89,7 +89,7 @@
   </div>
 
   <!-- MEGA MENUS: fixed, works in both header states -->
-  @for (link of navLinks; track link.megaKey) {
+  @for (link of navLinks(); track link.megaKey) {
     @if (link.megaKey && megaMenuOpen() === link.megaKey && link.megaMenu) {
       <div class="mega-menu" role="dialog" [attr.aria-label]="link.megaMenu.title + ' navigation'" (mouseleave)="closeMegaMenu()">
         <div class="main-container mega-inner">
@@ -107,6 +107,8 @@
                 </div>
                 <h3 class="mega-col-title">{{ col.title }}</h3>
                 <p class="mega-col-caption">{{ col.caption }}</p>
+                <div class="d-flex flex-row justify-ceontent-between align-items-end">
+
                 <ul class="mega-link-list">
                   @for (item of col.links; track item.label) {
                     <li>
@@ -118,10 +120,12 @@
                 </ul>
                 <a [routerLink]="col.fullLink" class="mega-full-link" (click)="closeMegaMenu()">
                   {{ col.fullLinkLabel ?? 'Full Details' }}
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true" class="rtl-flip">
                     <path d="M2 8h12m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
+              </div>
+
               </div>
             }
           </div>
@@ -140,7 +144,7 @@
       <!-- Center: nav links -->
       <nav aria-label="Main navigation compact" class="pill-nav">
         <ul class="nav-list pill-nav-list" role="list">
-          @for (link of navLinks; track link.path) {
+          @for (link of navLinks(); track link.path) {
             <li>
               @if (link.megaKey) {
                 <button
@@ -162,23 +166,23 @@
       </nav>
       <!-- Right: utilities -->
       <div class="pill-utils">
-        <button class="util-search-pill pill-search" aria-label="Search">
+        <button class="util-search-pill pill-search" [attr.aria-label]="tr.t('nav.search')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
           </svg>
-          Search...
+          {{ tr.t('nav.search_placeholder') }}
         </button>
-        <button class="util-icon-btn dark" aria-label="Accessibility">
+        <button class="util-icon-btn dark" [attr.aria-label]="tr.t('nav.accessibility')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
             <circle cx="12" cy="5" r="2"/><path d="M12 22v-8m0 0l-4-4m4 4l4-4M6 9l6-2 6 2"/>
           </svg>
         </button>
-        <button class="util-lang-btn dark" (click)="tr.toggleLang()">العربية</button>
+        <button class="util-lang-btn dark" (click)="tr.toggleLang()">{{ tr.t('nav.language') }}</button>
         <button class="util-login-filled">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true">
             <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
           </svg>
-          Login
+          {{ tr.t('nav.login') }}
         </button>
         <div class="pill-avatar" aria-hidden="true">
           <img src="assets/images/logo2signle.svg" alt="" />
@@ -207,7 +211,7 @@
   <nav id="offcanvas-drawer" class="offcanvas-drawer" [class.is-open]="isMenuOpen()"
        role="dialog" aria-modal="true" [attr.aria-hidden]="!isMenuOpen()" aria-label="Navigation menu">
     <ul role="list" class="offcanvas-list">
-      @for (link of navLinks; track link.path) {
+      @for (link of navLinks(); track link.path) {
         @if (link.megaMenu) {
           <li class="offcanvas-group">
             <button class="offcanvas-link offcanvas-toggle" (click)="toggleMegaMenu(link.megaKey!)" [attr.aria-expanded]="megaMenuOpen() === link.megaKey" type="button">
@@ -234,7 +238,7 @@
       }
     </ul>
     <div class="offcanvas-footer">
-      <button class="util-lang-btn dark" (click)="tr.toggleLang()">العربية</button>
+      <button class="util-lang-btn dark" (click)="tr.toggleLang()">{{ tr.t('nav.language') }}</button>
     </div>
   </nav>
 

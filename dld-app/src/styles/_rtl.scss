@@ -1,0 +1,24 @@
+// ─── RTL / LTR direction helpers ──────────────────────────────────────────────
+
+[dir="rtl"] {
+  --dir: -1;
+}
+
+// Flip directional icons (chevrons, arrows) for RTL reading direction
+.rtl-flip {
+  [dir="rtl"] & {
+    transform: scaleX(-1);
+  }
+}
+
+// Standalone usage when the element itself is the flip target
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+
+// ─── Filter select: flip chevron arrow in RTL ──────────────────────────────
+[dir="rtl"] .filter-select {
+  background-position: left 0.75rem center;
+  padding-inline-start: 2rem;
+  padding-inline-end: 0.875rem;
+}

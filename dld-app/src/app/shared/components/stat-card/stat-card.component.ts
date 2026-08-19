@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <article class="stat-card">
+    <article class="stat-card alig">
       @if (icon()) {
         <div class="sc-icon" aria-hidden="true">
           <svg
@@ -28,7 +28,7 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
     :host { display: block; }
 
     .stat-card {
-      background: var(--color-white);
+      background: var(--color-primary-bg);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-card);
       padding: var(--space-8);
@@ -38,25 +38,26 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
       text-align: center;
       min-width: 160px;
       gap: var(--space-2);
+      align-items: flex-start;
     }
 
     .sc-icon {
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: var(--color-primary-light);
+      // background: var(--color-primary-light);
       color: var(--color-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-block-end: var(--space-2);
+      // margin-block-end: var(--space-2);
       flex-shrink: 0;
     }
 
     .sc-value {
       font-size: var(--text-lg);
       font-weight: var(--weight-bold);
-      color: var(--color-primary);
+      color: var(--color-text-primary);
       line-height: 1.2;
     }
 

@@ -11,8 +11,48 @@
     "notifications": "الإشعارات",
     "profile": "ملفي الشخصي",
     "language": "English",
+    "login": "تسجيل الدخول",
+    "search_placeholder": "ابحث...",
     "menu_open": "فتح قائمة التنقل",
-    "menu_close": "إغلاق قائمة التنقل"
+    "menu_close": "إغلاق قائمة التنقل",
+    "mega": {
+      "about": {
+        "tagline": "تعرّف على هويتنا وقيادتنا وشراكاتنا.",
+        "who_caption": "اكتشف الدائرة",
+        "link_values": "القيم",
+        "link_vision": "الرؤية والمهمة",
+        "link_strategic": "الخريطة الاستراتيجية",
+        "link_achievements": "إنجازاتنا",
+        "leadership_caption": "كيف نُدار",
+        "link_message": "رسالة الإدارة",
+        "link_org": "الهيكل التنظيمي",
+        "partnership_title": "الشراكات والعلاقات الدولية",
+        "partnership_caption": "شبكتنا",
+        "link_partnership": "الشراكات",
+        "link_contact_partners": "تواصل مع فريق الشراكات",
+        "link_partners": "شركاؤنا"
+      },
+      "news": {
+        "tagline": "ابقَ على اطلاع بأحدث أخبار دائرة الأراضي والأملاك.",
+        "latest_caption": "جميع الأخبار والتحديثات",
+        "link_market": "تحديثات السوق",
+        "link_regulatory": "التحديثات التنظيمية",
+        "link_events": "الفعاليات والمنتديات",
+        "full_latest": "جميع الأخبار",
+        "ann_title": "الإعلانات",
+        "ann_caption": "الإعلانات الرسمية",
+        "link_announcements": "الإعلانات",
+        "link_initiatives": "المبادرات",
+        "link_press": "البيانات الصحفية",
+        "full_ann": "جميع الإعلانات",
+        "media_title": "المركز الإعلامي",
+        "media_caption": "الصور ومقاطع الفيديو",
+        "link_photos": "معرض الصور",
+        "link_videos": "مكتبة الفيديو",
+        "link_press_kit": "حزمة الصحافة",
+        "full_media": "المركز الإعلامي"
+      }
+    }
   },
   "hero": {
     "title": "دائرة الأراضي والأملاك",
@@ -126,12 +166,42 @@
   "news": {
     "latest_label": "آخر الأخبار",
     "latest_title": "آخر الأخبار",
-    "latest_subtitle": "ابقَ على اطلاع بأحدث التطورات في قطاع العقارات بدبي",
+    "latest_subtitle": "ابقَ على اطلاع بأحدث التطورات في قطاع العقارات بدبي.",
     "all_title": "جميع الأخبار",
     "all_subtitle": "استعرض جميع أخبارنا وابقَ على اطلاع دائم",
+    "breadcrumb": "الأخبار والإعلام",
+    "featured_label": "المميزة",
+    "top_stories": "أبرز القصص",
+    "filter_search": "بحث",
+    "filter_date_from": "من تاريخ",
+    "filter_date_to": "إلى تاريخ",
+    "filter_categories": "الفئات",
+    "view_details": "عرض التفاصيل",
+    "no_results": "لا توجد مقالات تطابق معاييرك.",
+    "showing": "عرض {{from}} إلى {{to}} من {{total}} نتيجة",
+    "per_page": "لكل صفحة",
+    "go_to_page": "الانتقال إلى صفحة",
     "read_more": "اقرأ المزيد",
     "load_more": "تحميل المزيد",
     "showing_count": "عرض {{shown}} من أصل {{total}} نتيجة"
+  },
+  "announcements": {
+    "title": "الإعلانات",
+    "subtitle": "اكتشف أحدث الفعاليات والرؤى التي تشكّل المشهد العقاري في دبي.",
+    "section_title": "المبادرات",
+    "section_subtitle": "استعرض جميع أخبارنا وابقَ على اطلاع دائم",
+    "no_results": "لا توجد مبادرات تطابق معاييرك.",
+    "view_details": "عرض التفاصيل"
+  },
+  "article": {
+    "breadcrumb": "المقال",
+    "related_title": "مقالات ذات صلة",
+    "show_more": "عرض المزيد",
+    "not_found": "المقال غير موجود.",
+    "back_link": "العودة إلى آخر الأخبار",
+    "overview": "نظرة عامة",
+    "highlights": "أبرز النقاط",
+    "looking_ahead": "النظرة المستقبلية"
   },
   "footer": {
     "tagline": "نشكل مستقبل العقارات في دبي من خلال الابتكار والتميز.",

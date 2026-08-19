@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,4 +10,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
-export class FooterComponent {}
+export class FooterComponent {
+  readonly tr = inject(TranslationService);
+}

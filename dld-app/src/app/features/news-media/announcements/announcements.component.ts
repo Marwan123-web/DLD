@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NewsService } from '../../../core/services/news.service';
 import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
+import { TranslationService } from '../../../core/services/translation.service';
 
 const PAGE_SIZE = 6;
 
@@ -16,6 +17,7 @@ const PAGE_SIZE = 6;
 })
 export class AnnouncementsComponent {
   private readonly svc = inject(NewsService);
+  readonly tr = inject(TranslationService);
 
   readonly featuredAnnouncement = this.svc.allArticles[0];
   readonly categories = this.svc.getCategories();

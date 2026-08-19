@@ -2,6 +2,7 @@
 @use 'styles/fonts';
 @use 'styles/tokens';
 @use 'styles/typography';
+@use 'styles/rtl';
 
 // Bootstrap — loaded as @import because Bootstrap uses @import internally.
 // Must come after @use declarations.

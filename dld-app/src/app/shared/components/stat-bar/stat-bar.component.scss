@@ -20,7 +20,7 @@
   padding-inline: var(--space-8);
   text-align: center;
   position: relative;
-
+  flex-grow: 1;
   &:not(:last-child)::after {
     content: '';
     position: absolute;

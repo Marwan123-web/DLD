@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { NewsService } from '../../../core/services/news.service';
 import { NewsCardComponent } from '../../../shared/components/news-card/news-card.component';
 import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
+import { TranslationService } from '../../../core/services/translation.service';
 
 const PAGE_SIZE = 6;
 
@@ -16,6 +17,7 @@ const PAGE_SIZE = 6;
 })
 export class LatestNewsComponent {
   private readonly svc = inject(NewsService);
+  readonly tr = inject(TranslationService);
 
   readonly featured = this.svc.featured;
   readonly categories = this.svc.getCategories();
