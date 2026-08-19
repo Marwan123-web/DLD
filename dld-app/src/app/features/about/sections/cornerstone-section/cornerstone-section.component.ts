@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="cornerstone-section" aria-label="About DLD">
-      <div class="container cornerstone-layout">
+      <div class="main-container cornerstone-layout">
         <div class="cornerstone-visual" aria-hidden="true">
           <div class="cs-emblem">
             <!-- Stylised DLD icon as geometric SVG placeholder -->

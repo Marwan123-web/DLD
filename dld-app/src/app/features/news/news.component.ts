@@ -29,7 +29,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
       <!-- Featured news -->
       <section class="featured-section" aria-labelledby="featured-heading">
-        <div class="container">
+        <div class="main-container">
           <div class="section-intro">
             <span class="section-label">Latest News</span>
             <h2 id="featured-heading" class="section-title">Top Stories</h2>
@@ -46,7 +46,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
       <!-- All news with filter -->
       <section class="all-news-section" aria-labelledby="all-news-heading">
-        <div class="container">
+        <div class="main-container">
           <div class="all-news-header">
             <div class="section-intro">
               <span class="section-label">Archive</span>

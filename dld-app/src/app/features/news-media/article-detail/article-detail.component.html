@@ -27,7 +27,7 @@
 
     <!-- Article body -->
     <div class="article-body">
-      <div class="container">
+      <div class="main-container">
         <div class="article-content">
           @if (a.body) {
             <p>{{ a.body }}</p>
@@ -68,7 +68,7 @@
 
     <!-- Related articles -->
     <section class="related-section" aria-labelledby="related-heading">
-      <div class="container">
+      <div class="main-container">
         <h2 id="related-heading" class="section-title">Related Articles</h2>
 
         <div class="related-tags" role="list" aria-label="Related categories">
@@ -94,7 +94,7 @@
   } @else {
 
     <!-- Article not found -->
-    <div class="not-found-state container">
+    <div class="not-found-state main-container">
       <p class="not-found-msg">Article not found.</p>
       <a routerLink="/news-media/latest-news" class="back-link">← Back to Latest News</a>
     </div>

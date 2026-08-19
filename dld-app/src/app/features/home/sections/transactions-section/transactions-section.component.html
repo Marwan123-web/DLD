@@ -1,5 +1,5 @@
 <section class="tx-section">
-  <div class="container">
+  <div class="main-container">
     <div class="tx-header">
       <div>
         <h2 class="tx-title">Real Estate Transactions</h2>
@@ -14,7 +14,7 @@
     </div>
 
     <!-- Toggle pills -->
-    <div class="tx-toggle container" role="group" aria-label="View mode">
+    <div class="tx-toggle main-container" role="group" aria-label="View mode">
       <button class="toggle-pill" [class.active]="activeView() === 'analytics'" (click)="activeView.set('analytics')">Analytics</button>
       <button class="toggle-pill" [class.active]="activeView() === 'map'" (click)="activeView.set('map')">Map</button>
     </div>
@@ -103,7 +103,7 @@
           </div>
 
           <!-- Info card -->
-          <div class="area-info-card">
+          <!-- <div class="area-info-card">
             <span class="area-eyebrow">AREA</span>
             <h3 class="area-name">CREEK HARBOUR</h3>
             <div class="area-stats">
@@ -124,7 +124,7 @@
                 <span class="stat-value">412,360</span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       }
     }

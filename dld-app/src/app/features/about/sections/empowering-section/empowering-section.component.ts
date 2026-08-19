@@ -8,7 +8,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     <section class="empower-section" aria-label="Our Mission">
       <div class="empower-photo" aria-hidden="true"></div>
       <div class="empower-overlay" aria-hidden="true"></div>
-      <div class="container empower-content">
+      <div class="main-container empower-content">
         <span class="empower-label">Our Mission</span>
         <h2 class="empower-title">
           Empowering people. <br />Transforming real estate.

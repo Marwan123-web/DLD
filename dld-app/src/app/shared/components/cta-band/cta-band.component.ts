@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="cta-band">
-      <div class="container-xxl cta-inner">
+      <div class="main-container cta-inner">
         <div class="cta-text">
           <h2 class="cta-title">{{ title() }}</h2>
           @if (subtitle()) {

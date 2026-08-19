@@ -1,11 +1,11 @@
 <section class="initiatives-section">
-  <div class="container">
+  <div class="main-container">
     <div class="section-head">
       <h2 class="initiatives-title">DLD Initiatives</h2>
       <p class="initiatives-sub">Fostering innovation &amp; collaboration through cutting-edge research, technology development, &amp; strategic partnerships</p>
     </div>
   </div>
-  <div class="initiatives-scroll container">
+  <div class="initiatives-scroll main-container">
     @for (item of initiatives; track item.id) {
       <article class="initiative-card">
         <div class="card-bg" [style.background-image]="'url(' + item.imageUrl + ')'"></div>

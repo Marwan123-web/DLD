@@ -7,7 +7,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="partners-section" aria-label="Our Partners">
-      <div class="container">
+      <div class="main-container">
         <div class="partners-inner">
           <img src="assets/images/footercarerrs.svg" alt="Our partners: Dubai Careers and Dubai Pulse" class="partners-img" />
         </div>

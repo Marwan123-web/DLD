@@ -20,20 +20,24 @@
 }
 
 .initiatives-scroll {
-  display: flex; gap: 5rem;
+  display: flex; 
+  gap: 3rem;
+  justify-content: space-between;
   padding-inline: max(1.5rem, calc((100vw - 1200px) / 2));
   padding-block-end: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-
+  margin-inline-start: 2rem;
   &::-webkit-scrollbar { display: none; }
 }
 
 .initiative-card {
   position: relative;
-  min-width: 340px; width: 340px; height: 420px;
+  min-width: 340px; 
+  // width: 490px; 
+  height: 420px;
   border-radius: var(--radius-xl);
   overflow: hidden;
   flex-shrink: 0;

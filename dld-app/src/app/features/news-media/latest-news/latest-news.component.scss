@@ -74,26 +74,35 @@
   background: var(--color-bg);
 }
 
-.featured-carousel {
-  display: flex;
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  padding-block-end: var(--space-2);
 
-  &::-webkit-scrollbar {
-    display: none;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    overflow-x: auto;
+    display: flex;
+    gap: var(--space-4);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
 .featured-slide {
-  flex: 0 0 calc(33.333% - var(--space-3));
-  scroll-snap-align: start;
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 16 / 10;
+
+  @media (max-width: 768px) {
+    flex: 0 0 85vw;
+    scroll-snap-align: start;
+  }
 
   img {
     width: 100%;

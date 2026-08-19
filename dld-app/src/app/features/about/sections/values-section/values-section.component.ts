@@ -15,7 +15,7 @@ const VALUES = ['Trust', 'Vision', 'Growth', 'Integrity'];
           <span class="wm-word">{{ v }}</span>
         }
       </div>
-      <div class="container values-content">
+      <div class="main-container values-content">
         <span class="values-label">Our Foundation</span>
         <h2 class="values-title">The values that guide everything we do</h2>
         <div class="values-grid" role="list">

@@ -2,7 +2,7 @@
 
   <!-- Page title area -->
   <div class="page-title-area">
-    <div class="container-xxl">
+    <div class="main-container">
       <nav class="breadcrumb-nav" aria-label="Breadcrumb">
         <a routerLink="/">Home</a>
         <span class="sep" aria-hidden="true">/</span>
@@ -17,24 +17,31 @@
 
   <!-- Featured announcement -->
   <section class="featured-section" aria-labelledby="featured-ann-heading">
-    <div class="container-xxl">
-      <div class="featured-announcement">
-        <img
-          [src]="featuredAnnouncement.imageUrl"
-          [alt]="featuredAnnouncement.title"
-          loading="eager"
-        />
-        <div class="announcement-content">
-          <h2 id="featured-ann-heading" class="announcement-title">{{ featuredAnnouncement.title }}</h2>
-          <a
-            [routerLink]="['/news-media/article', featuredAnnouncement.id]"
-            class="announcement-arrow"
-            [attr.aria-label]="'Read announcement: ' + featuredAnnouncement.title"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
-          </a>
+    <div class="main-container">
+      <div class="featured-layout">
+        <!-- Left: text + dots -->
+        <div class="featured-left">
+          <h2 id="featured-ann-heading" class="featured-ann-title">{{ featuredAnnouncement.title }}</h2>
+          <p class="featured-ann-excerpt">{{ featuredAnnouncement.excerpt }}</p>
+          <div class="featured-dots" aria-label="Announcement carousel" role="tablist">
+            <span class="dot dot-active" role="tab" aria-selected="true"></span>
+            <span class="dot" role="tab" aria-selected="false"></span>
+            <span class="dot" role="tab" aria-selected="false"></span>
+          </div>
+        </div>
+        <!-- Right: image card -->
+        <div class="featured-right">
+          <div class="featured-card">
+            <img [src]="featuredAnnouncement.imageUrl" [alt]="featuredAnnouncement.title" loading="eager" />
+            <div class="featured-card-content">
+              <p class="featured-card-title">{{ featuredAnnouncement.title }}</p>
+              <a [routerLink]="['/news-media/article', featuredAnnouncement.id]" class="featured-card-arrow" [attr.aria-label]="'Read: ' + featuredAnnouncement.title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -42,7 +49,7 @@
 
   <!-- Initiatives section -->
   <section class="initiatives-section" aria-labelledby="initiatives-heading">
-    <div class="container-xxl">
+    <div class="main-container">
       <div class="section-intro">
         <h2 id="initiatives-heading" class="section-title">Initiatives</h2>
         <p class="section-subtitle">Explore all of our news and stay updated</p>
@@ -80,12 +87,6 @@
             <option [value]="cat">{{ cat === 'all' ? 'Categories' : cat }}</option>
           }
         </select>
-        <button class="filter-btn" type="button" (click)="applyFilters()" aria-label="Apply filters">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-          </svg>
-          Filter
-        </button>
       </div>
 
       <!-- Initiatives grid -->

@@ -7,7 +7,7 @@ import { AchievementsService } from '../../../../core/services/achievements.serv
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="achievements-section" aria-labelledby="achievements-heading">
-      <div class="container">
+      <div class="main-container">
         <div class="section-intro">
           <span class="ach-label">By the Numbers</span>
           <h2 id="achievements-heading" class="ach-title">DLD Achievements</h2>

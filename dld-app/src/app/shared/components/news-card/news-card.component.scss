@@ -94,6 +94,31 @@
   overflow: hidden;
 }
 
+.nc-hero-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-start: auto;
+  padding-block-start: var(--space-3);
+}
+
+.nc-hero-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-base);
+}
+
+.nc-hero:hover .nc-hero-arrow {
+  background: var(--color-primary-hover);
+}
+
 // ─── List variant ─────────────────────────────────────────
 .nc-list {
   display: flex;

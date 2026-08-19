@@ -2,7 +2,7 @@
 
   <!-- Page title area -->
   <div class="page-title-area">
-    <div class="container-xxl">
+    <div class="main-container">
       <nav class="breadcrumb-nav" aria-label="Breadcrumb">
         <a routerLink="/">Home</a>
         <span class="sep" aria-hidden="true">/</span>
@@ -17,12 +17,12 @@
 
   <!-- Featured carousel -->
   <section class="featured-section" aria-labelledby="featured-heading">
-    <div class="container-xxl">
+    <div class="main-container">
       <div class="section-intro">
         <span class="section-label">Featured</span>
         <h2 id="featured-heading" class="section-title">Top Stories</h2>
       </div>
-      <div class="featured-carousel" role="list" aria-label="Featured news articles">
+      <div class="featured-grid" role="list" aria-label="Featured news articles">
         @for (article of featured; track article.id) {
           <div class="featured-slide" role="listitem">
             <img [src]="article.imageUrl" [alt]="article.title" loading="eager" />
@@ -46,7 +46,7 @@
 
   <!-- All News section -->
   <section class="all-news-section" aria-labelledby="all-news-heading">
-    <div class="container-xxl">
+    <div class="main-container">
       <div class="section-intro">
         <span class="section-label">All News</span>
         <h2 id="all-news-heading" class="section-title">Explore all of our news and stay updated</h2>
@@ -84,12 +84,6 @@
             <option [value]="cat">{{ cat === 'all' ? 'Categories' : cat }}</option>
           }
         </select>
-        <button class="filter-btn" type="button" (click)="applyFilters()" aria-label="Apply filters">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-          </svg>
-          Filter
-        </button>
       </div>
 
       <!-- News grid -->

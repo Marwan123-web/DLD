@@ -1,6 +1,6 @@
 <section class="persona-section">
   <!-- Tab row -->
-  <div class="container box">
+  <div class="main-container box">
     <div class="persona-tabs" role="tablist" aria-label="Service personas">
       @for (tab of tabs; track tab.id) {
         <button
@@ -31,7 +31,7 @@
   @for (tab of tabs; track tab.id) {
     @if (activeTabId() === tab.id) {
       <div class="persona-panel" [id]="'panel-' + tab.id" role="tabpanel" [attr.aria-labelledby]="tab.id">
-        <div class="container">
+        <div class="main-container">
           <div class="panel-header">
             <span class="panel-eyebrow">{{ tab.eyebrow }}</span>
             <h2 class="panel-title">{{ tab.heading }}</h2>

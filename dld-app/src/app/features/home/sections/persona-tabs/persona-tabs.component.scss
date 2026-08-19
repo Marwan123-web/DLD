@@ -39,9 +39,9 @@
   transition: all var(--transition-base);
   flex-shrink: 0;
   // height: 130px;
-  max-width: 190px;
+  // max-width: 190px;
   min-width: 150px;
-  
+  flex-grow: 1;
   &:hover:not(.active) {
     border-color: var(--color-primary);
     color: var(--color-primary);

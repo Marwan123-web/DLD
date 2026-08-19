@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="org-chart-section" aria-label="Organization Chart">
-      <div class="container">
+      <div class="main-container">
         <h2 class="org-title">Organization Structure</h2>
         <p class="org-note">⚠ AMBIGUITY: org structure inferred from public sources; pending official confirmation.</p>
 

@@ -34,7 +34,7 @@ const STRAT_CARDS: StratCard[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="strategic-section" aria-labelledby="strategic-heading">
-      <div class="container">
+      <div class="main-container">
         <div class="section-intro">
           <span class="section-label">Strategic Map</span>
           <h2 id="strategic-heading" class="section-title">Our Strategic Pillars</h2>

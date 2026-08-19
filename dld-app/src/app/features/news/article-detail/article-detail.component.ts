@@ -15,7 +15,7 @@ import { PageHeroComponent } from '../../../shared/components/page-hero/page-her
         heading="Article"
         [breadcrumbs]="breadcrumbs"
       />
-      <div class="container stub-body">
+      <div class="main-container stub-body">
         <p class="stub-note">
           Article detail page — full implementation out of scope for this phase.
         </p>

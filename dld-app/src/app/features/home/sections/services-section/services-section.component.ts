@@ -59,7 +59,7 @@ const TABS: ServiceTab[] = [
 
       <!-- Icon-card category tabs -->
       <div class="category-tabs" role="tablist" aria-label="Service categories">
-        <div class="container category-tabs-inner">
+        <div class="main-container category-tabs-inner">
           @for (tab of tabs; track tab.id) {
             <button
               role="tab"
@@ -80,7 +80,7 @@ const TABS: ServiceTab[] = [
         </div>
       </div>
 
-      <div class="container">
+      <div class="main-container">
         <app-section-header
           label="POPULAR SERVICES"
           [title]="tr.t('services.title')"

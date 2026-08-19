@@ -123,7 +123,9 @@
 
 // Map panel
 .map-panel {
-  display: grid; grid-template-columns: 1fr 280px; gap: 1.5rem;
+  // display: grid; 
+  // grid-template-columns: 1fr 280px;
+   gap: 1.5rem;
   @media (max-width: 991px) { grid-template-columns: 1fr; }
 }
 

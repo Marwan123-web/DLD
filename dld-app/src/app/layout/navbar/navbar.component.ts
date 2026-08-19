@@ -146,13 +146,13 @@ const NAV_LINKS: NavLink[] = [
 export class NavbarComponent {
   readonly tr = inject(TranslationService);
   readonly navLinks = NAV_LINKS;
-  readonly isScrolled = signal(false);
+  readonly isScrolled = signal(this.atHome ? false: true);
   readonly isMenuOpen = signal(false);
   readonly megaMenuOpen = signal<string | null>(null);
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.isScrolled.set(window.scrollY > 100);
+    this.isScrolled.set( window.scrollY > (this.atHome ? 500 :0));
   }
 
   toggleMenu(): void {
@@ -184,8 +184,12 @@ export class NavbarComponent {
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
     const target = e.target as HTMLElement;
-    if (!target.closest('.has-mega-menu')) {
+    if (!target.closest('.site-header')) {
       this.closeMegaMenu();
     }
+  }
+
+  get atHome(){    
+   return  window.location.pathname == '/'
   }
 }

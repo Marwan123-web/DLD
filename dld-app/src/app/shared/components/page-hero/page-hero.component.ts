@@ -14,7 +14,7 @@ export interface Breadcrumb {
       @if (watermark()) {
         <div class="hero-watermark" aria-hidden="true">{{ watermark() }}</div>
       }
-      <div class="container-xxl hero-body">
+      <div class="main-container hero-body">
         <div class="hero-text">
           @if (breadcrumbs().length) {
             <nav aria-label="Breadcrumb" class="hero-breadcrumb">
