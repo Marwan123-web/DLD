@@ -1,0 +1,108 @@
+import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { NewsService } from '../../../core/services/news.service';
+import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
+
+const PAGE_SIZE = 6;
+
+@Component({
+  selector: 'app-announcements',
+  standalone: true,
+  imports: [RouterLink, DatePipe, PartnersSectionComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './announcements.component.html',
+  styleUrl: './announcements.component.scss',
+})
+export class AnnouncementsComponent {
+  private readonly svc = inject(NewsService);
+
+  readonly featuredAnnouncement = this.svc.allArticles[0];
+  readonly categories = this.svc.getCategories();
+
+  readonly searchQuery = signal('');
+  readonly selectedCategory = signal('all');
+  readonly dateFrom = signal('');
+  readonly dateTo = signal('');
+  readonly currentPage = signal(1);
+
+  readonly filteredInitiatives = computed(() => {
+    const q = this.searchQuery().toLowerCase().trim();
+    const cat = this.selectedCategory();
+    const from = this.dateFrom();
+    const to = this.dateTo();
+
+    return this.svc.allArticles.filter(a => {
+      const matchesCat = cat === 'all' || a.category === cat;
+      const matchesSearch = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q);
+      const matchesFrom = !from || a.date >= from;
+      const matchesTo = !to || a.date <= to + 'T23:59:59Z';
+      return matchesCat && matchesSearch && matchesFrom && matchesTo;
+    });
+  });
+
+  readonly totalResults = computed(() => this.filteredInitiatives().length);
+  readonly totalPages = computed(() => Math.max(1, Math.ceil(this.totalResults() / PAGE_SIZE)));
+
+  readonly pagedInitiatives = computed(() => {
+    const page = this.currentPage();
+    const start = (page - 1) * PAGE_SIZE;
+    return this.filteredInitiatives().slice(start, start + PAGE_SIZE);
+  });
+
+  readonly pageNumbers = computed(() => {
+    const total = this.totalPages();
+    return Array.from({ length: total }, (_, i) => i + 1);
+  });
+
+  readonly showingFrom = computed(() => {
+    const total = this.totalResults();
+    if (total === 0) return 0;
+    return (this.currentPage() - 1) * PAGE_SIZE + 1;
+  });
+
+  readonly showingTo = computed(() =>
+    Math.min(this.currentPage() * PAGE_SIZE, this.totalResults())
+  );
+
+  setCategory(cat: string): void {
+    this.selectedCategory.set(cat);
+    this.currentPage.set(1);
+  }
+
+  setPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPage.set(page);
+    }
+  }
+
+  goToPage(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const page = parseInt(input.value, 10);
+    if (!isNaN(page)) {
+      this.setPage(page);
+    }
+  }
+
+  onSearch(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery.set(input.value);
+    this.currentPage.set(1);
+  }
+
+  onDateFrom(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.dateFrom.set(input.value);
+    this.currentPage.set(1);
+  }
+
+  onDateTo(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.dateTo.set(input.value);
+    this.currentPage.set(1);
+  }
+
+  applyFilters(): void {
+    this.currentPage.set(1);
+  }
+}

@@ -25,9 +25,8 @@
               @if (link.megaKey) {
                 <button
                   class="nav-link-t nav-btn-t"
-                  [class.active-t]="isAboutActive()"
                   [class.mega-open]="megaMenuOpen() === link.megaKey"
-                  (click)="toggleMegaMenu(link.megaKey)"
+                  (click)="toggleMegaMenu(link.megaKey!)"
                   (mouseenter)="openMegaMenu(link.megaKey!)"
                   [attr.aria-expanded]="megaMenuOpen() === link.megaKey"
                   aria-haspopup="true"
@@ -84,88 +83,50 @@
           }
         </svg>
       </button>
+    </div>
 
-      <!-- ABOUT DLD MEGA-MENU -->
-      @if (megaMenuOpen() === 'about') {
-        <div class="mega-menu" role="dialog" aria-label="About DLD navigation" (mouseleave)="closeMegaMenu()">
-          <div class="mega-header">
-            <strong class="mega-title">About DLD</strong>
-            <span class="mega-tagline">Learn who we are, our leadership and our partnerships.</span>
-          </div>
-          <div class="mega-cols">
-            <!-- Col 1: Who We Are -->
-            <div class="mega-col">
-              <div class="mega-col-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="24" height="24">
-                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <h3 class="mega-col-title">Who We Are</h3>
-              <p class="mega-col-caption">Discover DLD</p>
-              <ul class="mega-link-list">
-                <li><a routerLink="/about-dld" fragment="about" class="mega-link" (click)="closeMegaMenu()">About DLD</a></li>
-                <li><a routerLink="/about-dld" fragment="values" class="mega-link" (click)="closeMegaMenu()">Values</a></li>
-                <li><a routerLink="/about-dld" fragment="vision" class="mega-link" (click)="closeMegaMenu()">Vision</a></li>
-                <li><a routerLink="/about-dld" fragment="mission" class="mega-link" (click)="closeMegaMenu()">Mission</a></li>
-                <li><a routerLink="/about-dld" fragment="strategic-map" class="mega-link" (click)="closeMegaMenu()">Strategic Map</a></li>
-                <li><a routerLink="/about-dld" fragment="achievements" class="mega-link" (click)="closeMegaMenu()">Our Achievements</a></li>
-              </ul>
-              <a routerLink="/about-dld" class="mega-full-link" (click)="closeMegaMenu()">
-                Full Details
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true">
-                  <path d="M2 8h12m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
+    <!-- MEGA MENUS: full-width, outside container, inside header-transparent -->
+    @for (link of navLinks; track link.megaKey) {
+      @if (link.megaKey && megaMenuOpen() === link.megaKey && link.megaMenu) {
+        <div class="mega-menu" role="dialog" [attr.aria-label]="link.megaMenu.title + ' navigation'" (mouseleave)="closeMegaMenu()">
+          <div class="container-xxl mega-inner">
+            <div class="mega-header">
+              <strong class="mega-title">{{ link.megaMenu.title }}</strong>
+              <span class="mega-tagline">{{ link.megaMenu.tagline }}</span>
             </div>
-
-            <!-- Col 2: Leadership & Organization -->
-            <div class="mega-col">
-              <div class="mega-col-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="24" height="24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <h3 class="mega-col-title">Leadership &amp; Organization</h3>
-              <p class="mega-col-caption">How we are led</p>
-              <ul class="mega-link-list">
-                <li><a routerLink="/about-dld/leadership" fragment="messages" class="mega-link" (click)="closeMegaMenu()">Management's Message</a></li>
-                <li><a routerLink="/about-dld/leadership" fragment="org-chart" class="mega-link" (click)="closeMegaMenu()">Organization Chart</a></li>
-              </ul>
-              <a routerLink="/about-dld/leadership" class="mega-full-link" (click)="closeMegaMenu()">
-                Full Details
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true">
-                  <path d="M2 8h12m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            </div>
-
-            <!-- Col 3: Partnership & International Relations -->
-            <div class="mega-col">
-              <div class="mega-col-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="24" height="24">
-                  <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <h3 class="mega-col-title">Partnership &amp; International Relations</h3>
-              <p class="mega-col-caption">Our network</p>
-              <ul class="mega-link-list">
-                <li><a routerLink="/about-dld/partnerships" fragment="commitment" class="mega-link" (click)="closeMegaMenu()">Partnership</a></li>
-                <li><a routerLink="/about-dld/partnerships" fragment="contact" class="mega-link" (click)="closeMegaMenu()">Contact the Partnerships Team</a></li>
-                <li><a routerLink="/about-dld/partnerships" fragment="partners" class="mega-link" (click)="closeMegaMenu()">Our Partners</a></li>
-              </ul>
-              <a routerLink="/about-dld/partnerships" class="mega-full-link" (click)="closeMegaMenu()">
-                Full Details
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true">
-                  <path d="M2 8h12m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
+            <div class="mega-cols">
+              @for (col of link.megaMenu.columns; track col.title) {
+                <div class="mega-col">
+                  <div class="mega-col-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="24" height="24">
+                      <path [attr.d]="col.iconPath" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 class="mega-col-title">{{ col.title }}</h3>
+                  <p class="mega-col-caption">{{ col.caption }}</p>
+                  <ul class="mega-link-list">
+                    @for (item of col.links; track item.label) {
+                      <li>
+                        <a [routerLink]="item.routerLink" [fragment]="item.fragment" class="mega-link" (click)="closeMegaMenu()">
+                          {{ item.label }}
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                  <a [routerLink]="col.fullLink" class="mega-full-link" (click)="closeMegaMenu()">
+                    {{ col.fullLinkLabel ?? 'Full Details' }}
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true">
+                      <path d="M2 8h12m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
+              }
             </div>
           </div>
         </div>
       }
-    </div>
+    }
+
   </div>
 
   <!-- PILL STATE -->
@@ -236,19 +197,19 @@
        role="dialog" aria-modal="true" [attr.aria-hidden]="!isMenuOpen()" aria-label="Navigation menu">
     <ul role="list" class="offcanvas-list">
       @for (link of navLinks; track link.path) {
-        @if (link.megaKey === 'about') {
+        @if (link.megaMenu) {
           <li class="offcanvas-group">
-            <button class="offcanvas-link offcanvas-toggle" (click)="toggleMegaMenu('about')" [attr.aria-expanded]="megaMenuOpen() === 'about'" type="button">
+            <button class="offcanvas-link offcanvas-toggle" (click)="toggleMegaMenu(link.megaKey!)" [attr.aria-expanded]="megaMenuOpen() === link.megaKey" type="button">
               {{ link.label }}
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true" [class.rotated]="megaMenuOpen() === 'about'">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true" [class.rotated]="megaMenuOpen() === link.megaKey">
                 <path d="M2 5l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-            @if (megaMenuOpen() === 'about') {
+            @if (megaMenuOpen() === link.megaKey) {
               <ul class="offcanvas-sub" role="list">
-                <li><a routerLink="/about-dld" class="offcanvas-sub-link" (click)="closeMenu(); closeMegaMenu()">Who We Are</a></li>
-                <li><a routerLink="/about-dld/leadership" class="offcanvas-sub-link" (click)="closeMenu(); closeMegaMenu()">Leadership &amp; Organization</a></li>
-                <li><a routerLink="/about-dld/partnerships" class="offcanvas-sub-link" (click)="closeMenu(); closeMegaMenu()">Partnership &amp; International Relations</a></li>
+                @for (col of link.megaMenu.columns; track col.title) {
+                  <li><a [routerLink]="col.fullLink" class="offcanvas-sub-link" (click)="closeMenu(); closeMegaMenu()">{{ col.title }}</a></li>
+                }
               </ul>
             }
           </li>

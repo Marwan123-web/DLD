@@ -1,0 +1,213 @@
+// ─── Article hero ──────────────────────────────────────────────────────────────
+.article-hero {
+  position: relative;
+  height: 480px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+  }
+}
+
+.article-hero-content {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  padding: var(--space-8) var(--space-6);
+  z-index: 1;
+  max-width: 1400px;
+  margin-inline: auto;
+}
+
+.article-breadcrumb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.75rem;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.85);
+  margin-block-end: var(--space-4);
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .sep {
+    opacity: 0.6;
+  }
+
+  .current {
+    color: #fff;
+    font-weight: var(--weight-medium);
+  }
+}
+
+.article-hero-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: var(--weight-bold);
+  color: #fff;
+  margin: 0 0 var(--space-4);
+  line-height: 1.2;
+  max-width: 800px;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  time {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .article-cat {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+// ─── Article body ──────────────────────────────────────────────────────────────
+.article-body {
+  padding-block: var(--space-12);
+  background: var(--color-white);
+}
+
+.article-content {
+  max-width: 740px;
+  margin-inline: auto;
+
+  p {
+    font-size: var(--text-base);
+    line-height: 1.8;
+    color: var(--color-body);
+    margin-block-end: var(--space-5);
+  }
+
+  h3 {
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    color: var(--color-heading);
+    margin-block: var(--space-8) var(--space-4);
+  }
+}
+
+// ─── Section title ─────────────────────────────────────────────────────────────
+.section-title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  margin: 0;
+}
+
+// ─── Related articles ──────────────────────────────────────────────────────────
+.related-section {
+  padding-block: var(--space-12);
+  background: var(--color-bg);
+}
+
+.related-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block: var(--space-4) var(--space-6);
+}
+
+.tag-pill {
+  padding: 0.3rem 0.875rem;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-base);
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-block-end: var(--space-8);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.show-more-wrap {
+  text-align: center;
+}
+
+.btn-show-more {
+  display: inline-block;
+  padding: 0.625rem 2rem;
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+
+  &:hover {
+    background: var(--color-primary);
+    color: #fff;
+  }
+}
+
+// ─── Not found state ────────────────────────────────────────────────────────────
+.not-found-state {
+  padding-block: var(--space-20);
+  text-align: center;
+}
+
+.not-found-msg {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  margin-block-end: var(--space-4);
+}
+
+.back-link {
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

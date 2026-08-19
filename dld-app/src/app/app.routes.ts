@@ -35,6 +35,35 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'news-media',
+    children: [
+      {
+        path: 'latest-news',
+        loadComponent: () =>
+          import('./features/news-media/latest-news/latest-news.component').then(
+            m => m.LatestNewsComponent
+          ),
+        title: 'Latest News | Dubai Land Department',
+      },
+      {
+        path: 'article/:id',
+        loadComponent: () =>
+          import('./features/news-media/article-detail/article-detail.component').then(
+            m => m.ArticleDetailComponent
+          ),
+        title: 'Article | Dubai Land Department',
+      },
+      {
+        path: 'announcements',
+        loadComponent: () =>
+          import('./features/news-media/announcements/announcements.component').then(
+            m => m.AnnouncementsComponent
+          ),
+        title: 'Announcements & Initiatives | Dubai Land Department',
+      },
+    ],
+  },
+  {
     path: 'news',
     children: [
       {

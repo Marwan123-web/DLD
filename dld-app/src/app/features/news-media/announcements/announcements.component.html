@@ -1,0 +1,187 @@
+<main id="main-content">
+
+  <!-- Page title area -->
+  <div class="page-title-area">
+    <div class="container-xxl">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a routerLink="/news-media/announcements">News &amp; Media</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span class="current" aria-current="page">Announcements</span>
+      </nav>
+      <h1 class="page-h1">Announcements</h1>
+      <p class="page-subtitle">Discover the latest events and insights shaping Dubai's real estate landscape.</p>
+    </div>
+  </div>
+
+  <!-- Featured announcement -->
+  <section class="featured-section" aria-labelledby="featured-ann-heading">
+    <div class="container-xxl">
+      <div class="featured-announcement">
+        <img
+          [src]="featuredAnnouncement.imageUrl"
+          [alt]="featuredAnnouncement.title"
+          loading="eager"
+        />
+        <div class="announcement-content">
+          <h2 id="featured-ann-heading" class="announcement-title">{{ featuredAnnouncement.title }}</h2>
+          <a
+            [routerLink]="['/news-media/article', featuredAnnouncement.id]"
+            class="announcement-arrow"
+            [attr.aria-label]="'Read announcement: ' + featuredAnnouncement.title"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Initiatives section -->
+  <section class="initiatives-section" aria-labelledby="initiatives-heading">
+    <div class="container-xxl">
+      <div class="section-intro">
+        <h2 id="initiatives-heading" class="section-title">Initiatives</h2>
+        <p class="section-subtitle">Explore all of our news and stay updated</p>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar" role="search" aria-label="Filter initiatives">
+        <input
+          type="search"
+          class="filter-input"
+          placeholder="Search"
+          aria-label="Search initiatives"
+          (input)="onSearch($event)"
+        />
+        <input
+          type="date"
+          class="filter-input"
+          placeholder="Open From"
+          aria-label="Date from"
+          (change)="onDateFrom($event)"
+        />
+        <input
+          type="date"
+          class="filter-input"
+          placeholder="Open To"
+          aria-label="Date to"
+          (change)="onDateTo($event)"
+        />
+        <select
+          class="filter-input filter-select"
+          aria-label="Filter by category"
+          (change)="setCategory($any($event.target).value)"
+        >
+          @for (cat of categories; track cat) {
+            <option [value]="cat">{{ cat === 'all' ? 'Categories' : cat }}</option>
+          }
+        </select>
+        <button class="filter-btn" type="button" (click)="applyFilters()" aria-label="Apply filters">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filter
+        </button>
+      </div>
+
+      <!-- Initiatives grid -->
+      <div class="initiatives-grid" role="list" aria-label="Initiatives">
+        @for (item of pagedInitiatives(); track item.id) {
+          <article class="initiative-card" role="listitem">
+            <div class="initiative-img-wrap">
+              <img [src]="item.imageUrl" [alt]="item.title" loading="lazy" class="initiative-img" />
+              <span class="initiative-category">{{ item.category }}</span>
+            </div>
+            <div class="initiative-body">
+              <time class="initiative-date" [attr.datetime]="item.date">{{ item.date | date:'d MMM yyyy' }}</time>
+              <h3 class="initiative-title">{{ item.title }}</h3>
+              <p class="initiative-excerpt">{{ item.excerpt }}</p>
+              <a [routerLink]="['/news-media/article', item.id]" class="initiative-link">
+                View Details
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        } @empty {
+          <p class="no-results" role="status">No initiatives found matching your criteria.</p>
+        }
+      </div>
+
+      <!-- Pagination row -->
+      @if (totalResults() > 0) {
+        <div class="pagination-row" aria-label="Pagination">
+          <span class="pagination-info">
+            Showing {{ showingFrom() }} to {{ showingTo() }} of {{ totalResults() }} Results
+          </span>
+
+          <div class="page-numbers" role="list" aria-label="Page numbers">
+            <button
+              class="page-btn"
+              [disabled]="currentPage() === 1"
+              (click)="setPage(currentPage() - 1)"
+              aria-label="Previous page"
+              role="listitem"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+
+            @for (page of pageNumbers(); track page) {
+              <button
+                class="page-btn"
+                [class.active]="currentPage() === page"
+                (click)="setPage(page)"
+                [attr.aria-label]="'Page ' + page"
+                [attr.aria-current]="currentPage() === page ? 'page' : null"
+                role="listitem"
+              >{{ page }}</button>
+            }
+
+            <button
+              class="page-btn"
+              [disabled]="currentPage() === totalPages()"
+              (click)="setPage(currentPage() + 1)"
+              aria-label="Next page"
+              role="listitem"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="pagination-controls">
+            <select
+              class="page-select"
+              aria-label="Results per page"
+              disabled
+            >
+              <option value="6">6 per page</option>
+            </select>
+            <label class="goto-label" for="ann-goto-page">Go to Page</label>
+            <input
+              id="ann-goto-page"
+              type="number"
+              class="goto-input"
+              [min]="1"
+              [max]="totalPages()"
+              [placeholder]="currentPage().toString()"
+              aria-label="Go to page number"
+              (change)="goToPage($event)"
+            />
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <app-partners-section />
+
+</main>

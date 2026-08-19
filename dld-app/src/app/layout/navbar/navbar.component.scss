@@ -28,6 +28,7 @@
 }
 
 .header-transparent {
+  position: relative;
   transition: opacity var(--transition-slow), transform var(--transition-slow);
 }
 
@@ -80,10 +81,22 @@
   transition: color var(--transition-base), border-color var(--transition-base);
   white-space: nowrap; cursor: pointer;
 
-  &:hover, &.active-t {
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    border-block-end-color: transparent;
+  }
+
+  &.active-t {
     color: #fff;
     border-block-end-color: var(--color-primary);
   }
+}
+
+.mega-open {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-block-end-color: var(--color-primary) !important;
 }
 
 .nav-utils-t {
@@ -294,21 +307,24 @@
 
 .mega-menu {
   position: absolute;
-  top: calc(100% + 4px);
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
-  width: min(960px, calc(100vw - 2rem));
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
   background: #fff;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-dropdown);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   z-index: 500;
-  padding: var(--space-6);
   animation: megaFadeIn 150ms ease;
+  border-block-start: 2px solid var(--color-primary);
+}
+
+.mega-inner {
+  padding: var(--space-6) 1rem;
 }
 
 @keyframes megaFadeIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .mega-header {
@@ -449,5 +465,4 @@
   &:hover { color: #fff; }
 }
 
-// Pill state: active mega-menu trigger
-.mega-open { color: var(--color-primary) !important; }
+// Pill state: active mega-menu trigger (styles handled by .mega-open rule near .nav-link-t)

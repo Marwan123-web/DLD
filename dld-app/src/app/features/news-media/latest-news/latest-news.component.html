@@ -1,0 +1,177 @@
+<main id="main-content">
+
+  <!-- Page title area -->
+  <div class="page-title-area">
+    <div class="container-xxl">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a routerLink="/news-media/latest-news">News &amp; Media</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span class="current" aria-current="page">Latest News</span>
+      </nav>
+      <h1 class="page-h1">Latest News</h1>
+      <p class="page-subtitle">Stay updated with the latest developments in Dubai's real estate sector.</p>
+    </div>
+  </div>
+
+  <!-- Featured carousel -->
+  <section class="featured-section" aria-labelledby="featured-heading">
+    <div class="container-xxl">
+      <div class="section-intro">
+        <span class="section-label">Featured</span>
+        <h2 id="featured-heading" class="section-title">Top Stories</h2>
+      </div>
+      <div class="featured-carousel" role="list" aria-label="Featured news articles">
+        @for (article of featured; track article.id) {
+          <div class="featured-slide" role="listitem">
+            <img [src]="article.imageUrl" [alt]="article.title" loading="eager" />
+            <div class="slide-content">
+              <h3 class="slide-title">{{ article.title }}</h3>
+              <a
+                [routerLink]="['/news-media/article', article.id]"
+                class="slide-arrow"
+                [attr.aria-label]="'Read article: ' + article.title"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- All News section -->
+  <section class="all-news-section" aria-labelledby="all-news-heading">
+    <div class="container-xxl">
+      <div class="section-intro">
+        <span class="section-label">All News</span>
+        <h2 id="all-news-heading" class="section-title">Explore all of our news and stay updated</h2>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar" role="search" aria-label="Filter articles">
+        <input
+          type="search"
+          class="filter-input"
+          placeholder="Search"
+          aria-label="Search articles"
+          (input)="onSearch($event)"
+        />
+        <input
+          type="date"
+          class="filter-input"
+          placeholder="Open From"
+          aria-label="Date from"
+          (change)="onDateFrom($event)"
+        />
+        <input
+          type="date"
+          class="filter-input"
+          placeholder="Open To"
+          aria-label="Date to"
+          (change)="onDateTo($event)"
+        />
+        <select
+          class="filter-input filter-select"
+          aria-label="Filter by category"
+          (change)="setCategory($any($event.target).value)"
+        >
+          @for (cat of categories; track cat) {
+            <option [value]="cat">{{ cat === 'all' ? 'Categories' : cat }}</option>
+          }
+        </select>
+        <button class="filter-btn" type="button" (click)="applyFilters()" aria-label="Apply filters">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filter
+        </button>
+      </div>
+
+      <!-- News grid -->
+      <div class="news-grid" role="list" aria-label="News articles">
+        @for (article of pagedArticles(); track article.id) {
+          <div role="listitem">
+            <app-news-card [article]="article" variant="hero" />
+          </div>
+        } @empty {
+          <p class="no-results" role="status">No articles found matching your criteria.</p>
+        }
+      </div>
+
+      <!-- Pagination row -->
+      @if (totalResults() > 0) {
+        <div class="pagination-row" aria-label="Pagination">
+          <span class="pagination-info">
+            Showing {{ showingFrom() }} to {{ showingTo() }} of {{ totalResults() }} Results
+          </span>
+
+          <div class="page-numbers" role="list" aria-label="Page numbers">
+            <button
+              class="page-btn"
+              [disabled]="currentPage() === 1"
+              (click)="setPage(currentPage() - 1)"
+              aria-label="Previous page"
+              role="listitem"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+
+            @for (page of pageNumbers(); track page) {
+              <button
+                class="page-btn"
+                [class.active]="currentPage() === page"
+                (click)="setPage(page)"
+                [attr.aria-label]="'Page ' + page"
+                [attr.aria-current]="currentPage() === page ? 'page' : null"
+                role="listitem"
+              >{{ page }}</button>
+            }
+
+            <button
+              class="page-btn"
+              [disabled]="currentPage() === totalPages()"
+              (click)="setPage(currentPage() + 1)"
+              aria-label="Next page"
+              role="listitem"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="pagination-controls">
+            <select
+              class="page-select"
+              aria-label="Results per page"
+              disabled
+            >
+              <option value="6">6 per page</option>
+            </select>
+            <label class="goto-label" for="goto-page">Go to Page</label>
+            <input
+              id="goto-page"
+              type="number"
+              class="goto-input"
+              [min]="1"
+              [max]="totalPages()"
+              [placeholder]="currentPage().toString()"
+              aria-label="Go to page number"
+              (change)="goToPage($event)"
+            />
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <app-partners-section />
+
+</main>
