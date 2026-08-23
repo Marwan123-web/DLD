@@ -18,27 +18,15 @@
   <!-- Featured carousel -->
   <section class="featured-section" aria-labelledby="featured-heading">
     <div class="main-container">
-      <div class="section-intro">
-        <span class="section-label">{{ tr.t('news.featured_label') }}</span>
-        <h2 id="featured-heading" class="section-title">{{ tr.t('news.top_stories') }}</h2>
-      </div>
       <div class="featured-grid" role="list" aria-label="Featured news articles">
         @for (article of featured; track article.id) {
-          <div class="featured-slide" role="listitem">
-            <img [src]="article.imageUrl" [alt]="article.title" loading="eager" />
-            <div class="slide-content">
-              <h3 class="slide-title">{{ article.title }}</h3>
-              <a
-                [routerLink]="['/news-media/article', article.id]"
-                class="slide-arrow"
-                [attr.aria-label]="'Read article: ' + article.title"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" class="rtl-flip">
-                  <path d="M9 18l6-6-6-6"/>
-                </svg>
-              </a>
-            </div>
+        <div class="featured-slide" role="listitem">
+          <img [src]="article.imageUrl" [alt]="article.title" loading="eager" />
+          <div class="slide-content">
+            <h3 class="slide-title">{{ article.title }}</h3>
+            <span class="slide-desc">Transaction volume increases by 24% compared to previous quarter.</span>
           </div>
+        </div>
         }
       </div>
     </div>
@@ -48,40 +36,22 @@
   <section class="all-news-section" aria-labelledby="all-news-heading">
     <div class="main-container">
       <div class="section-intro">
-        <span class="section-label">{{ tr.t('news.all_title') }}</span>
-        <h2 id="all-news-heading" class="section-title">{{ tr.t('news.all_subtitle') }}</h2>
+        <h1 class="page-h1">{{ tr.t('news.all_title') }}</h1>
+        <p class="page-subtitle">{{ tr.t('news.all_subtitle') }}</p>
       </div>
 
       <!-- Filter bar -->
       <div class="filter-bar" role="search" [attr.aria-label]="tr.t('news.filter_search')">
-        <input
-          type="search"
-          class="filter-input"
-          [placeholder]="tr.t('news.filter_search')"
-          [attr.aria-label]="tr.t('news.filter_search')"
-          (input)="onSearch($event)"
-        />
-        <input
-          type="date"
-          class="filter-input"
-          [placeholder]="tr.t('news.filter_date_from')"
-          [attr.aria-label]="tr.t('news.filter_date_from')"
-          (change)="onDateFrom($event)"
-        />
-        <input
-          type="date"
-          class="filter-input"
-          [placeholder]="tr.t('news.filter_date_to')"
-          [attr.aria-label]="tr.t('news.filter_date_to')"
-          (change)="onDateTo($event)"
-        />
-        <select
-          class="filter-input filter-select"
-          [attr.aria-label]="tr.t('news.filter_categories')"
-          (change)="setCategory($any($event.target).value)"
-        >
+        <input type="search" class="filter-input" [placeholder]="tr.t('news.filter_search')"
+          [attr.aria-label]="tr.t('news.filter_search')" (input)="onSearch($event)" />
+        <input type="date" class="filter-input" [placeholder]="tr.t('news.filter_date_from')"
+          [attr.aria-label]="tr.t('news.filter_date_from')" (change)="onDateFrom($event)" />
+        <input type="date" class="filter-input" [placeholder]="tr.t('news.filter_date_to')"
+          [attr.aria-label]="tr.t('news.filter_date_to')" (change)="onDateTo($event)" />
+        <select class="filter-input filter-select" [attr.aria-label]="tr.t('news.filter_categories')"
+          (change)="setCategory($any($event.target).value)">
           @for (cat of categories; track cat) {
-            <option [value]="cat">{{ cat === 'all' ? tr.t('news.filter_categories') : cat }}</option>
+          <option [value]="cat">{{ cat === 'all' ? tr.t('news.filter_categories') : cat }}</option>
           }
         </select>
       </div>
@@ -89,79 +59,54 @@
       <!-- News grid -->
       <div class="news-grid" role="list" aria-label="News articles">
         @for (article of pagedArticles(); track article.id) {
-          <div role="listitem">
-            <app-news-card [article]="article" variant="hero" />
-          </div>
+        <div role="listitem">
+          <app-news-card [article]="article" variant="hero" />
+        </div>
         } @empty {
-          <p class="no-results" role="status">{{ tr.t('news.no_results') }}</p>
+        <p class="no-results" role="status">{{ tr.t('news.no_results') }}</p>
         }
       </div>
 
       <!-- Pagination row -->
       @if (totalResults() > 0) {
-        <div class="pagination-row" aria-label="Pagination">
-          <span class="pagination-info">
-            {{ tr.tInterp('news.showing', { from: showingFrom(), to: showingTo(), total: totalResults() }) }}
-          </span>
+      <div class="pagination-row" aria-label="Pagination">
+        <span class="pagination-info">
+          {{ tr.tInterp('news.showing', { from: showingFrom(), to: showingTo(), total: totalResults() }) }}
+        </span>
 
-          <div class="page-numbers" role="list" aria-label="Page numbers">
-            <button
-              class="page-btn"
-              [disabled]="currentPage() === 1"
-              (click)="setPage(currentPage() - 1)"
-              aria-label="Previous page"
-              role="listitem"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" class="rtl-flip">
-                <path d="M15 18l-6-6 6-6"/>
-              </svg>
-            </button>
+        <div class="page-numbers" role="list" aria-label="Page numbers">
+          <button class="page-btn" [disabled]="currentPage() === 1" (click)="setPage(currentPage() - 1)"
+            aria-label="Previous page" role="listitem">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              aria-hidden="true" class="rtl-flip">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
 
-            @for (page of pageNumbers(); track page) {
-              <button
-                class="page-btn"
-                [class.active]="currentPage() === page"
-                (click)="setPage(page)"
-                [attr.aria-label]="'Page ' + page"
-                [attr.aria-current]="currentPage() === page ? 'page' : null"
-                role="listitem"
-              >{{ page }}</button>
-            }
+          @for (page of pageNumbers(); track page) {
+          <button class="page-btn" [class.active]="currentPage() === page" (click)="setPage(page)"
+            [attr.aria-label]="'Page ' + page" [attr.aria-current]="currentPage() === page ? 'page' : null"
+            role="listitem">{{ page }}</button>
+          }
 
-            <button
-              class="page-btn"
-              [disabled]="currentPage() === totalPages()"
-              (click)="setPage(currentPage() + 1)"
-              aria-label="Next page"
-              role="listitem"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" class="rtl-flip">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
-            </button>
-          </div>
-
-          <div class="pagination-controls">
-            <select
-              class="page-select"
-              aria-label="Results per page"
-              disabled
-            >
-              <option value="6">6 {{ tr.t('news.per_page') }}</option>
-            </select>
-            <label class="goto-label" for="goto-page">{{ tr.t('news.go_to_page') }}</label>
-            <input
-              id="goto-page"
-              type="number"
-              class="goto-input"
-              [min]="1"
-              [max]="totalPages()"
-              [placeholder]="currentPage().toString()"
-              aria-label="Go to page number"
-              (change)="goToPage($event)"
-            />
-          </div>
+          <button class="page-btn" [disabled]="currentPage() === totalPages()" (click)="setPage(currentPage() + 1)"
+            aria-label="Next page" role="listitem">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              aria-hidden="true" class="rtl-flip">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
+
+        <div class="pagination-controls">
+          <select class="page-select" aria-label="Results per page" disabled>
+            <option value="6">6 {{ tr.t('news.per_page') }}</option>
+          </select>
+          <label class="goto-label" for="goto-page">{{ tr.t('news.go_to_page') }}</label>
+          <input id="goto-page" type="number" class="goto-input" [min]="1" [max]="totalPages()"
+            [placeholder]="currentPage().toString()" aria-label="Go to page number" (change)="goToPage($event)" />
+        </div>
+      </div>
       }
     </div>
   </section>
