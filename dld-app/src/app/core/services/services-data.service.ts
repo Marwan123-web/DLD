@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 import { ServiceCard } from '../models/service-card.model';
+import { adaptServiceItems, RawServiceItem } from '../adapters/service.adapter';
+import { BackendUrls } from '../constants/backend-urls.constants';
+import { BaseService } from './base.service';
 
 // TODO(backend): Replace mock data with DLD Services API response mapped through ServiceAdapter.
 const MOCK_SERVICES: ServiceCard[] = [
@@ -26,13 +31,28 @@ const MOCK_SERVICES: ServiceCard[] = [
   { id: 'service-chg',    iconName: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',           title: 'Service Charge Index',                description: 'Find out service charge rates for your building and community',             category: 'tenant'  as const, linkUrl: '#' },
 ];
 
+const MOCK_SERVICE_ITEMS: RawServiceItem[] = MOCK_SERVICES.map(service => ({
+  id: service.id,
+  name: service.title,
+  description: service.description,
+  icon: service.iconName,
+  url: service.linkUrl,
+  audience: service.category,
+}));
+
 @Injectable({ providedIn: 'root' })
-export class ServicesDataService {
-  getByCategory(category: ServiceCard['category']): ServiceCard[] {
-    return MOCK_SERVICES.filter(s => s.category === category);
+export class ServicesDataService extends BaseService<ServiceCard> {
+  constructor() {
+    super(BackendUrls.services, MOCK_SERVICE_ITEMS);
   }
 
-  getPopular(limit = 6): ServiceCard[] {
-    return this.getByCategory('popular').slice(0, limit);
+  getByCategory(category: ServiceCard['category']): Observable<ServiceCard[]> {
+    return this.api
+      .get<RawServiceItem[]>(BackendUrls.services, new HttpParams().set('audience', category))
+      .pipe(map(adaptServiceItems));
+  }
+
+  getPopular(limit = 6): Observable<ServiceCard[]> {
+    return this.getByCategory('popular').pipe(map(services => services.slice(0, limit)));
   }
 }

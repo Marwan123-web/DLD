@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Initiative } from '../models/initiative.model';
+import { BackendUrls } from '../constants/backend-urls.constants';
+import { BaseService } from './base.service';
 
 // TODO(backend): Replace with DLD Initiatives API response via InitiativeAdapter.
 const MOCK_INITIATIVES: Initiative[] = [
@@ -46,8 +48,8 @@ const MOCK_INITIATIVES: Initiative[] = [
 ];
 
 @Injectable({ providedIn: 'root' })
-export class InitiativesService {
-  getAll(): Initiative[] {
-    return MOCK_INITIATIVES;
+export class InitiativesService extends BaseService<Initiative> {
+  constructor() {
+    super(BackendUrls.initiatives, MOCK_INITIATIVES);
   }
 }

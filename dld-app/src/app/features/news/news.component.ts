@@ -35,7 +35,7 @@ const CATEGORY_LABELS: Record<string, string> = {
             <h2 id="featured-heading" class="section-title">Top Stories</h2>
           </div>
           <div class="featured-grid" role="list">
-            @for (article of svc.featured; track article.id) {
+            @for (article of svc.featured(); track article.id) {
               <div role="listitem">
                 <app-news-card [article]="article" variant="hero" />
               </div>
@@ -55,7 +55,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
             <!-- Category filter -->
             <div class="cat-filters" role="list" aria-label="Filter by category">
-              @for (cat of categories; track cat) {
+              @for (cat of categories(); track cat) {
                 <button
                   class="cat-btn"
                   [class.active]="activeCategory() === cat"
@@ -100,13 +100,17 @@ export class NewsComponent {
     { label: 'News and Media' },
   ];
 
-  readonly categories = this.svc.getCategories();
+  readonly categories = computed(() => this.svc.getCategories());
   readonly activeCategory = signal('all');
   private readonly _shownCount = signal(6);
 
   readonly filteredAll = computed<NewsArticle[]>(() =>
     this.svc.getByCategory(this.activeCategory())
   );
+
+  constructor() {
+    this.svc.load();
+  }
 
   readonly filteredTotal = computed(() => this.filteredAll().length);
 

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { StatItem } from '../models/stat-item.model';
+import { BackendUrls } from '../constants/backend-urls.constants';
+import { BaseService } from './base.service';
 
 // TODO(backend): Replace with DLD KPI API. ⚠️ AMBIGUITY: exact values inferred from screenshots.
 const MOCK_ACHIEVEMENTS: StatItem[] = [
@@ -16,7 +19,18 @@ const MOCK_STATS_BAR: StatItem[] = [
 ];
 
 @Injectable({ providedIn: 'root' })
-export class AchievementsService {
-  getAchievements(): StatItem[] { return MOCK_ACHIEVEMENTS; }
-  getStatsBar(): StatItem[]     { return MOCK_STATS_BAR; }
+export class AchievementsService extends BaseService<StatItem> {
+  constructor() {
+    super(BackendUrls.achievements, MOCK_ACHIEVEMENTS);
+    this.registerMockResource(`${BackendUrls.achievements}/summary`, MOCK_ACHIEVEMENTS);
+    this.registerMockResource(`${BackendUrls.achievements}/stats-bar`, MOCK_STATS_BAR);
+  }
+
+  getAchievements(): Observable<StatItem[]> {
+    return this.api.get<StatItem[]>(`${BackendUrls.achievements}/summary`);
+  }
+
+  getStatsBar(): Observable<StatItem[]> {
+    return this.api.get<StatItem[]>(`${BackendUrls.achievements}/stats-bar`);
+  }
 }

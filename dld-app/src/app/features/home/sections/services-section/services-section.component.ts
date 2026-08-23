@@ -118,19 +118,30 @@ export class ServicesSectionComponent {
   readonly activeTab = signal<ServiceCard['category']>('popular');
   readonly showAll = signal(false);
 
+  constructor() {
+    this.loadCategory(this.activeTab());
+  }
+
+  readonly cards = signal<ServiceCard[]>([]);
+
   readonly visibleCards = () => {
-    const all = this.svc.getByCategory(this.activeTab());
+    const all = this.cards();
     return this.showAll() ? all : all.slice(0, 6);
   };
 
   readonly hasMore = () => {
-    const all = this.svc.getByCategory(this.activeTab());
+    const all = this.cards();
     return !this.showAll() && all.length > 6;
   };
 
   onTabChange(id: string): void {
     this.activeTab.set(id as ServiceCard['category']);
     this.showAll.set(false);
+    this.loadCategory(this.activeTab());
+  }
+
+  private loadCategory(category: ServiceCard['category']): void {
+    this.svc.getByCategory(category).subscribe(cards => this.cards.set(cards));
   }
 
   viewMore(): void {

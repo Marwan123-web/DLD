@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LeaderProfile } from '../models/leader-profile.model';
+import { BackendUrls } from '../constants/backend-urls.constants';
+import { BaseService } from './base.service';
 
 // TODO(backend): Replace with DLD Leadership API response.
 const MOCK_LEADERS: LeaderProfile[] = [
@@ -42,8 +44,8 @@ const MOCK_LEADERS: LeaderProfile[] = [
 ];
 
 @Injectable({ providedIn: 'root' })
-export class LeadersService {
-  getAll(): LeaderProfile[] {
-    return MOCK_LEADERS;
+export class LeadersService extends BaseService<LeaderProfile> {
+  constructor() {
+    super(BackendUrls.leaders, MOCK_LEADERS);
   }
 }

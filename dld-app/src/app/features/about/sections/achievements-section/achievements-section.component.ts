@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { AchievementsService } from '../../../../core/services/achievements.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { AchievementsService } from '../../../../core/services/achievements.serv
         </div>
 
         <div class="ach-grid" role="list">
-          @for (stat of stats; track stat.label) {
+          @for (stat of stats(); track stat.label) {
             <div class="ach-card" role="listitem">
               <span class="ach-value">{{ stat.value }}</span>
               <span class="ach-label-text">{{ stat.label }}</span>
@@ -28,5 +29,5 @@ import { AchievementsService } from '../../../../core/services/achievements.serv
 })
 export class AchievementsSectionComponent {
   private readonly svc = inject(AchievementsService);
-  readonly stats = this.svc.getAchievements();
+  readonly stats = toSignal(this.svc.getAchievements(), { initialValue: [] });
 }

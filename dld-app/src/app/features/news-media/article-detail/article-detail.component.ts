@@ -28,17 +28,17 @@ export class ArticleDetailComponent {
 
   readonly article = computed(() => {
     const id = this.articleId();
-    return this.svc.allArticles.find(a => a.id === id) ?? null;
+    return this.svc.allArticles().find(a => a.id === id) ?? null;
   });
 
   readonly relatedArticles = computed(() => {
     const current = this.article();
-    if (!current) return this.svc.allArticles.slice(0, 3);
-    return this.svc.allArticles
+    if (!current) return this.svc.allArticles().slice(0, 3);
+    return this.svc.allArticles()
       .filter(a => a.id !== current.id && a.category === current.category)
       .slice(0, 3)
       .concat(
-        this.svc.allArticles.filter(
+        this.svc.allArticles().filter(
           a => a.id !== current.id && a.category !== current.category
         )
       )
