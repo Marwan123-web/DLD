@@ -20,7 +20,7 @@ export class LatestNewsComponent {
   readonly tr = inject(TranslationService);
 
   readonly featured = this.svc.featured;
-  readonly categories = this.svc.getCategories();
+  readonly categories = computed(() => this.svc.getCategories());
 
   readonly searchQuery = signal('');
   readonly selectedCategory = signal('all');
@@ -34,7 +34,7 @@ export class LatestNewsComponent {
     const from = this.dateFrom();
     const to = this.dateTo();
 
-    return this.svc.allArticles.filter(a => {
+    return this.svc.allArticles().filter(a => {
       const matchesCat = cat === 'all' || a.category === cat;
       const matchesSearch = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q);
       const matchesFrom = !from || a.date >= from;

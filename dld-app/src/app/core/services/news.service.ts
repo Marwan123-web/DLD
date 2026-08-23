@@ -1,5 +1,10 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 import { NewsArticle } from '../models/news-article.model';
+import { adaptNewsItem, adaptNewsItems, RawNewsItem } from '../adapters/news.adapter';
+import { BackendUrls } from '../constants/backend-urls.constants';
+import { BaseService } from './base.service';
 
 // TODO(backend): Replace with DLD News API via NewsAdapter.
 const ALL_ARTICLES: NewsArticle[] = [
@@ -68,32 +73,65 @@ const ALL_ARTICLES: NewsArticle[] = [
   },
 ];
 
+const MOCK_NEWS_ITEMS: RawNewsItem[] = ALL_ARTICLES.map(article => ({
+  id: article.id,
+  slug: article.slug,
+  title: article.title,
+  summary: article.excerpt,
+  thumbnail: article.imageUrl,
+  published_at: article.date,
+  category: article.category,
+}));
+
 const PAGE_SIZE = 6;
 
 @Injectable({ providedIn: 'root' })
-export class NewsService {
+export class NewsService extends BaseService<NewsArticle, Partial<NewsArticle>, Partial<NewsArticle>, string, RawNewsItem> {
+  private readonly _articles = signal<NewsArticle[]>([]);
   private readonly _page = signal(1);
 
-  readonly featured = ALL_ARTICLES.slice(0, 3);
+  constructor() {
+    super(BackendUrls.news, MOCK_NEWS_ITEMS);
+    this.load();
+  }
 
-  readonly allArticles = ALL_ARTICLES;
+  readonly featured = computed(() => this._articles().slice(0, 3));
 
-  readonly visibleCount = computed(() => Math.min(this._page() * PAGE_SIZE, ALL_ARTICLES.length));
+  readonly allArticles = computed(() => this._articles());
 
-  readonly visibleList = computed(() => ALL_ARTICLES.slice(0, this.visibleCount()));
+  readonly visibleCount = computed(() => Math.min(this._page() * PAGE_SIZE, this._articles().length));
 
-  readonly hasMore = computed(() => this.visibleCount() < ALL_ARTICLES.length);
+  readonly visibleList = computed(() => this._articles().slice(0, this.visibleCount()));
+
+  readonly hasMore = computed(() => this.visibleCount() < this._articles().length);
+
+  load(): void {
+    this.getAll().subscribe(articles => this._articles.set(articles));
+  }
+
+  override getAll(params?: HttpParams): Observable<NewsArticle[]> {
+    return this.api
+      .get<RawNewsItem[]>(BackendUrls.news, params)
+      .pipe(map(adaptNewsItems));
+  }
+
+  override getById(id: string): Observable<NewsArticle> {
+    return this.api
+      .get<RawNewsItem>(`${BackendUrls.news}/${encodeURIComponent(id)}`)
+      .pipe(map(adaptNewsItem));
+  }
 
   loadMore(): void {
     this._page.update(p => p + 1);
   }
 
   getByCategory(category: string): NewsArticle[] {
-    if (category === 'all') return ALL_ARTICLES;
-    return ALL_ARTICLES.filter(a => a.category === category);
+    const articles = this._articles();
+    if (category === 'all') return articles;
+    return articles.filter(a => a.category === category);
   }
 
   getCategories(): string[] {
-    return ['all', ...new Set(ALL_ARTICLES.map(a => a.category))];
+    return ['all', ...new Set(this._articles().map(a => a.category))];
   }
 }
