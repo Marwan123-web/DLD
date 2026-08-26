@@ -4,14 +4,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { NewsService } from '../../../core/services/news.service';
-import { NewsCardComponent } from '../../../shared/components/news-card/news-card.component';
 import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
 import { TranslationService } from '../../../core/services/translation.service';
 
 @Component({
   selector: 'app-news-media-article-detail',
   standalone: true,
-  imports: [RouterLink, DatePipe, NewsCardComponent, PartnersSectionComponent],
+  imports: [RouterLink, DatePipe, PartnersSectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './article-detail.component.html',
   styleUrl: './article-detail.component.scss',

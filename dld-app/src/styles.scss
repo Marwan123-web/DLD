@@ -4,9 +4,8 @@
 @use 'styles/typography';
 @use 'styles/rtl';
 
-// Bootstrap — loaded as @import because Bootstrap uses @import internally.
-// Must come after @use declarations.
-@import 'bootstrap/scss/bootstrap';
+// Bootstrap — loaded with @use to avoid deprecation warnings
+@use 'bootstrap/scss/bootstrap' as *;
 
 // Global resets
 *, *::before, *::after {

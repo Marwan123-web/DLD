@@ -19,7 +19,7 @@
   <section class="featured-section" aria-labelledby="featured-heading">
     <div class="main-container">
       <div class="featured-grid" role="list" aria-label="Featured news articles">
-        @for (article of featured; track article.id) {
+        @for (article of featured(); track article.id) {
         <div class="featured-slide" role="listitem">
           <img [src]="article.imageUrl" [alt]="article.title" loading="eager" />
           <div class="slide-content">
@@ -50,7 +50,7 @@
           [attr.aria-label]="tr.t('news.filter_date_to')" (change)="onDateTo($event)" />
         <select class="filter-input filter-select" [attr.aria-label]="tr.t('news.filter_categories')"
           (change)="setCategory($any($event.target).value)">
-          @for (cat of categories; track cat) {
+          @for (cat of categories(); track cat) {
           <option [value]="cat">{{ cat === 'all' ? tr.t('news.filter_categories') : cat }}</option>
           }
         </select>
