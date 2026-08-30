@@ -2,19 +2,12 @@ import { Component, ChangeDetectionStrategy, signal, computed, HostListener, inj
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslationService } from '../../core/services/translation.service';
 
-interface MegaMenuLink {
-  label: string;
-  routerLink: string;
-  fragment?: string;
-}
-
 interface MegaMenuColumn {
   iconPath: string;
   title: string;
   caption: string;
-  links: MegaMenuLink[];
+  links: string[];
   fullLink: string;
-  fullLinkLabel?: string;
 }
 
 interface MegaMenuConfig {
@@ -62,11 +55,11 @@ export class NavbarComponent {
               title: t('about.who_we_are'),
               caption: t('nav.mega.about.who_caption'),
               links: [
-                { label: t('nav.about'), routerLink: '/about-dld', fragment: 'about' },
-                { label: t('nav.mega.about.link_values'), routerLink: '/about-dld', fragment: 'values' },
-                { label: t('nav.mega.about.link_vision'), routerLink: '/about-dld', fragment: 'vision' },
-                { label: t('nav.mega.about.link_strategic'), routerLink: '/about-dld', fragment: 'strategic-map' },
-                { label: t('nav.mega.about.link_achievements'), routerLink: '/about-dld', fragment: 'achievements' },
+                t('nav.about'),
+                t('nav.mega.about.link_values'),
+                t('nav.mega.about.link_vision'),
+                t('nav.mega.about.link_strategic'),
+                t('nav.mega.about.link_achievements'),
               ],
               fullLink: '/about-dld',
             },
@@ -75,8 +68,8 @@ export class NavbarComponent {
               title: t('leadership.title'),
               caption: t('nav.mega.about.leadership_caption'),
               links: [
-                { label: t('nav.mega.about.link_message'), routerLink: '/about-dld/leadership', fragment: 'messages' },
-                { label: t('nav.mega.about.link_org'), routerLink: '/about-dld/leadership', fragment: 'org-chart' },
+                t('nav.mega.about.link_message'),
+                t('nav.mega.about.link_org'),
               ],
               fullLink: '/about-dld/leadership',
             },
@@ -85,9 +78,9 @@ export class NavbarComponent {
               title: t('nav.mega.about.partnership_title'),
               caption: t('nav.mega.about.partnership_caption'),
               links: [
-                { label: t('nav.mega.about.link_partnership'), routerLink: '/about-dld/partnerships', fragment: 'commitment' },
-                { label: t('nav.mega.about.link_contact_partners'), routerLink: '/about-dld/partnerships', fragment: 'contact' },
-                { label: t('nav.mega.about.link_partners'), routerLink: '/about-dld/partnerships', fragment: 'partners' },
+                t('nav.mega.about.link_partnership'),
+                t('nav.mega.about.link_contact_partners'),
+                t('nav.mega.about.link_partners'),
               ],
               fullLink: '/about-dld/partnerships',
             },
@@ -111,37 +104,34 @@ export class NavbarComponent {
               title: t('news.latest_title'),
               caption: t('nav.mega.news.latest_caption'),
               links: [
-                { label: t('news.latest_title'), routerLink: '/news-media/latest-news' },
-                { label: t('nav.mega.news.link_market'), routerLink: '/news-media/latest-news' },
-                { label: t('nav.mega.news.link_regulatory'), routerLink: '/news-media/latest-news' },
-                { label: t('nav.mega.news.link_events'), routerLink: '/news-media/latest-news' },
+                t('news.latest_title'),
+                t('nav.mega.news.link_market'),
+                t('nav.mega.news.link_regulatory'),
+                t('nav.mega.news.link_events'),
               ],
               fullLink: '/news-media/latest-news',
-              fullLinkLabel: t('nav.mega.news.full_latest'),
             },
             {
               iconPath: 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
               title: t('nav.mega.news.ann_title'),
               caption: t('nav.mega.news.ann_caption'),
               links: [
-                { label: t('nav.mega.news.link_announcements'), routerLink: '/news-media/announcements' },
-                { label: t('nav.mega.news.link_initiatives'), routerLink: '/news-media/announcements' },
-                { label: t('nav.mega.news.link_press'), routerLink: '/news-media/announcements' },
+                t('nav.mega.news.link_announcements'),
+                t('nav.mega.news.link_initiatives'),
+                t('nav.mega.news.link_press'),
               ],
               fullLink: '/news-media/announcements',
-              fullLinkLabel: t('nav.mega.news.full_ann'),
             },
             {
               iconPath: 'M15 10l4.553-2.069A1 1 0 0121 8.845v6.31a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z',
               title: t('nav.mega.news.media_title'),
               caption: t('nav.mega.news.media_caption'),
               links: [
-                { label: t('nav.mega.news.link_photos'), routerLink: '/news-media/latest-news' },
-                { label: t('nav.mega.news.link_videos'), routerLink: '/news-media/latest-news' },
-                { label: t('nav.mega.news.link_press_kit'), routerLink: '/news-media/latest-news' },
+                t('nav.mega.news.link_photos'),
+                t('nav.mega.news.link_videos'),
+                t('nav.mega.news.link_press_kit'),
               ],
               fullLink: '/news-media/latest-news',
-              fullLinkLabel: t('nav.mega.news.full_media'),
             },
           ],
         },

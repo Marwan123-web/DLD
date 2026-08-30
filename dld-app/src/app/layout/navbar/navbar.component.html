@@ -99,7 +99,10 @@
           </div>
           <div class="mega-cols">
             @for (col of link.megaMenu.columns; track col.title) {
-              <div class="mega-col">
+              <a [routerLink]="col.fullLink"
+                 class="mega-col"
+                 (click)="closeMegaMenu()"
+                 [attr.aria-label]="tr.t('nav.mega.view_all') + ' ' + col.title">
                 <div class="mega-col-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="24" height="24">
                     <path [attr.d]="col.iconPath" stroke-linecap="round" stroke-linejoin="round"/>
@@ -107,26 +110,22 @@
                 </div>
                 <h3 class="mega-col-title">{{ col.title }}</h3>
                 <p class="mega-col-caption">{{ col.caption }}</p>
-                <div class="d-flex flex-row justify-ceontent-between align-items-end">
-
-                <ul class="mega-link-list">
-                  @for (item of col.links; track item.label) {
-                    <li>
-                      <a [routerLink]="item.routerLink" [fragment]="item.fragment" class="mega-link" (click)="closeMegaMenu()">
-                        {{ item.label }}
-                      </a>
-                    </li>
-                  }
-                </ul>
-                <a [routerLink]="col.fullLink" class="mega-full-link" (click)="closeMegaMenu()">
-                  {{ col.fullLinkLabel ?? 'Full Details' }}
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true" class="rtl-flip">
-                    <path d="M2 8h12m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-              </div>
-
-              </div>
+                <div class="d-flex flex-row justify-content-between align-items-end">
+                  <ul class="mega-link-list">
+                    @for (item of col.links; track item) {
+                      <li>
+                        <span class="mega-link-label">{{ item }}</span>
+                      </li>
+                    }
+                  </ul>
+                  <span class="mega-full-link">
+                    {{ tr.t('nav.mega.view_all') }}
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true" class="rtl-flip">
+                      <path d="M2 8h12m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </div>
+              </a>
             }
           </div>
         </div>

@@ -381,10 +381,21 @@
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid var(--color-border);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
-  transition: border-color var(--transition-base), box-shadow var(--transition-base);
-  &:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 4px 16px rgba(0, 167, 118, 0.1);
+  transition: background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover, &:focus-visible {
+    background: var(--color-white);
+    border-color: var(--color-white);
+    box-shadow: var(--shadow-card);
+    outline: none;
+  }
+
+  &:hover .mega-full-link,
+  &:focus-visible .mega-full-link {
+    gap: var(--space-3);
   }
 }
 
@@ -421,15 +432,14 @@
   flex: 1;
 }
 
-.mega-link {
+.mega-link-label {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--text-sm);
   color: var(--color-body);
-  text-decoration: none;
   padding-block: var(--space-1);
-  transition: color var(--transition-base);
+
   &::before {
     content: '';
     width: 5px; height: 5px;
@@ -438,8 +448,6 @@
     flex-shrink: 0;
     opacity: 0.6;
   }
-  &:hover { color: var(--color-primary); }
-  &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 2px; }
 }
 
 .mega-full-link {
@@ -449,11 +457,8 @@
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
   color: var(--color-primary);
-  text-decoration: none;
   margin-block-start: var(--space-3);
   transition: gap var(--transition-base);
-  &:hover { gap: var(--space-3); }
-  &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 2px; }
 }
 
 // Offcanvas sub-menu
