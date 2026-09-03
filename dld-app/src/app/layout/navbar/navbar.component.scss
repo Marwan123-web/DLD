@@ -29,6 +29,8 @@
 }
 
 .header-transparent {
+  // Figma: GU/Header gradient overlay for readability over dark hero images
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 63%, rgba(0, 0, 0, 0) 100%);
   transition: opacity var(--transition-slow), transform var(--transition-slow);
 }
 
@@ -53,8 +55,6 @@
   align-items: center;
   gap: 1rem;
   padding-block: 0.5rem;
-  // background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(8px);
 }
 
 .main-nav { flex: 1; }
@@ -77,19 +77,30 @@
   font-size: var(--text-sm);
   text-decoration: none;
   border: none; background: none;
-  border-block-end: 2px solid transparent;
-  transition: color var(--transition-base), border-color var(--transition-base);
+  position: relative;
+  // Figma: active underline is a 4px absolute bar — keep border transparent as structural spacer
+  border-block-end: 4px solid transparent;
+  transition: color var(--transition-base), background var(--transition-base);
   white-space: nowrap; cursor: pointer;
 
   &:hover {
     color: #fff;
     background: rgba(255, 255, 255, 0.12);
-    border-block-end-color: transparent;
   }
 
+  // Figma: absolute 4px white bar, rounded top corners, spanning full link width
   &.active-t {
     color: #fff;
-    border-block-end-color: var(--color-white);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      inset-inline: 0;
+      height: 4px;
+      background: var(--color-white);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
   }
 }
 

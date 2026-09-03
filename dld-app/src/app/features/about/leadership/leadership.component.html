@@ -1,88 +1,115 @@
 <main id="main-content">
-  <!-- HERO -->
-  <app-page-hero
-    title="Leadership &amp; Organization"
-    subtitle="The vision and structure guiding Dubai Land Department."
-    [breadcrumbs]="breadcrumbs"
-    illustrationSrc="assets/images/leadership-illustration.svg"
-    watermark="Leadership"
-  />
 
-  <!-- MESSAGES SECTION -->
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="lead-hero">
+    <!-- Decorative circles — Figma: 458×458 at x=1200,y=71 and 140×140 at x=1350,y=80 -->
+    <div class="lead-hero__circle lead-hero__circle--lg" aria-hidden="true"></div>
+    <div class="lead-hero__circle lead-hero__circle--sm" aria-hidden="true"></div>
+    <!-- Dot grid (CSS-generated) -->
+    <div class="lead-hero__dots" aria-hidden="true"></div>
+    <!-- Ghost watermark -->
+    <span class="lead-hero__wm" aria-hidden="true">{{ tr.t('leadership.title') }}</span>
+
+    <div class="main-container lead-hero__content">
+      <!-- Breadcrumb -->
+      <nav class="lead-hero__bc" aria-label="Breadcrumb">
+        <ol class="lead-hero__bc-list">
+          <li class="lead-hero__bc-item">
+            <a routerLink="/" class="lead-hero__bc-link">{{ tr.t('nav.home') }}</a>
+            <span class="lead-hero__bc-sep" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </li>
+          <li class="lead-hero__bc-item">
+            <a routerLink="/about-dld" class="lead-hero__bc-link">{{ tr.t('nav.about') }}</a>
+            <span class="lead-hero__bc-sep" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </li>
+          <li class="lead-hero__bc-item lead-hero__bc-item--current" aria-current="page">
+            {{ tr.t('leadership.title') }}
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Title + subtitle -->
+      <h1 class="lead-hero__title">{{ tr.t('leadership.title') }}</h1>
+      <p class="lead-hero__subtitle">{{ tr.t('leadership.hero_subtitle') }}</p>
+    </div>
+  </section>
+
+  <!-- ── MESSAGES ──────────────────────────────────────────── -->
   <section id="messages" class="messages-section">
     <div class="main-container">
-      <app-section-header
-        eyebrow="LEADERSHIP"
-        title="Messages from Leadership"
-        subtitle="Insights and strategic vision from our leadership team shaping the future of Dubai's real estate sector."
-      />
+      <div class="messages-header">
+        <p class="messages-eyebrow">{{ tr.t('leadership.messages_eyebrow') }}</p>
+        <h2 class="messages-heading">{{ tr.t('leadership.messages_title') }}</h2>
+        <p class="messages-subtitle">{{ tr.t('leadership.messages_subtitle') }}</p>
+      </div>
+
       <div class="leader-cards-row">
         <app-leadership-card
-          [data]="chairmanData"
-          (readMore)="openChairmanModal()"
+          [data]="chairmanData()"
+          [buttonLabel]="tr.t('leadership.read_message')"
+          (readMore)="chairmanModalOpen.set(true)"
         />
         <app-leadership-card
-          [data]="dgData"
-          (readMore)="openDgModal()"
+          [data]="dgData()"
+          [buttonLabel]="tr.t('leadership.read_message')"
+          (readMore)="dgModalOpen.set(true)"
         />
       </div>
     </div>
   </section>
 
-  <!-- ORG CHART SECTION -->
+  <!-- ── ORG CHART ─────────────────────────────────────────── -->
   <section id="org-chart" class="org-section">
     <div class="main-container">
       <div class="org-header">
-        <app-section-header
-          eyebrow="How Dubai Land Department is structured."
-          title="Organization Chart"
-          subtitle="The complete organizational structure of Dubai Land Department."
-        />
-        <button class="org-export-btn" (click)="printOrgChart()" type="button" aria-label="Export org chart as PDF">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.75"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            width="18"
-            height="18"
-            aria-hidden="true"
-          >
+        <div>
+          <p class="org-eyebrow">{{ tr.t('leadership.org_eyebrow') }}</p>
+          <h2 class="org-title">{{ tr.t('leadership.org_chart_title') }}</h2>
+          <p class="org-subtitle">{{ tr.t('leadership.org_subtitle') }}</p>
+        </div>
+        <button class="org-export-btn" (click)="printOrgChart()" type="button" [attr.aria-label]="tr.t('leadership.org_export')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+               stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
             <path d="M6 9V2h12v7" />
             <rect x="3" y="9" width="18" height="10" rx="2" />
             <path d="M9 15h6M9 19h6" />
           </svg>
-          Export As PDF
+          {{ tr.t('leadership.org_export') }}
         </button>
       </div>
 
-      <div id="org-print-area" class="org-chart-wrap" role="tree" aria-label="DLD organizational hierarchy">
+      <div id="org-print-area" class="org-chart-wrap" role="tree" [attr.aria-label]="tr.t('leadership.org_chart_title')">
 
-        <!-- TOP LEVEL: Chairman & Director General -->
+        <!-- TOP: Chairman -->
         <div class="org-top-level">
-          <!-- Chairman row -->
           <div class="org-top-row">
             <div class="org-top-node org-chairman" role="treeitem">
-              <span class="otn-title">CHAIRMAN</span>
+              <span class="otn-title">{{ tr.t('leadership.org_chairman') }}</span>
             </div>
             <div class="org-side-connector" aria-hidden="true"></div>
             <div class="org-side-node" role="treeitem">
-              <span class="osn-label">Chairman Office</span>
+              <span class="osn-label">{{ tr.t('leadership.org_chairman_office') }}</span>
             </div>
           </div>
 
           <div class="org-v-connector" aria-hidden="true"></div>
 
-          <!-- Director General row -->
+          <!-- Director General -->
           <div class="org-top-row">
             <div class="org-top-node org-dg" role="treeitem">
-              <span class="otn-title">DIRECTOR GENERAL</span>
+              <span class="otn-title">{{ tr.t('leadership.org_dg') }}</span>
             </div>
             <div class="org-side-connector" aria-hidden="true"></div>
             <div class="org-side-node" role="treeitem">
-              <span class="osn-label">DG Office</span>
+              <span class="osn-label">{{ tr.t('leadership.org_dg_office') }}</span>
             </div>
           </div>
         </div>
@@ -90,51 +117,47 @@
         <div class="org-v-connector" aria-hidden="true"></div>
 
         <!-- DIRECT REPORTS (4 departments) -->
-        <div class="org-direct-reports" role="group" aria-label="Direct reports to Director General">
-          <!-- Rental Disputes Center -->
+        <div class="org-direct-reports" role="group" [attr.aria-label]="tr.t('leadership.org_dg')">
           <div class="org-dept-card" role="treeitem">
-            <h4 class="odc-title">Rental Disputes Center</h4>
+            <h4 class="odc-title">{{ tr.t('leadership.org_rental_disputes') }}</h4>
             <ul class="odc-list">
-              <li>Technical Office</li>
-              <li>Conciliation Department</li>
-              <li>Central Support Department</li>
+              <li>{{ tr.t('leadership.org_rental_technical') }}</li>
+              <li>{{ tr.t('leadership.org_rental_conciliation') }}</li>
+              <li>{{ tr.t('leadership.org_rental_support') }}</li>
               <li>
-                Execution of Judgments Dept.
+                {{ tr.t('leadership.org_rental_execution') }}
                 <ul class="odc-sub-list">
-                  <li>Eviction Section</li>
-                  <li>Financial Claims Section</li>
+                  <li>{{ tr.t('leadership.org_rental_eviction') }}</li>
+                  <li>{{ tr.t('leadership.org_rental_claims') }}</li>
                 </ul>
               </li>
             </ul>
           </div>
 
-          <!-- Legal Affairs -->
           <div class="org-dept-card" role="treeitem">
-            <h4 class="odc-title">Legal Affairs Department</h4>
+            <h4 class="odc-title">{{ tr.t('leadership.org_legal') }}</h4>
             <ul class="odc-list">
-              <li>Legal Opinion and Legislation Section</li>
-              <li>Legal Support Section</li>
-              <li>Real Estate Reconciliation Section</li>
+              <li>{{ tr.t('leadership.org_legal_opinion') }}</li>
+              <li>{{ tr.t('leadership.org_legal_support') }}</li>
+              <li>{{ tr.t('leadership.org_legal_reconciliation') }}</li>
             </ul>
           </div>
 
-          <!-- Internal Audit -->
           <div class="org-dept-card" role="treeitem">
-            <h4 class="odc-title">Internal Audit and Risk Department</h4>
+            <h4 class="odc-title">{{ tr.t('leadership.org_audit') }}</h4>
             <ul class="odc-list">
-              <li>Financial Audit Section</li>
-              <li>Governance and Risk Section</li>
+              <li>{{ tr.t('leadership.org_audit_financial') }}</li>
+              <li>{{ tr.t('leadership.org_audit_governance') }}</li>
             </ul>
           </div>
 
-          <!-- Strategy and Future -->
           <div class="org-dept-card" role="treeitem">
-            <h4 class="odc-title">Strategy and Future Department</h4>
+            <h4 class="odc-title">{{ tr.t('leadership.org_strategy') }}</h4>
             <ul class="odc-list">
-              <li>Corporate Planning and Performance Section</li>
-              <li>Corporate Excellence and Pioneering Section</li>
-              <li>Corporate Quality Section</li>
-              <li>Real Estate Policy and Innovation Section</li>
+              <li>{{ tr.t('leadership.org_strategy_planning') }}</li>
+              <li>{{ tr.t('leadership.org_strategy_excellence') }}</li>
+              <li>{{ tr.t('leadership.org_strategy_quality') }}</li>
+              <li>{{ tr.t('leadership.org_strategy_policy') }}</li>
             </ul>
           </div>
         </div>
@@ -142,150 +165,151 @@
         <div class="org-v-connector" aria-hidden="true"></div>
 
         <!-- THREE SECTORS -->
-        <div class="org-sectors" role="group" aria-label="Organizational sectors">
+        <div class="org-sectors" role="group" [attr.aria-label]="tr.t('leadership.org_chart_title')">
 
-          <!-- Sector 1: Corporate Support -->
+          <!-- Corporate Support Sector -->
           <div class="org-sector-card" role="treeitem">
-            <div class="org-sector-title">Corporate Support Sector</div>
+            <div class="org-sector-title">{{ tr.t('leadership.org_sector_corporate') }}</div>
             <div class="org-sector-depts">
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Human Resources &amp; Development Dept.</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_hr') }}</h4>
                 <ul class="odc-list">
-                  <li>Human Resources Planning</li>
-                  <li>Talent Development &amp; Performance</li>
-                  <li>Employee Relations</li>
+                  <li>{{ tr.t('leadership.org_hr_planning') }}</li>
+                  <li>{{ tr.t('leadership.org_hr_talent') }}</li>
+                  <li>{{ tr.t('leadership.org_hr_relations') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Administrative Affairs &amp; Procurement Dept.</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_admin') }}</h4>
                 <ul class="odc-list">
-                  <li>Administrative Affairs &amp; Facilities</li>
-                  <li>Contracts and Procurement</li>
+                  <li>{{ tr.t('leadership.org_admin_affairs') }}</li>
+                  <li>{{ tr.t('leadership.org_admin_contracts') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Financial Affairs Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_finance_dept') }}</h4>
                 <ul class="odc-list">
-                  <li>General Budget and Accounts</li>
-                  <li>Revenue</li>
+                  <li>{{ tr.t('leadership.org_finance_budget') }}</li>
+                  <li>{{ tr.t('leadership.org_finance_revenue') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Marketing and Communications Dept.</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_marketing') }}</h4>
                 <ul class="odc-list">
-                  <li>Marketing</li>
-                  <li>Media</li>
-                  <li>Partnership</li>
+                  <li>{{ tr.t('leadership.org_marketing_section') }}</li>
+                  <li>{{ tr.t('leadership.org_media_section') }}</li>
+                  <li>{{ tr.t('leadership.org_partnership_section') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Digital Transformation Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_digital') }}</h4>
                 <ul class="odc-list">
-                  <li>Infrastructure &amp; System Development</li>
-                  <li>Information Security</li>
-                  <li>Digital Services Support</li>
+                  <li>{{ tr.t('leadership.org_digital_infra') }}</li>
+                  <li>{{ tr.t('leadership.org_digital_security') }}</li>
+                  <li>{{ tr.t('leadership.org_digital_services') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Knowledge and Data Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_knowledge') }}</h4>
                 <ul class="odc-list">
-                  <li>Data Planning and Governance</li>
-                  <li>Data Analytics and Research</li>
+                  <li>{{ tr.t('leadership.org_knowledge_planning') }}</li>
+                  <li>{{ tr.t('leadership.org_knowledge_analytics') }}</li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <!-- Sector 2: Real Estate Registration -->
+          <!-- Real Estate Registration Sector -->
           <div class="org-sector-card" role="treeitem">
-            <div class="org-sector-title">Real Estate Registration Sector</div>
+            <div class="org-sector-title">{{ tr.t('leadership.org_sector_registration') }}</div>
             <div class="org-sector-depts">
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Real Estate Transactions Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_transactions') }}</h4>
                 <ul class="odc-list">
-                  <li>Real Estate Valuation</li>
-                  <li>Documentation</li>
-                  <li>Real Estate Transaction Audit</li>
-                  <li>Real Estate Transaction Development</li>
+                  <li>{{ tr.t('leadership.org_transactions_valuation') }}</li>
+                  <li>{{ tr.t('leadership.org_transactions_docs') }}</li>
+                  <li>{{ tr.t('leadership.org_transactions_audit') }}</li>
+                  <li>{{ tr.t('leadership.org_transactions_dev') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Rental Affairs Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_rental_affairs') }}</h4>
                 <ul class="odc-list">
-                  <li>Rental Audit</li>
-                  <li>Rental Registration Assurance</li>
+                  <li>{{ tr.t('leadership.org_rental_audit') }}</li>
+                  <li>{{ tr.t('leadership.org_rental_assurance') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Survey Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_survey') }}</h4>
                 <ul class="odc-list">
-                  <li>Survey Audit</li>
-                  <li>Survey Information &amp; Service Development</li>
+                  <li>{{ tr.t('leadership.org_survey_audit') }}</li>
+                  <li>{{ tr.t('leadership.org_survey_info') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Custodies and Compensations Dept.</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_custodies') }}</h4>
                 <ul class="odc-list">
-                  <li>Custodies</li>
-                  <li>Compensation</li>
+                  <li>{{ tr.t('leadership.org_custodies_section') }}</li>
+                  <li>{{ tr.t('leadership.org_compensation') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Real Estate Services Pioneering Dept.</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_pioneering') }}</h4>
                 <ul class="odc-list">
-                  <li>Service Enhancement and Excellence</li>
-                  <li>Customer Relations</li>
+                  <li>{{ tr.t('leadership.org_pioneering_excellence') }}</li>
+                  <li>{{ tr.t('leadership.org_pioneering_relations') }}</li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <!-- Sector 3: RERA -->
+          <!-- RERA Sector -->
           <div class="org-sector-card org-sector-rera" role="treeitem">
-            <div class="org-sector-title">Real Estate Regulatory Agency (RERA)</div>
+            <div class="org-sector-title">{{ tr.t('leadership.org_sector_rera') }}</div>
             <div class="org-sector-depts">
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Real Estate Licensing &amp; Enablement Dept.</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_licensing') }}</h4>
                 <ul class="odc-list">
-                  <li>Real Estate Licensing</li>
-                  <li>Real Estate Enablement</li>
-                  <li>Escrow Account</li>
+                  <li>{{ tr.t('leadership.org_licensing_section') }}</li>
+                  <li>{{ tr.t('leadership.org_enablement') }}</li>
+                  <li>{{ tr.t('leadership.org_escrow') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Jointly Owned Property Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_jointly_owned') }}</h4>
                 <ul class="odc-list">
-                  <li>Jointly Owned Property Regulatory</li>
-                  <li>Jointly Owned Property Control</li>
+                  <li>{{ tr.t('leadership.org_jointly_regulatory') }}</li>
+                  <li>{{ tr.t('leadership.org_jointly_control') }}</li>
                 </ul>
               </div>
               <div class="org-dept-card odc-sm">
-                <h4 class="odc-title">Real Estate Control Department</h4>
+                <h4 class="odc-title">{{ tr.t('leadership.org_control') }}</h4>
                 <ul class="odc-list">
-                  <li>Periodic Control</li>
-                  <li>Investigation and Violation</li>
+                  <li>{{ tr.t('leadership.org_periodic') }}</li>
+                  <li>{{ tr.t('leadership.org_investigation') }}</li>
                 </ul>
               </div>
             </div>
           </div>
 
         </div>
-      </div><!-- /#org-print-area -->
+      </div>
     </div>
   </section>
 
-  <!-- MODALS -->
+  <!-- ── MODALS ─────────────────────────────────────────────── -->
   <app-leadership-message-modal
-    [data]="chairmanModal"
+    [data]="chairmanModal()"
     [isOpen]="chairmanModalOpen()"
     (closed)="chairmanModalOpen.set(false)"
   />
   <app-leadership-message-modal
-    [data]="dgModal"
+    [data]="dgModal()"
     [isOpen]="dgModalOpen()"
     (closed)="dgModalOpen.set(false)"
   />
 
-  <!-- PARTNERS -->
+  <!-- ── PARTNERS ────────────────────────────────────────────── -->
   <app-partners-section />
+
 </main>

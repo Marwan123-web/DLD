@@ -1,0 +1,188 @@
+<main id="main-content">
+
+  <!-- ── HERO ─────────────────────────────────────────────────────── -->
+  <section class="ach-hero">
+    <!-- Left decorative ellipse (Figma: x=292, y=178, 419×419) -->
+    <div class="ach-hero__ellipse" aria-hidden="true"></div>
+    <!-- Right decorative circles (Figma: 200×200 at x=1200, 140×140 at x=1350) -->
+    <div class="ach-hero__circle ach-hero__circle--lg" aria-hidden="true"></div>
+    <div class="ach-hero__circle ach-hero__circle--sm" aria-hidden="true"></div>
+    <!-- Dot grid -->
+    <div class="ach-hero__dots" aria-hidden="true"></div>
+    <!-- Ghost watermark AWARDS -->
+    <span class="ach-hero__wm" aria-hidden="true">AWARDS</span>
+    <!-- Medal icon decoration (Figma: concentric circles with medal icon at x=1179, y=367) -->
+    <div class="ach-hero__medal" aria-hidden="true">
+      <app-icon name="medal-star" [size]="62" class="ach-hero__medal-icon" />
+    </div>
+
+    <div class="main-container ach-hero__inner">
+      <!-- Breadcrumb -->
+      <nav class="ach-hero__bc" aria-label="Breadcrumb">
+        <ol class="ach-bc-list">
+          <li class="ach-bc-item">
+            <a routerLink="/" class="ach-bc-link">{{ tr.t('nav.home') }}</a>
+            <span class="ach-bc-sep" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+                   width="12" height="12" aria-hidden="true">
+                <path d="M6 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </li>
+          <li class="ach-bc-item">
+            <a routerLink="/about-dld" class="ach-bc-link">{{ tr.t('about_hub.breadcrumb') }}</a>
+            <span class="ach-bc-sep" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+                   width="12" height="12" aria-hidden="true">
+                <path d="M6 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </li>
+          <li class="ach-bc-item ach-bc-item--current" aria-current="page">
+            {{ tr.t('achievements.hero_breadcrumb') }}
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Title + glass card -->
+      <div class="ach-hero__content">
+        <p class="ach-hero__eyebrow">{{ tr.t('achievements.hero_eyebrow') }}</p>
+        <h1 class="ach-hero__title">{{ tr.t('achievements.hero_title') }}</h1>
+        <div class="ach-hero__glass" role="note">
+          <p class="ach-hero__glass-subtitle">{{ tr.t('achievements.hero_glass') }}</p>
+          <p class="ach-hero__glass-body">{{ tr.t('achievements.hero_body') }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TIMELINE ──────────────────────────────────────────────────── -->
+  <section class="ach-timeline-section" [attr.aria-label]="tr.t('achievements.trophy_shelf_title')">
+    <div class="main-container">
+
+      <div class="ach-section-header">
+        <p class="ach-section-eyebrow">{{ tr.t('achievements.trophy_shelf_eyebrow') }}</p>
+        <h2 class="ach-section-title">{{ tr.t('achievements.trophy_shelf_title') }}</h2>
+      </div>
+
+      <div class="ach-timeline" role="list">
+        @for (entry of timeline; track entry.headlineKey) {
+          <div class="ach-timeline__entry" [attr.data-kind]="entry.kind" role="listitem">
+
+            <!-- Node -->
+            <div class="ach-timeline__node" aria-hidden="true">
+              @if (entry.kind === 'year') {
+                <span class="ach-timeline__pill">{{ entry.year }}</span>
+              } @else if (entry.kind === 'world-first') {
+                <span class="ach-timeline__pill ach-timeline__pill--wf">
+                  {{ tr.t('achievements.world_first_label') }}
+                </span>
+              } @else {
+                <span class="ach-timeline__dot"></span>
+              }
+            </div>
+
+            <!-- Content -->
+            <div class="ach-timeline__content">
+              <div
+                class="ach-entry__card"
+                [class.ach-entry__card--dark]="entry.kind === 'world-first' || entry.dark"
+              >
+                @if (entry.sectionLabelKey) {
+                  <p class="ach-entry__label">{{ tr.t(entry.sectionLabelKey) }}</p>
+                }
+                <h3 class="ach-entry__headline">{{ tr.t(entry.headlineKey) }}</h3>
+
+                @if (entry.bodyKey) {
+                  <p class="ach-entry__body">{{ tr.t(entry.bodyKey) }}</p>
+                }
+                @if (entry.bodyKey2) {
+                  <p class="ach-entry__body">{{ tr.t(entry.bodyKey2) }}</p>
+                }
+                @if (entry.bodyKey3) {
+                  <p class="ach-entry__body">{{ tr.t(entry.bodyKey3) }}</p>
+                }
+
+                <!-- Stat boxes (compact or large based on descKey presence) -->
+                @if (entry.statBoxes && entry.statBoxes.length) {
+                  <div class="ach-entry__stat-boxes" [class.ach-entry__stat-boxes--large]="entry.statBoxes[0].descKey">
+                    @for (box of entry.statBoxes; track box.valueKey) {
+                      <div class="ach-stat-box" [class.ach-stat-box--large]="box.descKey">
+                        <span class="ach-stat-box__value">{{ tr.t(box.valueKey) }}</span>
+                        <span class="ach-stat-box__label">{{ tr.t(box.labelKey) }}</span>
+                        @if (box.descKey) {
+                          <span class="ach-stat-box__desc">{{ tr.t(box.descKey) }}</span>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
+
+                <!-- DGEP-style award cards (2018) -->
+                @if (entry.awardCards && entry.awardCards.length) {
+                  <div class="ach-entry__award-cards">
+                    @for (card of entry.awardCards; track card.titleKey) {
+                      <div class="ach-award-card">
+                        <div class="ach-award-card__icon-wrap" aria-hidden="true">
+                          <app-icon [name]="card.icon" [size]="22" />
+                        </div>
+                        <div class="ach-award-card__text">
+                          <span class="ach-award-card__title">{{ tr.t(card.titleKey) }}</span>
+                          <span class="ach-award-card__sub">{{ tr.t(card.subtitleKey) }}</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+
+                <!-- Blockquote with side-stat (sustained recognition) -->
+                @if (entry.quoteKey) {
+                  <div class="ach-entry__quote">
+                    <div class="ach-entry__quote-bar" aria-hidden="true"></div>
+                    <p class="ach-entry__quote-text">{{ tr.t(entry.quoteKey) }}</p>
+                    @if (entry.quoteSuffixKey) {
+                      <div class="ach-entry__quote-stat">
+                        <span class="ach-entry__quote-val">{{ tr.t(entry.quoteSuffixKey) }}</span>
+                        <span class="ach-entry__quote-lbl">{{ tr.t(entry.quoteSuffixLabelKey ?? '') }}</span>
+                      </div>
+                    }
+                  </div>
+                }
+
+                <!-- Award chips (icon + label) -->
+                @if (entry.chips && entry.chips.length) {
+                  <ul class="ach-entry__chips" role="list">
+                    @for (chip of entry.chips; track chip.labelKey) {
+                      <li class="ach-entry__chip">
+                        <app-icon [name]="chip.icon" [size]="16" aria-hidden="true" />
+                        <span>{{ tr.t(chip.labelKey) }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+
+                <!-- ISO certificate grid -->
+                @if (entry.isoKeys && entry.isoKeys.length) {
+                  <ul class="ach-entry__iso-grid" role="list">
+                    @for (key of entry.isoKeys; track key; let i = $index) {
+                      <li class="ach-entry__iso-cert">
+                        <span class="ach-iso__num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                        <span class="ach-iso__label">{{ tr.t(key) }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+            </div>
+
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PARTNERS ──────────────────────────────────────────────────── -->
+  <app-partners-section />
+
+</main>

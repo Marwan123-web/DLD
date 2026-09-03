@@ -1,89 +1,141 @@
 <main id="main-content">
-  <!-- HERO -->
-  <app-page-hero
-    title="Partnership &amp; International Relations"
-    subtitle="Building strategic partnerships that strengthen collaboration and drive the future of Dubai's real estate sector."
-    [breadcrumbs]="breadcrumbs"
-    illustrationSrc="assets/images/partnerships-illustration.svg"
-    watermark="Partnerships"
-  />
 
-  <!-- COMMITMENT SECTION -->
-  <section id="commitment" class="commitment-section">
-    <div class="main-container">
-      <div class="commitment-layout">
-        <div class="commitment-photo">
-          <img
-            src="assets/images/about-dubai.jpg"
-            alt="Dubai skyline representing partnerships"
-            loading="lazy"
-          />
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="ps-hero">
+    <!-- Decorative circles (top-right) -->
+    <div class="ps-hero__circle ps-hero__circle--lg" aria-hidden="true"></div>
+    <div class="ps-hero__circle ps-hero__circle--sm" aria-hidden="true"></div>
+    <!-- Dot grid -->
+    <div class="ps-hero__dots" aria-hidden="true"></div>
+
+    <div class="main-container ps-hero__content">
+      <!-- Breadcrumb -->
+      <nav class="ps-hero__bc" aria-label="Breadcrumb">
+        <ol class="ps-hero__bc-list">
+          <li class="ps-hero__bc-item">
+            <a routerLink="/" class="ps-hero__bc-link">{{ tr.t('partnerships.bc_home') }}</a>
+            <span class="ps-hero__bc-sep" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </li>
+          <li class="ps-hero__bc-item">
+            <a routerLink="/about-dld" class="ps-hero__bc-link">{{ tr.t('partnerships.bc_about') }}</a>
+            <span class="ps-hero__bc-sep" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </li>
+          <li class="ps-hero__bc-item ps-hero__bc-item--current" aria-current="page">
+            {{ tr.t('partnerships.bc_current') }}
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Title + subtitle -->
+      <h1 class="ps-hero__title">{{ tr.t('partnerships.title') }}</h1>
+      <p class="ps-hero__subtitle">{{ tr.t('partnerships.hero_subtitle') }}</p>
+    </div>
+  </section>
+
+  <!-- ── COMMITMENT ────────────────────────────────────────── -->
+  <section id="commitment" class="ps-commitment">
+    <div class="main-container ps-commitment__inner">
+      <!-- Photo -->
+      <div class="ps-commitment__photo">
+        <img
+          src="assets/images/partnerships-handshake.png"
+          alt="Partnership handshake at DLD"
+          loading="lazy"
+          class="ps-commitment__img"
+        />
+      </div>
+
+      <!-- Text -->
+      <div class="ps-commitment__text">
+        <p class="ps-commitment__eyebrow">{{ tr.t('partnerships.commitment_eyebrow') }}</p>
+        <h2 class="ps-commitment__title">{{ tr.t('partnerships.commitment_title') }}</h2>
+        <div class="ps-commitment__bar" aria-hidden="true"></div>
+        <p class="ps-commitment__body">{{ tr.t('partnerships.commitment_body') }}</p>
+      </div>
+    </div>
+
+    <!-- Contact CTA band -->
+    <div class="ps-cta-band" id="contact">
+      <div class="main-container ps-cta-band__inner">
+        <div class="ps-cta-band__left">
+          <p class="ps-cta-band__title">{{ tr.t('partnerships.contact_title') }}</p>
+          <p class="ps-cta-band__sub">{{ tr.t('partnerships.contact_subtitle') }}</p>
         </div>
-        <div class="commitment-content">
-          <app-section-header
-            eyebrow="OUR COMMITMENT"
-            title="Building Partnerships Through Excellence"
-            [underline]="true"
-          />
-          <p>
-            <strong>Dubai Land Department</strong> works through the directives of His Highness
-            Sheikh Mohammed bin Rashid Al Maktoum, Vice President and Prime Minister of the UAE,
-            Ruler of Dubai, to achieve a vision that places Dubai as the best city in the world to
-            live in. The department is committed to building strong partnerships that enhance
-            collaboration, drive innovation and support the development of Dubai's real estate
-            sector. Through strategic alliances with government entities, private organizations, and
-            international bodies, DLD aims to create a world-class real estate environment that
-            attracts investors, protects the rights of all parties, and fosters sustainable growth.
-            Our partnership approach is guided by principles of transparency, mutual benefit, and a
-            shared commitment to excellence. We work closely with our partners to develop and
-            implement policies, initiatives, and services that advance the goals of Dubai's real
-            estate sector and contribute to the overall prosperity of the emirate. We welcome
-            organizations and institutions that share our vision to apply the forms online for a
-            partnership or communication with the department.
-          </p>
-        </div>
+        <a
+          href="mailto:partnership@dubailand.gov.ae"
+          class="ps-cta-band__btn"
+          [attr.aria-label]="tr.t('partnerships.contact_cta')"
+        >
+          {{ tr.t('partnerships.contact_cta') }}
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- CTA BAND (id="contact" for mega-menu anchor) -->
-  <app-cta-band
-    id="contact"
-    title="Interested in Partnering with DLD?"
-    subtitle="We welcome strategic partnerships that advance Dubai real estate globally. Submit your partnership proposal."
-    buttonLabel="Submit a Partnership Proposal"
-    buttonUrl="#contact"
-  />
-
-  <!-- PARTNERS FILTER SECTION -->
-  <section id="partners" class="partners-filter-section">
+  <!-- ── FILTER STRIP ─────────────────────────────────────── -->
+  <div class="ps-filter-strip" id="partners">
     <div class="main-container">
-      <div class="pf-top">
-        <app-filter-pills
-          [pills]="pills"
-          [active]="activeFilter()"
-          (selected)="onFilterChange($event)"
-        />
+      <div class="ps-filters" role="tablist" [attr.aria-label]="tr.t('partnerships.partners_eyebrow')">
+        @for (f of filters(); track f.key) {
+          <button
+            class="ps-filter-btn"
+            [class.ps-filter-btn--active]="activeFilter() === f.key"
+            (click)="setFilter(f.key)"
+            role="tab"
+            [attr.aria-selected]="activeFilter() === f.key"
+          >
+            {{ f.label }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PARTNERS ──────────────────────────────────────────── -->
+  <section class="ps-partners">
+    <!-- Ghost watermarks -->
+    <span class="ps-partners__wm ps-partners__wm--1" aria-hidden="true">Partnerships</span>
+    <span class="ps-partners__wm ps-partners__wm--2" aria-hidden="true">{{ activeFilter() }}</span>
+
+    <div class="main-container ps-partners__inner">
+
+      <!-- Section header -->
+      <div class="ps-partners__header">
+        <p class="ps-partners__eyebrow">{{ tr.t('partnerships.partners_eyebrow') }}</p>
+        <h2 class="ps-partners__title">{{ activeSectionTitle() }}</h2>
+        <div class="ps-partners__bar" aria-hidden="true"></div>
+        <p class="ps-partners__subtitle">{{ activeSectionSubtitle() }}</p>
       </div>
 
-      <div class="pf-content" [attr.data-filter]="activeFilter()">
-        <div class="pf-watermark-wrap" aria-hidden="true">
-          <app-watermark-text
-            [lines]="[activeWatermark()]"
-            color="rgba(0,167,118,0.06)"
-          />
-        </div>
-        <app-section-header
-          [eyebrow]="activeSectionEyebrow()"
-          [title]="activeSectionTitle()"
-          [underline]="true"
-          [subtitle]="activeSectionSubtitle()"
-        />
-        <app-partner-logo-grid [partners]="activePartners()" />
+      <!-- Logo grid -->
+      <div class="ps-logo-grid" role="list">
+        @for (partner of activePartners(); track partner.name) {
+          <div class="ps-logo-card" role="listitem">
+            @if (partner.logoSrc) {
+              <img
+                [src]="partner.logoSrc"
+                [alt]="partner.name"
+                class="ps-logo-img"
+                loading="lazy"
+              />
+            } @else {
+              <span class="ps-logo-name">{{ partner.name }}</span>
+            }
+          </div>
+        }
       </div>
+
     </div>
   </section>
 
-  <!-- PARTNERS FOOTER -->
+  <!-- ── PARTNERS ──────────────────────────────────────────────────── -->
   <app-partners-section />
 </main>

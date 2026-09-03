@@ -72,8 +72,8 @@
 }
 
 .modal-portrait {
-  flex: 0 0 auto;
-  width: 260px;
+  flex: 0 0 38%;
+  width: 38%;
   min-height: 400px;
   position: relative;
   overflow: hidden;
@@ -97,6 +97,49 @@
   z-index: 1;
   color: #fff;
   max-height: 90vh;
+}
+
+.modal-bc {
+  margin-block-end: var(--space-4);
+}
+
+.modal-bc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.modal-bc__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.6);
+
+  &--current {
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.modal-bc__link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover { color: rgba(255, 255, 255, 0.9); }
+  &:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
+}
+
+.modal-bc__sep {
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.4);
+
+  [dir='rtl'] & svg { transform: scaleX(-1); }
 }
 
 .modal-eyebrow {

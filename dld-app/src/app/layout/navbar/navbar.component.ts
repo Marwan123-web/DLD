@@ -45,47 +45,7 @@ export class NavbarComponent {
         label: t('nav.about'),
         path: '/about-dld',
         hasDropdown: true,
-        megaKey: 'about',
-        megaMenu: {
-          title: t('nav.about'),
-          tagline: t('nav.mega.about.tagline'),
-          columns: [
-            {
-              iconPath: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zm7.5 3a4 4 0 01.5 7.5',
-              title: t('about.who_we_are'),
-              caption: t('nav.mega.about.who_caption'),
-              links: [
-                t('nav.about'),
-                t('nav.mega.about.link_values'),
-                t('nav.mega.about.link_vision'),
-                t('nav.mega.about.link_strategic'),
-                t('nav.mega.about.link_achievements'),
-              ],
-              fullLink: '/about-dld',
-            },
-            {
-              iconPath: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
-              title: t('leadership.title'),
-              caption: t('nav.mega.about.leadership_caption'),
-              links: [
-                t('nav.mega.about.link_message'),
-                t('nav.mega.about.link_org'),
-              ],
-              fullLink: '/about-dld/leadership',
-            },
-            {
-              iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-              title: t('nav.mega.about.partnership_title'),
-              caption: t('nav.mega.about.partnership_caption'),
-              links: [
-                t('nav.mega.about.link_partnership'),
-                t('nav.mega.about.link_contact_partners'),
-                t('nav.mega.about.link_partners'),
-              ],
-              fullLink: '/about-dld/partnerships',
-            },
-          ],
-        },
+        // No megaKey/megaMenu — About DLD navigates to the hub route (routed-hub flow)
       },
       { label: t('nav.services'), path: '/services', hasDropdown: true },
       { label: t('nav.trainings'), path: '/trainings', hasDropdown: false },
@@ -139,13 +99,14 @@ export class NavbarComponent {
       { label: t('nav.help'), path: '/help', hasDropdown: true },
     ];
   });
-  readonly isScrolled = signal(this.atHome ? false: true);
+  readonly isScrolled = signal(this.atHome ? false : true);
   readonly isMenuOpen = signal(false);
   readonly megaMenuOpen = signal<string | null>(null);
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.isScrolled.set( window.scrollY > (this.atHome ? 500 :0));
+    const threshold = window.location.pathname === '/' ? 500 : 300;
+    this.isScrolled.set(window.scrollY > threshold);
   }
 
   toggleMenu(): void {
@@ -182,7 +143,9 @@ export class NavbarComponent {
     }
   }
 
-  get atHome(){    
-   return  window.location.pathname == '/'
+  get atHome(): boolean {
+    const path = window.location.pathname;
+    // Transparent navbar on home and all About DLD routes (they all have dark gradient heroes)
+    return path === '/' || path.startsWith('/about-dld');
   }
 }

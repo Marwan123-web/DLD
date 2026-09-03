@@ -1,0 +1,69 @@
+<main id="main-content">
+
+  <!-- ── HERO ─────────────────────────────────────────────────────── -->
+  <section class="hub-hero" [attr.aria-label]="tr.t('about_hub.hero_title')">
+    <span class="hub-hero__wm hub-hero__wm--start" aria-hidden="true">About</span>
+    <span class="hub-hero__wm hub-hero__wm--end" aria-hidden="true">DLD</span>
+
+    <nav class="hub-hero__bc main-container" aria-label="Breadcrumb">
+      <ol class="hub-bc-list">
+        <li class="hub-bc-item">
+          <a routerLink="/" class="hub-bc-link">{{ tr.t('nav.home') }}</a>
+          <span class="hub-bc-sep" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+                 width="12" height="12" class="rtl-flip" aria-hidden="true">
+              <path d="M6 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </li>
+        <li class="hub-bc-item hub-bc-item--current" aria-current="page">
+          {{ tr.t('about_hub.breadcrumb') }}
+        </li>
+      </ol>
+    </nav>
+
+    <div class="hub-hero__content">
+      <p class="hub-hero__eyebrow">{{ tr.t('about_hub.hero_eyebrow') }}</p>
+      <h1 class="hub-hero__title">{{ tr.t('about_hub.hero_title_main') }}</h1>
+      <p class="hub-hero__subtitle">{{ tr.t('about_hub.hero_subtitle') }}</p>
+    </div>
+  </section>
+
+  <!-- ── CARDS ─────────────────────────────────────────────────────── -->
+  <section class="hub-cards" [attr.aria-label]="tr.t('about.page_label')">
+    <div class="hub-cards__grid main-container">
+      @for (card of cards; track card.route) {
+        <a [routerLink]="card.route"
+           class="hub-card"
+           [attr.aria-label]="tr.t(card.titleKey)">
+
+          <div class="hub-card__blob" aria-hidden="true"></div>
+
+          <div class="hub-card__head">
+            <div class="hub-card__icon-tile">
+              <app-icon [name]="card.icon" [size]="22" />
+            </div>
+            <div class="hub-card__text">
+              <p class="hub-card__title">{{ tr.t(card.titleKey) }}</p>
+              <p class="hub-card__subtitle">{{ tr.t(card.subtitleKey) }}</p>
+            </div>
+          </div>
+
+          <ul class="hub-card__bullets" role="list">
+            @for (bullet of card.bullets; track bullet) {
+              <li class="hub-card__bullet">
+                <span class="hub-card__dot" aria-hidden="true"></span>
+                <span>{{ tr.t(bullet) }}</span>
+              </li>
+            }
+          </ul>
+
+        </a>
+      }
+    </div>
+  </section>
+
+  <!-- ── PARTNERS ──────────────────────────────────────────────────── -->
+  <app-partners-section />
+
+</main>

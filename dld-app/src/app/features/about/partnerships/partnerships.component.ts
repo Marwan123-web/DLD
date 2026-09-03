@@ -1,31 +1,47 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
-import { PageHeroComponent } from '../../../shared/components/page-hero/page-hero.component';
-import { SectionHeaderComponent } from '../../../shared/components/section-header/section-header.component';
-import { WatermarkTextComponent } from '../../../shared/components/watermark-text/watermark-text.component';
-import { FilterPillsComponent } from '../../../shared/components/filter-pills/filter-pills.component';
-import { PartnerLogoGridComponent } from '../../../shared/components/partner-logo-grid/partner-logo-grid.component';
-import { CtaBandComponent } from '../../../shared/components/cta-band/cta-band.component';
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslationService } from '../../../core/services/translation.service';
 import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
 
-const GOVERNMENTAL_PARTNERS = [
-  { name: 'wasl properties' },
-  { name: 'Dubai Municipality' },
-  { name: 'Beit Al Khair Society' },
-  { name: 'Central Bank of the U.A.E.' },
-  { name: 'Civil Defense' },
-  { name: 'Ministry of Climate Change & Environment' },
-  { name: 'Supreme Council of Energy' },
-  { name: 'DEWA' },
-  { name: 'Dubai International Financial Centre' },
-  { name: 'DMCC' },
-  { name: 'Dubai South' },
-  { name: 'Dubai Courts' },
-  { name: 'Government of Dubai (DED)' },
-  { name: 'Emirates Auction' },
-  { name: 'Emirates Real Estate Corp' },
+interface PartnerItem {
+  name: string;
+  logoSrc?: string;
+}
+
+const GOVERNMENTAL_PARTNERS: PartnerItem[] = [
+  { name: 'wasl properties', logoSrc: 'assets/images/partner-wasl.png' },
+  { name: 'Dubai Municipality', logoSrc: 'assets/images/partner-dubai-municipality.png' },
+  { name: 'Beit Al Khair Society', logoSrc: 'assets/images/partner-beit-al-khair.png' },
+  { name: 'Central Bank of the U.A.E.', logoSrc: 'assets/images/partner-central-bank.png' },
+  { name: 'Civil Defense', logoSrc: 'assets/images/partner-civil-defense.png' },
+  { name: 'Ministry of Climate Change & Environment', logoSrc: 'assets/images/partner-moccae.png' },
+  { name: 'Supreme Council of Energy', logoSrc: 'assets/images/partner-supreme-energy.png' },
+  { name: 'DEWA', logoSrc: 'assets/images/partner-dewa.png' },
+  { name: 'Dubai International Financial Centre', logoSrc: 'assets/images/partner-difc.png' },
+  { name: 'DMCC', logoSrc: 'assets/images/partner-dmcc.png' },
+  { name: 'Dubai South', logoSrc: 'assets/images/partner-dubai-south.png' },
+  { name: 'Dubai Courts', logoSrc: 'assets/images/partner-dubai-courts.png' },
+  { name: 'Government of Dubai (DED)', logoSrc: 'assets/images/partner-ded.png' },
+  { name: 'Emirates Auction', logoSrc: 'assets/images/partner-emirates-auction.png' },
+  { name: 'Emirates Real Estate Corp.', logoSrc: 'assets/images/partner-emirates-real-estate.png' },
+  { name: 'Roads and Transport Authority' },
+  { name: 'Dubai Health Authority' },
+  { name: 'Dubai Police' },
+  { name: 'Dubai Airport Free Zone Authority' },
+  { name: 'Dubai Tourism (DTCM)' },
+  { name: 'Dubai Chamber' },
+  { name: 'Knowledge and Human Development Authority' },
+  { name: 'Dubai Sports Council' },
+  { name: 'Dubai Culture' },
+  { name: 'Dubai Media Incorporated' },
+  { name: 'Dubai Future Foundation' },
+  { name: 'Smart Dubai' },
+  { name: 'Dubai Digital Authority' },
+  { name: 'Dubai Economy & Tourism' },
+  { name: 'General Directorate of Residency' },
 ];
 
-const REAL_ESTATE_PARTNERS = [
+const REAL_ESTATE_PARTNERS: PartnerItem[] = [
   { name: 'Emaar Properties' },
   { name: 'Nakheel' },
   { name: 'DAMAC Properties' },
@@ -36,7 +52,7 @@ const REAL_ESTATE_PARTNERS = [
   { name: 'Azizi Developments' },
 ];
 
-const INTERNATIONAL_PARTNERS = [
+const INTERNATIONAL_PARTNERS: PartnerItem[] = [
   { name: 'United Nations Human Settlements Programme' },
   { name: 'World Bank' },
   { name: 'International Monetary Fund' },
@@ -44,94 +60,63 @@ const INTERNATIONAL_PARTNERS = [
   { name: 'World Economic Forum' },
 ];
 
-const REGIONAL_PARTNERS = [
+const REGIONAL_PARTNERS: PartnerItem[] = [
   { name: 'Saudi Real Estate General Authority' },
   { name: 'Abu Dhabi Department of Municipalities' },
   { name: 'Jordan Land Authority' },
   { name: 'Egyptian Real Estate Registration Authority' },
 ];
 
-const PILLS = [
-  { key: 'governmental',  label: 'Governmental Partners' },
-  { key: 'real-estate',   label: 'Real Estate Partners' },
-  { key: 'international', label: 'International Partners or Organizations' },
-  { key: 'regional',      label: 'Regional & International Relations' },
-];
-
-const PARTNER_MAP: Record<string, typeof GOVERNMENTAL_PARTNERS> = {
-  'governmental':  GOVERNMENTAL_PARTNERS,
-  'real-estate':   REAL_ESTATE_PARTNERS,
-  'international': INTERNATIONAL_PARTNERS,
-  'regional':      REGIONAL_PARTNERS,
+const PARTNER_MAP: Record<string, PartnerItem[]> = {
+  governmental: GOVERNMENTAL_PARTNERS,
+  'real-estate': REAL_ESTATE_PARTNERS,
+  international: INTERNATIONAL_PARTNERS,
+  regional: REGIONAL_PARTNERS,
 };
 
 @Component({
   selector: 'app-partnerships',
   standalone: true,
-  imports: [
-    PageHeroComponent,
-    SectionHeaderComponent,
-    WatermarkTextComponent,
-    FilterPillsComponent,
-    PartnerLogoGridComponent,
-    CtaBandComponent,
-    PartnersSectionComponent,
-  ],
+  imports: [RouterLink, PartnersSectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './partnerships.component.html',
   styleUrl: './partnerships.component.scss',
 })
 export class PartnershipsComponent {
-  readonly pills = PILLS;
-
-  readonly breadcrumbs = [
-    { label: 'Home', url: '/' },
-    { label: 'Partnership & International Relations' },
-  ];
+  readonly tr = inject(TranslationService);
 
   readonly activeFilter = signal<string>('governmental');
 
-  onFilterChange(key: string): void {
-    this.activeFilter.set(key);
-  }
-
-  readonly activeWatermark = computed(() => {
-    const map: Record<string, string> = {
-      'governmental':  'Partnerships',
-      'real-estate':   'Partners',
-      'international': 'International',
-      'regional':      'Regional',
-    };
-    return map[this.activeFilter()] ?? 'Partnerships';
-  });
-
-  readonly activeSectionEyebrow = computed(() => 'Partnerships');
+  readonly filters = computed(() => [
+    { key: 'governmental', label: this.tr.t('partnerships.filter_governmental') },
+    { key: 'real-estate', label: this.tr.t('partnerships.filter_real_estate') },
+    { key: 'international', label: this.tr.t('partnerships.filter_international') },
+    { key: 'regional', label: this.tr.t('partnerships.filter_regional') },
+  ]);
 
   readonly activeSectionTitle = computed(() => {
     const map: Record<string, string> = {
-      'governmental':  'Governmental Partners',
-      'real-estate':   'Real Estate Partners',
-      'international': 'International Partners or Organizations',
-      'regional':      'Regional & International Relations',
+      governmental: this.tr.t('partnerships.partners_govt_title'),
+      'real-estate': this.tr.t('partnerships.partners_re_title'),
+      international: this.tr.t('partnerships.partners_intl_title'),
+      regional: this.tr.t('partnerships.partners_regional_title'),
     };
-    return map[this.activeFilter()] ?? 'Partners';
+    return map[this.activeFilter()] ?? this.tr.t('partnerships.partners_govt_title');
   });
 
   readonly activeSectionSubtitle = computed(() => {
     const map: Record<string, string> = {
-      'governmental':
-        'This category includes partners in the government and private sector in the United Arab Emirates. These are mostly strategic partners, as they are working with DLD with a plan to achieve a goal or to provide services.',
-      'real-estate':
-        "Our real estate industry partners who collaborate to develop and promote Dubai's real estate market.",
-      'international':
-        'International organizations and bodies that collaborate with DLD on global real estate standards and best practices.',
-      'regional':
-        'Regional entities and international bodies that maintain strategic relations with Dubai Land Department.',
+      governmental: this.tr.t('partnerships.partners_govt_subtitle'),
+      'real-estate': this.tr.t('partnerships.partners_re_subtitle'),
+      international: this.tr.t('partnerships.partners_intl_subtitle'),
+      regional: this.tr.t('partnerships.partners_regional_subtitle'),
     };
     return map[this.activeFilter()] ?? '';
   });
 
-  readonly activePartners = computed(() => {
-    return PARTNER_MAP[this.activeFilter()] ?? GOVERNMENTAL_PARTNERS;
-  });
+  readonly activePartners = computed(() => PARTNER_MAP[this.activeFilter()] ?? GOVERNMENTAL_PARTNERS);
+
+  setFilter(key: string): void {
+    this.activeFilter.set(key);
+  }
 }

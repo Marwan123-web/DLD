@@ -10,6 +10,12 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
+export interface ModalBreadcrumb {
+  label: string;
+  url?: string;
+}
 
 export interface LeadershipModalData {
   theme: 'green' | 'navy';
@@ -21,11 +27,13 @@ export interface LeadershipModalData {
   title: string;
   paragraphs: string[];
   signature: string;
+  breadcrumbs?: ModalBreadcrumb[];
 }
 
 @Component({
   selector: 'app-leadership-message-modal',
   standalone: true,
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (isOpen()) {
@@ -70,6 +78,28 @@ export interface LeadershipModalData {
 
           <!-- Content -->
           <div class="modal-content-area">
+            @if (data().breadcrumbs?.length) {
+              <nav class="modal-bc" aria-label="Breadcrumb">
+                <ol class="modal-bc__list">
+                  @for (crumb of data().breadcrumbs!; track $index; let last = $last) {
+                    <li class="modal-bc__item" [class.modal-bc__item--current]="last">
+                      @if (crumb.url && !last) {
+                        <a [routerLink]="crumb.url" class="modal-bc__link" (click)="close()">{{ crumb.label }}</a>
+                      } @else {
+                        <span>{{ crumb.label }}</span>
+                      }
+                      @if (!last) {
+                        <span class="modal-bc__sep" aria-hidden="true">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                      }
+                    </li>
+                  }
+                </ol>
+              </nav>
+            }
             <span class="modal-eyebrow">{{ data().eyebrow }}</span>
             <h2 class="modal-title">{{ data().title }}</h2>
             <div class="modal-underline" aria-hidden="true"></div>

@@ -1,0 +1,646 @@
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/breakpoints' as *;
+
+// ── HERO ─────────────────────────────────────────────────────────────────
+.ach-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #005c3f 0%, var(--color-primary) 100%);
+  padding-block-start: 180px;
+  padding-block-end: var(--space-16);
+  min-height: 597px;
+
+  @include bp-down('md') {
+    padding-block-start: 130px;
+    min-height: 0;
+  }
+}
+
+// Left decorative ellipse — Figma: x=292, y=178, 419×419
+.ach-hero__ellipse {
+  position: absolute;
+  inset-block-start: 178px;
+  inset-inline-start: 292px;
+  width: 419px;
+  height: 419px;
+  border-radius: 50%;
+  background: rgba(255 255 255 / 0.06);
+  pointer-events: none;
+  user-select: none;
+
+  @include bp-down('md') { display: none; }
+}
+
+// Right circles — Figma: 200×200 at x=1200,y=200 and 140×140 at x=1350,y=80
+.ach-hero__circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  user-select: none;
+
+  &--lg {
+    inset-block-start: 200px;
+    inset-inline-end: -78px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255 255 255 / 0.06);
+  }
+
+  &--sm {
+    inset-block-start: 80px;
+    inset-inline-end: 10px;
+    width: 140px;
+    height: 140px;
+    background: rgba(255 255 255 / 0.05);
+  }
+}
+
+// Medal icon group — Figma: x=1179, y=367.5, concentric circles 207×207 + 145×145 with icon
+.ach-hero__medal {
+  position: absolute;
+  inset-block-start: 367px;
+  inset-inline-end: 80px;
+  width: 207px;
+  height: 207px;
+  border-radius: 50%;
+  background: rgba(255 255 255 / 0.08);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    background: rgba(255 255 255 / 0.07);
+  }
+
+  &-icon {
+    position: relative;
+    z-index: 1;
+    color: rgba(255 255 255 / 0.6);
+  }
+
+  @include bp-down('md') { display: none; }
+}
+
+.ach-hero__dots {
+  position: absolute;
+  inset-block-start: 10%;
+  inset-block-end: 0;
+  inset-inline-start: 55%;
+  inset-inline-end: 4%;
+  background-image: radial-gradient(circle, rgba(255 255 255 / 0.3) 1.5px, transparent 1.5px);
+  background-size: 42px 72px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ach-hero__wm {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%; // Figma: AWARDS text at x=764 in 1536px frame ≈ 50%
+  transform: translateY(-50%);
+  font-size: clamp(6rem, 14vw, 11rem);
+  font-weight: var(--weight-bold);
+  color: rgba(255 255 255 / 0.16);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+
+.ach-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+// Breadcrumb
+.ach-bc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.ach-bc-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.ach-bc-item--current {
+  color: #fff;
+  font-size: var(--text-sm);
+}
+
+.ach-bc-link {
+  color: rgba(255 255 255 / 0.7);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover { color: var(--color-white); }
+}
+
+.ach-bc-sep {
+  color: rgba(255 255 255 / 0.4);
+  display: flex;
+  align-items: center;
+
+  [dir='rtl'] & svg { transform: scaleX(-1); }
+}
+
+// Hero content
+.ach-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 760px;
+}
+
+.ach-hero__eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #99f2d1;
+  margin: 0;
+}
+
+.ach-hero__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  line-height: var(--line-height-heading);
+  margin: 0;
+}
+
+.ach-hero__glass {
+  background: rgba(255 255 255 / 0.12);
+  border: 1px solid rgba(255 255 255 / 0.25);
+  border-radius: 20px;
+  padding: var(--space-6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ach-hero__glass-subtitle {
+  margin: 0;
+  color: var(--color-white);
+  font-size: 1.625rem;
+  font-weight: var(--weight-bold);
+  line-height: var(--line-height-heading);
+}
+
+.ach-hero__glass-body {
+  margin: 0;
+  color: rgba(255 255 255 / 0.82);
+  font-size: 0.90625rem;
+  line-height: 25px;
+}
+
+// ── TIMELINE SECTION ─────────────────────────────────────────────────────
+.ach-timeline-section {
+  padding-block: var(--space-20);
+  background: var(--color-white);
+
+  @include bp-down('md') {
+    padding-block: var(--space-12);
+  }
+}
+
+.ach-section-header {
+  margin-block-end: var(--space-12);
+}
+
+.ach-section-eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 var(--space-2);
+}
+
+.ach-section-title {
+  font-size: 1.625rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  margin: 0;
+  line-height: var(--line-height-heading);
+}
+
+// ── TIMELINE ─────────────────────────────────────────────────────────────
+.ach-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.ach-timeline__entry {
+  display: grid;
+  grid-template-columns: clamp(80px, 12vw, 128px) 1fr;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.ach-timeline__node {
+  display: flex;
+  justify-content: flex-end;
+  padding-inline-end: var(--space-5);
+  padding-block-start: var(--space-1);
+  position: relative;
+  z-index: 1;
+}
+
+// Year pill
+.ach-timeline__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  line-height: 1.4;
+  box-shadow: 0px 8px 18px rgba(0, 168, 117, 0.35);
+
+  &--wf {
+    background: #f5a623;
+    color: var(--color-navy);
+    font-size: var(--text-xs);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+// Dot (dot-labeled and iso-grid)
+.ach-timeline__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid var(--color-white);
+  box-shadow: 0 0 0 2px var(--color-primary);
+  margin-block-start: 4px;
+}
+
+// Content column — the border IS the timeline vertical line
+.ach-timeline__content {
+  border-inline-start: 4px solid #e0f6ef;
+  padding-inline-start: var(--space-8);
+  padding-block-end: var(--space-8);
+  position: relative;
+
+  // Small dot on the line at entry start
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: -6px;
+    inset-block-start: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+
+  @include bp-down('md') {
+    padding-inline-start: var(--space-5);
+    padding-block-end: var(--space-6);
+  }
+}
+
+.ach-timeline__entry:last-child .ach-timeline__content {
+  padding-block-end: var(--space-4);
+}
+
+// ── ENTRY CONTENT ─────────────────────────────────────────────────────────
+.ach-entry__label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 var(--space-2);
+}
+
+.ach-entry__headline {
+  font-size: 1.375rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  line-height: var(--line-height-heading);
+  margin: 0 0 var(--space-4);
+}
+
+.ach-entry__body {
+  font-size: 0.8125rem;
+  color: var(--color-body);
+  line-height: 22px;
+  margin: 0 0 var(--space-4);
+  max-width: 760px;
+
+  & + & {
+    margin-block-start: calc(-1 * var(--space-2));
+  }
+}
+
+// ── STAT BOXES ────────────────────────────────────────────────────────────
+.ach-entry__stat-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-block-end: var(--space-4);
+
+  &--large {
+    gap: var(--space-4);
+  }
+}
+
+.ach-stat-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: #e0f6ef;
+  border-radius: var(--radius-lg);
+  min-width: 100px;
+
+  &--large {
+    flex: 1 1 280px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    padding: var(--space-5) var(--space-6);
+  }
+}
+
+.ach-stat-box__value {
+  font-size: 1.5rem;
+  font-weight: var(--weight-bold);
+  color: #006b4d;
+  line-height: 1.1;
+}
+
+.ach-stat-box__label {
+  font-size: 1rem;
+  color: var(--color-muted);
+  font-weight: var(--weight-bold);
+}
+
+.ach-stat-box--large .ach-stat-box__value {
+  font-size: clamp(1.75rem, 3vw, 2.125rem);
+  color: #99f2d1;
+}
+
+.ach-stat-box--large .ach-stat-box__label {
+  font-size: var(--text-sm);
+  color: rgba(255 255 255 / 0.75);
+}
+
+.ach-stat-box__desc {
+  font-size: var(--text-sm);
+  color: rgba(255 255 255 / 0.88);
+  line-height: var(--line-height-body);
+  margin-block-start: var(--space-2);
+  border-block-start: 1px solid rgba(255 255 255 / 0.2);
+  padding-block-start: var(--space-2);
+}
+
+// ── ENTRY CARD (Figma: per-entry gradient card with border + shadow) ──────
+.ach-entry__card {
+  background: linear-gradient(139deg, #e0f6ef 1.4%, #fff 50.8%);
+  border: 1.2px solid rgba(0, 168, 117, 0.25);
+  border-radius: 20px;
+  box-shadow: 0px 8px 22px rgba(8, 50, 32, 0.05);
+  padding: var(--space-6);
+  overflow: hidden;
+  position: relative;
+
+  &--dark {
+    background: linear-gradient(153deg, #083220 0%, #006b4d 71.4%);
+    border: none;
+
+    .ach-entry__label { color: #99f2d1; }
+    .ach-entry__headline { color: #fff; }
+    .ach-entry__body { color: #d9ede5; }
+  }
+}
+
+// ── AWARD CARDS (2018 DGEP) ───────────────────────────────────────────────
+.ach-entry__award-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-end: var(--space-4);
+}
+
+.ach-award-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  flex: 1 1 200px;
+}
+
+.ach-award-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e0f6ef;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.ach-award-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ach-award-card__title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  line-height: 1.35;
+}
+
+.ach-award-card__sub {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+// ── QUOTE BLOCK (sustained recognition) ──────────────────────────────────
+.ach-entry__quote {
+  display: grid;
+  grid-template-columns: 4px 1fr auto;
+  grid-template-rows: auto;
+  gap: 0 var(--space-5);
+  align-items: start;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  margin-block: var(--space-4);
+
+  @include bp-down('sm') {
+    grid-template-columns: 4px 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+.ach-entry__quote-bar {
+  width: 4px;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 2px;
+  grid-row: 1 / -1;
+}
+
+.ach-entry__quote-text {
+  font-size: var(--text-base);
+  color: var(--color-body);
+  line-height: var(--line-height-body);
+  margin: 0;
+}
+
+.ach-entry__quote-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-shrink: 0;
+  gap: var(--space-1);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 1px solid var(--color-border);
+
+  @include bp-down('sm') {
+    grid-column: 2;
+    grid-row: 2;
+    border-inline-start: none;
+    padding-inline-start: 0;
+    padding-block-start: var(--space-3);
+    align-items: flex-start;
+    text-align: start;
+  }
+}
+
+.ach-entry__quote-val {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.ach-entry__quote-lbl {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+// ── AWARD CHIPS (icon + label) ────────────────────────────────────────────
+.ach-entry__chips {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ach-entry__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  height: 36px;
+  background: #e0f6ef;
+  border: none;
+  border-radius: 18px;
+  font-size: 0.65625rem;
+  font-weight: var(--weight-medium);
+  color: #006b4d;
+  line-height: 1;
+  white-space: nowrap;
+
+  app-icon {
+    color: #006b4d;
+    flex-shrink: 0;
+  }
+}
+
+// ── ISO CERTIFICATE GRID ──────────────────────────────────────────────────
+.ach-entry__iso-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+
+  @include bp-down('md') { grid-template-columns: repeat(2, 1fr); }
+  @include bp-down('sm') { grid-template-columns: 1fr; }
+}
+
+.ach-entry__iso-cert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: #f8faf9;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  line-height: 1.4;
+  min-height: 80px;
+}
+
+.ach-iso__num {
+  font-size: 9px;
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  flex-shrink: 0;
+  min-width: 20px;
+  margin-block-start: 2px;
+}
+
+.ach-iso__label {
+  font-size: 0.675rem;
+  line-height: 15px;
+  color: var(--color-heading);
+}
+
+// ── RESPONSIVE ───────────────────────────────────────────────────────────
+@include bp-down('sm') {
+  .ach-timeline__entry {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .ach-timeline__pill {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+}

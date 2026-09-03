@@ -1,0 +1,258 @@
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/breakpoints' as *;
+
+:host { display: block; }
+
+// ── HERO ───────────────────────────────────────────────────────────────
+.hub-hero {
+  position: relative;
+  // AMBIGUITY: #083220 (dark forest green) has no SCSS token; --color-primary maps to #00A776 ≈ #00a875
+  background: linear-gradient(149deg, #083220 0%, var(--color-primary) 62.5%);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  padding-block-start: 180px;
+  padding-block-end: var(--space-10);
+  overflow: hidden;
+
+  &__wm {
+    position: absolute;
+    font-size: clamp(60px, 9vw, 120px);
+    font-weight: var(--weight-bold);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    bottom: -0.05em;
+
+    &--start {
+      inset-inline-start: -0.05em;
+      color: #fff;
+      opacity: 0.06;
+    }
+
+    &--end {
+      inset-inline-end: -0.05em;
+      // AMBIGUITY: Figma shows outlined/transparent text; approximated with text-stroke + opacity
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
+      opacity: 0.12;
+    }
+  }
+}
+
+.hub-hero__bc {
+  flex-shrink: 0;
+  margin-block-end: var(--space-6);
+}
+
+.hub-bc-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.hub-bc-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.75);
+
+  &--current {
+    color: #fff;
+    font-weight: var(--weight-medium);
+  }
+}
+
+.hub-bc-link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover { color: #fff; }
+
+  &:focus-visible {
+    @include focus-ring;
+    border-radius: var(--radius-sm);
+  }
+}
+
+.hub-bc-sep {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+}
+
+.hub-hero__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  padding-inline: var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.hub-hero__eyebrow {
+  // AMBIGUITY: #99f2d1 (bright mint) has no SCSS token
+  color: #99f2d1;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-3);
+}
+
+.hub-hero__title {
+  // AMBIGUITY: Figma specifies 34px; clamp approximates that range
+  font-size: clamp(1.75rem, 3vw, 2.125rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  line-height: var(--line-height-heading);
+  margin: 0 0 var(--space-4);
+  max-width: 800px;
+}
+
+.hub-hero__subtitle {
+  // AMBIGUITY: #dbf0e8 (light mint) has no SCSS token
+  color: #dbf0e8;
+  font-size: var(--text-sm);
+  line-height: var(--line-height-body);
+  max-width: 700px;
+  margin: 0;
+}
+
+// ── CARDS ──────────────────────────────────────────────────────────────
+.hub-cards {
+  padding-block-start: var(--space-16); // 64px — Figma: cards start 64px below hero
+  padding-block-end: 72px; // 72px — Figma: 72px gap to partners section
+  background: var(--color-bg);
+}
+
+.hub-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6); // 24px — Figma: row gap = 762-(484+254) = 24px
+
+  @include bp-down('md') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hub-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+  padding: var(--space-6);
+  background: var(--color-white);
+  border-radius: 20px; // Figma exact value: 20px (--radius-xl is 24px, not matching)
+  box-shadow: 0px 8px 22px 0px rgba(8, 35, 32, 0.05);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  &__blob {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: -50px;
+    inset-inline-end: -40px; // Figma: blob left=580px in 680px card → 40px overflow at end edge
+    background: #e0f6ef;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    position: relative;
+    z-index: 1;
+  }
+
+  &__icon-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px;
+    // AMBIGUITY: #e0f6ef — closest is --color-primary-bg (#E6F7ED); exact Figma value used for fidelity
+    background: #e0f6ef;
+    // AMBIGUITY: Figma specifies 13px radius; between --radius-md (8px) and --radius-lg (16px)
+    border-radius: 13px;
+    flex-shrink: 0;
+    color: var(--color-primary-dark);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__title {
+    // AMBIGUITY: #1f2421 (warm near-black) has no token; closest is --color-heading (#16233B, cool blue-black)
+    color: #1f2421;
+    font-size: 17px;
+    font-weight: var(--weight-bold);
+    line-height: 1.53;
+    margin: 0;
+  }
+
+  &__subtitle {
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    line-height: 1.42;
+    margin: 0;
+  }
+
+  &__bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    position: relative;
+    z-index: 1;
+  }
+
+  &__bullet {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    // AMBIGUITY: #1f2421 (warm near-black) has no token
+    color: #1f2421;
+    line-height: 1.67;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    flex-shrink: 0;
+  }
+}

@@ -1,706 +1,593 @@
 # DLD Web App — Single Source of Truth (SSOT)
 
-> Last updated: Phase 0 — Discovery  
-> All values marked ⚠️ APPROX were inferred from screenshots and must be confirmed against the official brand guide.
+> Last updated: **Phase 0 — Figma MCP Discovery (2026-09-02)**
+> Prior approximate values have been replaced with confirmed Figma data.
+> Values marked ⚠️ MISMATCH differ from the current `_tokens.scss`.
+> Values marked ❓ AMBIGUITY require a decision before coding begins.
 
 ---
 
-## 1. Design Tokens
+## 0. Phase 0 Scope
 
-### 1.1 Color Palette
+Figma file key: `YDDNC8BYfnL5Bs4RcYiEgc`
 
-| CSS Custom Property | Value | Usage |
+| Label | Node ID | Description |
 |---|---|---|
-| `--color-primary` | `#22A87C` ⚠️ APPROX | Main interactive green — buttons, active states, icons |
-| `--color-primary-dark` | `#1B5E45` ⚠️ APPROX | DLD Initiatives section bg, App Download section bg |
-| `--color-navy` | `#192032` ⚠️ APPROX | Navbar background, Footer background |
-| `--color-white` | `#FFFFFF` | Cards, content areas |
-| `--color-bg-tint` | `#EBF5F0` ⚠️ APPROX | Page canvas background (mint-green tint visible in Figma canvas) |
-| `--color-text-primary` | `#1A2235` ⚠️ APPROX | Primary body text |
-| `--color-text-muted` | `#6B7280` ⚠️ APPROX | Secondary/caption text |
-| `--color-border` | `#E5E7EB` ⚠️ APPROX | Card borders, dividers |
+| `about-hub` | `4589:89260` | AB-01 About Us — Hub (landing/index page) |
+| `about-dld` | `4058:84370` | About DLD / Who We Are (long-scroll page) |
+| `leadership-overview` | `2786:55708` | Leadership & Organization page |
+| `chairman-modal` | `2225:70293` | Chairman message modal |
+| `dg-modal-short` | `2225:70648` | DG message modal (short / 710px) |
+| `dg-modal-full` | `2225:71626` | DG message modal (full / 1282px) |
+| `partnerships` | `2791:57935` | Partnerships & International Relations page |
+| `achievements` | `4066:87849` | Our Achievements page |
 
-> AMBIGUITY #1: All hex values are approximate, inferred visually from screenshots. Request official brand palette before Phase 3.
+---
 
-### 1.2 Typography
+## 1. Routing Map
 
-**Font family:** `"Dubai"` — Google Font (bilingual Latin + Arabic script, official UAE government typeface)  
-Import URL: `https://fonts.googleapis.com/css2?family=Dubai:wght@300;400;500;700&display=swap`
+### 1.1 Current Routes (in `app.routes.ts`)
 
-| Token | Size | Weight | Usage |
-|---|---|---|---|
-| `--text-hero` | 48–56px ⚠️ APPROX | 700 Bold | Hero section heading |
-| `--text-xl` | 32–40px ⚠️ APPROX | 600 Semi-bold | Section headings |
-| `--text-lg` | 24–28px ⚠️ APPROX | 600 Semi-bold | Card headings, sub-section titles |
-| `--text-md` | 18–20px ⚠️ APPROX | 500 Medium | Emphasized body |
-| `--text-base` | 15–16px ⚠️ APPROX | 400 Regular | Body text |
-| `--text-sm` | 13–14px ⚠️ APPROX | 400 Regular | Labels, captions, metadata |
-
-Line heights: `1.5` for body, `1.25` for headings.
-
-> AMBIGUITY #2: Confirm that the "Dubai" Google Font includes weights 300–700 in both scripts before wiring the import.
-
-### 1.3 Spacing Scale
-
-Base unit: `4px`
-
-```
-4px · 8px · 12px · 16px · 20px · 24px · 32px · 40px · 48px · 64px · 80px · 96px
-```
-
-### 1.4 Border Radius
-
-| Context | Value |
-|---|---|
-| Cards, inputs, buttons | `8px` ⚠️ APPROX |
-| Pills, active tabs | `24px` (fully rounded) |
-| Avatar circles | `50%` |
-
-### 1.5 Shadows
-
-| Context | Value |
-|---|---|
-| Cards | `0 2px 16px rgba(0, 0, 0, 0.08)` ⚠️ APPROX |
-| Navbar | `0 2px 8px rgba(0, 0, 0, 0.12)` ⚠️ APPROX |
-| Dropdown menus | `0 8px 24px rgba(0, 0, 0, 0.12)` ⚠️ APPROX |
-
-### 1.6 Breakpoints
-
-| Name | Min-width | Source |
+| Path | Component | Status |
 |---|---|---|
-| `xs` | 390px | iPhone viewport visible in `Responsive view.png` |
-| `sm` | 576px | Bootstrap standard (inferred) |
-| `md` | 768px | Bootstrap standard (inferred, tablet breakpoint) |
-| `lg` | 992px | Bootstrap standard |
-| `xl` | 1200px | Bootstrap standard |
-| `xxl` | 1440px | Design canvas width observed in screenshots |
+| `/about-dld` | `AboutComponent` (Who We Are long page) | EXISTS |
+| `/about-dld/leadership` | `LeadershipComponent` | EXISTS |
+| `/about-dld/partnerships` | `PartnershipsComponent` | EXISTS |
+
+### 1.2 Required Routes (from Figma)
+
+| Path | Component | Status |
+|---|---|---|
+| `/about-dld` | `AboutHubComponent` (2×2 card grid) | ❓ AMBIGUITY #1 — NEW, BREAKING |
+| `/about-dld/who-we-are` | `AboutComponent` (long scroll) | ❓ AMBIGUITY #1 — needs rename/move |
+| `/about-dld/leadership` | `LeadershipComponent` | EXISTS — keep |
+| `/about-dld/partnerships` | `PartnershipsComponent` | EXISTS — keep |
+| `/about-dld/achievements` | `AchievementsComponent` (NEW) | MISSING |
+
+> ❓ **AMBIGUITY #1 — Routing breaking change:** Figma shows `/about-dld` as a hub index page with a 2×2 card grid linking to the four sub-pages. The current codebase uses `/about-dld` for the full "Who We Are" scroll page. **Decision needed:** (a) create `AboutHubComponent` at `/about-dld` and move `AboutComponent` to `/about-dld/who-we-are`, OR (b) keep current routing and skip the hub page.
 
 ---
 
-## 2. Shared Shell Inventory
+## 2. Per-Frame Layout Breakdown
 
-### 2.1 Navbar
+### 2.1 About Hub — `4589:89260` (1536 × 1638px)
 
-**Component:** `NavbarComponent` (`layout/navbar/`)
+**Purpose:** Index/landing page for the About section. 2×2 card grid with icons, title, subtitle, and bullet links.
 
-| Property | Value |
+| Region | Dimensions | Type |
+|---|---|---|
+| Page hero band | 1536 × 420px | Page-specific (no illustration slot — different from `PageHeroComponent`) |
+| Card grid wrapper | 1400 × 556px (centred) | Page-specific layout |
+| Hub card (×4) | 680 × 254px | ❓ AMBIGUITY #2 — new shared component needed |
+| Partners section | 1536 × ~200px | REUSE `PartnersSectionComponent` |
+
+**Hub card anatomy (confirmed from `4964:99131`):**
+
+| Element | Value |
 |---|---|
-| Background | `--color-navy` |
-| Height | ~72px desktop, ~60px mobile ⚠️ APPROX |
-| Position | `sticky top-0`, `z-index: 1000` |
+| Container bg | `#ffffff` |
+| Container border-radius | `20px` → maps to `--radius-xl` (24px) ⚠️ MISMATCH by 4px |
+| Container box-shadow | `0px 8px 22px 0px rgba(8,35,32,0.05)` → close to `--shadow-card` |
+| Container padding | `24px` → `--space-6` ✓ |
+| Decor blob (absolute) | 140 × 140px, `top: -50px`, `inset-inline-end: 0` (overflows top-right corner) |
+| Icon tile bg | `#e0f6ef` (light green) |
+| Icon tile border-radius | `13px` → nearest: `--radius-md` (8px) ⚠️ MISMATCH |
+| Icon tile padding | `11px` |
+| Icon size | 22 × 22px |
+| Card title | `17px` bold, `#1f2421` |
+| Card subtitle | `12px` regular, `#6b7873` |
+| Gap: header → bullets | `29px` |
+| Bullet dot | 8px green SVG circle |
+| Bullet text | `12px` medium, `#1f2421`, gap `8px` from dot |
 
-**Structure (LTR):**
-```
-[DLD Crest + Arabic label]  [Home | About Us | Services ˅ | Trainings ˅ | Open Data ˅ | News ˅ | Help ˅]  [Search | Bell | User | UAE Flag + "UAE" | Lang Toggle]
-```
+**Hub cards (content):**
 
-**Nav links with dropdowns:**
-- Home
-- About Us
-- Services ˅ (dropdown)
-- Trainings & Programs ˅ (dropdown)
-- Open Data & Insights ˅ (dropdown)
-- News and Media ˅ (dropdown)
-- Help and Support ˅ (dropdown)
-
-**Right icons (left-to-right):**
-1. Search icon (opens search overlay)
-2. Bell/Notifications icon (with badge indicator)
-3. User avatar circle (profile/auth)
-4. UAE flag + "UAE" text (language/region)
-5. Language toggle (EN ↔ AR)
-
-**Active state:** Underline + tinted highlight on active nav link.
-
-**RTL:** All directional properties use CSS logical properties. Nav links reorder naturally; icons mirror.
-
-**Mobile behavior:**
-- Collapses to: `[DLD Logo]` + `[Hamburger ≡]`
-- Hamburger opens full-screen drawer overlay with nav links stacked vertically
-- Drawer closes on: link click, outside tap, Escape key
-
-**Accessibility:**
-- `role="navigation"` + `aria-label="Main navigation"`
-- Dropdown triggers: `aria-expanded`, `aria-haspopup="true"`
-- Mobile drawer: `aria-modal="true"`, focus trap, `aria-label="Navigation menu"`
-- Skip-to-content link as first focusable element
-
-### 2.2 Bottom Toolbar (Floating)
-
-**Component:** `BottomToolbarComponent` (`layout/bottom-toolbar/`)
-
-Always visible across all pages (fixed position, above footer).
-
-**Icons (LTR order):** Chat/AI · Services · Survey · Locations · Announcements · Contact Us · dubai.ae · Language · AI
-
-> AMBIGUITY #3: Unclear if all 9 icons are always shown or if some are context-aware (e.g., only on certain pages). Building as always-visible; mark `// AMBIGUITY:` in component.
-
-### 2.3 Footer
-
-**Component:** `FooterComponent` (`layout/footer/`)
-
-**Background:** `--color-navy`
-
-**Row 1 — Brand block:**
-- DLD crest emblem + Arabic name "دائرة الأراضي والأملاك دبي" + English "Dubai Land Department"
-- Tagline: "Shaping Dubai's real estate future through innovation and excellence."
-- Social links: X (Twitter) · YouTube
-- "Last updated: DD Mon YYYY – HH:MM AM"
-
-**Row 2 — Navigation columns (3 columns):**
-- Column A: Home · About Us · Services · Trainings & Programs
-- Column B: Open Data & Insights · News and Media · Help and Support
-- Column C: (empty or additional links — ⚠️ AMBIGUITY #4: third column content not fully visible)
-
-**Copyright line:** `© 2026 Dubai Land Department – All Right Reserved`
-
-**Mobile:** Single-column stacked layout.
+| Position | Node | Route Link | Title | Subtitle | Icon (vuesax) | Bullets |
+|---|---|---|---|---|---|---|
+| Top-left | `4964:99131` | `/about-dld/who-we-are` | Who We Are | Discover DLD | `courthouse` | About DLD · Values · Vision Mission · Strategic Map |
+| Top-right | `4964:99180` | `/about-dld/leadership` | Leadership & Organization | How we are led | `profile-2user` | Management's Message · Organization Chart |
+| Bottom-left | `4964:99220` | `/about-dld/partnerships` | Partnership & International Relations | Our network | `global` | Partnership · Our Partners · Contact the Partnerships Team |
+| Bottom-right | `4964:99261` | `/about-dld/achievements` | Our Achievements | What you'll find inside at a glance | `medal-star` | Milestones Year By Year · World First · Sustained Recognition · On The Global Index · Certified Excellence |
 
 ---
 
-## 3. Per-Page Layout Breakdown
+### 2.2 About DLD / Who We Are — `4058:84370` (1536 × 6106px)
 
-### 3.1 Homepage (`/`)
+#### Sub-frame `4058:84418` — Hero (1536 × 630px)
+- Heading: "Who We Are"
+- Intro glass card beneath heading
+- 4 factoid chips in a row:
 
-**Source:** `Home Screen.png` + `Responsive view.png`
+| Chip label | Icon (vuesax) |
+|---|---|
+| Established 23 Jan 1960 | `calendar` |
+| Law No.(7) 2013 | `judge` |
+| Chairman HH Sheikh Hamdan | `profile-circle` |
+| Regional & international reach | `global` |
 
-#### Section 1 — Hero
-- Full-width Dubai skyline photo (dark/dusk tones)
-- Centered content:
-  - Heading: "Dubai Land Department" (white, `--text-hero`)
-  - Mission text: "Dubai Land Department seeks to achieve the objectives of Dubai Government's strategy in the real estate sector, and improve land registration procedures."
-  - Search bar (white/light input + green search button)
-  - Quick-link chips below search (e.g., "I want to register a property", "I want to renew my Ejari") ⚠️ AMBIGUITY #5: exact link labels not legible
-- Pagination dots (bottom of hero, for carousel)
-- Reusable? No — page-specific section
+- Type: Page-specific hero — REUSE `PageHeroComponent` (no illustration slot needed; pass `watermark`)
 
-#### Section 2 — Service Category Tabs
-- Pills: **Popular Services & Tools** (active) · Owner · Tenant · Broker · Developer · Management Companies · Partners
-- Active pill: filled green (`--color-primary`), white text
-- Inactive pills: outlined or ghost style
-- Reusable: `TabGroupComponent` (shared)
+#### Sub-frame `4066:87503` — Our Story Timeline
 
-#### Section 3 — Service Cards Grid
-- Section label chip: "POPULAR SERVICES" (small green label)
-- Title: "Popular Services & Tools"
-- Subtitle: "Discover additional tools including property indexes, valuations, certificates, and digital services"
-- Grid: 2 rows × 3 columns (desktop), 1 column (mobile)
-- Each card: Icon (line SVG) + Title + Description + Arrow link (green circle arrow)
-- Cards visible:
-  1. Rental Index — "Check average rental values for any area and property type"
-  2. Service Charge Index — "View average service charges for any community and building"
-  3. Property Valuation — "Get an official DLD-certified property valuation report"
-  4. Download Rental Certificate (Ejari) — "Download your registered Ejari certificate instantly"
-  5. To Whom It May Concern Certificate — "Obtain an official DLD certificate confirming your ownership"
-  6. Property Status Enquiry — "Check your property status, ownership, and registration"
-- "View More" ghost button (centered below grid)
-- Reusable: `ServiceCardComponent` (shared)
+5 numbered entries with vertical connector line on the start side:
 
-#### Section 4 — DLD Initiatives
-- Background: `--color-primary-dark` (dark green)
-- Section label chip: "DLD INITIATIVES"
-- Title: "DLD Initiatives"
-- Subtitle: "Fostering innovation & collaboration through cutting-edge research, technology development, & strategic partnerships"
-- Horizontal scroll of `InitiativeCardComponent`:
-  - Card 1: "Emirati Real Estate Companies Incubator" — deadline + CTA "Apply now" + "Learn more"
-  - Card 2: "Your First Home in Dubai" — "Register your interest" + CTA button
-  - Card 3: (partially visible, more cards)
-- Card style: dark image background, white text overlay, pill badge (status), two CTAs
-- Reusable: `InitiativeCardComponent` (shared)
+| # | Title | Date ref | Key icon | Notable content |
+|---|---|---|---|---|
+| 01 | Our Genesis | 1960s | `archive-book` | Founded as official land registry |
+| 02 | Under the Aegis of Excellence | — | `courthouse` | Growth under leadership |
+| 03 | Our Commitment | — | multiple | RERA + 4 sectors: `security` · `buildings-2` · `folder` · `people` |
+| 04 | Beyond Boundaries | — | `global-search` | Dubai 2040 plan · National Wellbeing 2031 links |
+| 05 | Sculpting the Future | 2013 | `judge` | Law No.(7) 2013 |
 
-#### Section 5 — Real Estate Transactions
-- Title: "Real Estate Transactions" + date picker `[DD/MM/YYYY]` icon
-- Subtitle: "Stay ahead with the latest real estate transactions in Dubai. Gain accurate, real-time market insights to make smarter, data-driven decisions"
-- Tab switch: **Analytics** | **Map**
-- **Analytics tab** (donut chart via Chart.js/ng2-charts):
-  - Center label: "Total Transactions · 1.64 B · 13th May 2025"
-  - Segments: green (primary), navy, purple/accent ⚠️ AMBIGUITY #6: exact segment colors and labels
-  - Legend: "Mortgaged: 435" visible; more segments unlabeled
-- **Map tab** (Leaflet map):
-  - Interactive map of Dubai with location pins showing prices (e.g., "AED 1.2M")
-  - Click on pin shows popup: Location name + No. of Transactions + AED value + Top Price Range + "Add It" button
-  - Example popup: "CREEK HARBOUR · 3,124,580,000 AED · Top Price Range: AED 9,990–12,500"
-  - Map tiles: OpenStreetMap (TODO: confirm tile provider license; `// TODO(backend): swap tile URL for approved provider`)
-- Reusable: page-specific section; chart and map are page-specific
+- Type: Page-specific section (differs from existing `TimelineComponent` which is year-based)
+- ❓ AMBIGUITY #3: Existing `TimelineComponent` uses `{ year, title, caption }` — doesn't support icons or multiple sub-items. Need to extend or create new component.
 
-#### Section 6 — App Download
-- Background: `--color-primary-dark`
-- Title: "Download Dubai REST APP Now" (white heading)
-- Subtitle: description of app features
-- Tagline: "Available on All Platforms"
-- Phone mockups (3 phone screens showing app UI)
-- App store badges: App Store · Google Play · AppGallery
-- Reusable: page-specific section
+#### Sub-frame `4066:87596` — Values Section
 
-#### Section 7 — Partners
-- White background
-- Partner logos: Dubai Careers · Dubai Pulse (dubai pulse)
-- Reusable: `PartnersRowComponent` (reused on About page)
+- Watermark words: **TRUST · VISION · GROWTH · INTEGRITY** (large, rgba opacity, background)
+- Values list (icon-list style): Proficient Team · People-centric · Justice · Passion · Boldness
+- Type: REUSE `WatermarkTextComponent` + `IconListComponent` (already in `about.component`)
+
+#### Sub-frame `4066:87631` — Strategic Map
+
+- 5 cards numbered 01–05: 3 top row + 2 bottom row (wider)
+- Matches existing `STRATEGIC_CARDS` data in `about.component.ts` ✓
+- Type: REUSE `NumberedCardComponent` (already wired)
 
 ---
 
-### 3.2 About Us (`/about`)
+### 2.3 Leadership & Organization — `2786:55708` (1536 × ~3000px)
 
-**Source:** `About Us.png` + `Responsive view.png`
-
-#### Section 1 — Page Header / Hero
-- Background: `--color-primary-dark`
-- Breadcrumb: Home > About DLD (white text)
-- Heading: "Who We Are" (white, `--text-xl`)
-- Tagline: "Trusted by millions, built on integrity, driving Dubai's property market since 1960." ⚠️ AMBIGUITY #7: exact tagline text not fully legible
-- Reusable: `PageHeroComponent` (shared; accepts heading, breadcrumb, tagline)
-
-#### Section 2 — Stats Bar
-- Inline stats row (3 columns):
-  - `500K+` — Annual Transactions ⚠️ APPROX label
-  - `AED 1288` — Dubai Data 2025 ⚠️ APPROX label
-  - `4.5+` — ⚠️ AMBIGUITY #8: third stat label not legible
-- Reusable: `StatBarComponent` (shared)
-
-#### Section 3 — Cornerstone
-- Illustration: magnifying glass over house icon
-- Large heading: "The Cornerstone of Dubai's Real Estate Ecosystem." ⚠️ APPROX
-- Body text describing DLD's role and history
-- Split layout (text left, illustration right) on desktop; stacked on mobile
-
-#### Section 4 — Values Watermark
-- Large semi-transparent watermark text: "TRUST VISION GROWTH INTEGRITY" in `--color-primary` at low opacity
-- Dubai skyline photo beneath/behind the text
-- Visual depth effect (z-index layering)
-
-#### Section 5 — Empowering Section
-- Dark overlay + Dubai photo
-- Small label: "Our Mission" ⚠️ APPROX
-- Heading: "Empowering the Real Estate Community"
-- Subtitle: "Through seamless services, smart legislation, integrated data, digital infrastructure, and skilled human capital"
-
-#### Section 6 — Our Strategic Map
-- Section label chip: "OUR STRATEGIC MAP" ⚠️ APPROX
-- 3 cards (horizontal grid on desktop, stacked mobile):
-  - "Financing RE Model" — "Enable civic systems and ecosystems for the RE sector"
-  - "RE Innovation Platform" — "Enable a private-driven and collaborative RE development" ⚠️ APPROX
-  - "Agile R&D" — "Cultivate a flourishing digital ecosystem / Smart partnerships with private sector / Ensure government efficiency"
-- Each card: icon + title + description
-
-#### Section 7 — Our Achievements
-- Section label: "OUR ACHIEVEMENTS"
-- 4 stat counters (approximate values visible):
-  - `AED 7618+` ⚠️ AMBIGUITY #9: unit and label not fully legible
-  - `226,000+` ⚠️ AMBIGUITY #9: label not legible
-  - 2 more stats not legible
-- Reusable: `StatCounterComponent` (shared)
-
-#### Section 8 — Partners Row
-- Same as Homepage partners row
-- Reusable: `PartnersRowComponent`
-
----
-
-### 3.3 Leadership & Organization (`/about/leadership`)
-
-Sub-page under About Us (lazy child route)
-
-#### Section 1 — Page Header
-- Background: `--color-primary-dark`
-- Breadcrumb: Home > About DLD > Leadership & Organization
+#### Region — Hero
 - Heading: "Leadership & Organization"
-- Reusable: `PageHeroComponent`
+- Breadcrumb: Home > About DLD > Leadership & Organization
+- Type: REUSE `PageHeroComponent`
 
-#### Section 2 — Messages from Leadership
-- Section title: "Messages from Leadership"
-- `LeaderCardComponent` × 2+ cards:
-  - Photo (portrait of official in traditional dress)
-  - Name + Title
-  - Excerpt text
-  - CTA: "Read Message" or similar
-- ⚠️ AMBIGUITY #10: number of leader cards and exact titles not fully legible
+#### Region — Messages from Leadership
+- 2 cards side by side, each 672px wide:
+  - **Chairman card:** "LEADERSHIP" chip · "Chairman Message" · "H.E. Marwan bin Ghalita" · excerpt · "Read more" CTA · portrait placeholder right side (202 × 225px)
+  - **DG card:** same structure · "H.E. Omar Bu Shehab"
+- Clicking "Read more" opens modal overlay
+- Type: REUSE `LeadershipCardComponent` (already in codebase with `green` / `navy` themes)
 
-#### Section 3 — Organization Chart
-- Section title: "Organization Chart"
-- Hierarchical tree structure showing DLD organizational hierarchy
-- Multiple levels visible (Director General → Department heads → sub-departments)
-- Implementation: CSS/HTML flexbox tree (no library); `// AMBIGUITY: may need a chart library if tree is deep/complex`
-- `// TODO(backend): fetch live org chart data from DLD API`
+#### Region — Org Chart
 
----
-
-### 3.4 News & Media (`/news`)
-
-**Source:** `News and Media.png`
-
-#### Section 1 — Latest News (Hero)
-- Section label chip: "LATEST NEWS"
-- Title: "Latest News"
-- Subtitle: "Stay updated with the latest developments in Dubai's real estate..."
-- 3 featured `NewsCardComponent` (hero variant):
-  - Large image (full card bg)
-  - Date tag
-  - Headline title
-  - Optional category badge
-- Horizontal row of 3 cards on desktop; single column on mobile
-
-#### Section 2 — All News Listing
-- Section title: "All News"
-- Subtitle: "Explore all of our news and stay updated"
-- `NewsCardComponent` (list variant) — horizontal layout:
-  - Left: thumbnail image
-  - Right: category chip · title · date · excerpt · "Read More →" link
-- List grows vertically
-- "Showing X out of Y results" text + "Load More" button
-- `// TODO(backend): paginate from DLD News API`
-
----
-
-## 4. Routing Map
+Full hierarchy with connector lines:
 
 ```
-/                        → HomeComponent           (lazy feature module)
-/about                   → AboutComponent          (lazy feature module)
-/about/leadership        → LeadershipComponent     (lazy child route)
-/news                    → NewsComponent           (lazy feature module)
-/news/:id                → ArticleDetailComponent  (lazy, placeholder stub only)
-/services                → ServicesPlaceholderComponent (out of scope — stub)
-/trainings               → placeholder
-/open-data               → placeholder
-/help                    → placeholder
-/auth/signin             → AuthPlaceholderComponent (scaffold for guard)
-/auth/register           → AuthPlaceholderComponent (scaffold for guard)
-**                       → NotFoundComponent
+Chairman
+├── Chairman Office
+└── Director General
+    ├── DG Office
+    ├── Internal Audit & Risk Dept
+    ├── Legal Affairs Dept
+    ├── Strategy & Future Dept
+    └── Rental Disputes Center
+        ├── Technical Office
+        ├── Conciliation Dept
+        ├── Central Support Dept
+        ├── Execution of Judgments
+        ├── Eviction Section
+        └── Financial Claims
+    └── [3-column sector grid]
+        ├── Corporate Support Sector
+        │   └── HR+Dev · Admin+Procurement · Financial Affairs · Marketing+Comms · Digital Transformation · Knowledge+Data
+        ├── Real Estate Registration Sector
+        │   └── RE Transactions · Rental Affairs · Survey · Custodies+Compensations · RE Services Pioneering
+        └── Real Estate Regulatory Agency / RERA
+            └── RE Licensing+Enablement · Jointly Owned Property · RE Control
 ```
 
-**Auth Guards:**
-- `AuthGuard` — stub returning `true` for all routes; wired to `/services/**` as example
-- `// TODO(backend): implement real auth check against DLD identity provider`
+- Download button in org chart header
+- Type: Page-specific — REUSE `OrgChartComponent` (exists, but has no HTML template — verify)
 
 ---
 
-## 5. i18n Key Plan
+### 2.4 Chairman Modal — `2225:70293` (1366 × ~800px)
+
+**Theme:** Green gradient `#0a2e24 → #1b7a5d` (left-to-right, or top-to-bottom)
+
+| Element | Value |
+|---|---|
+| Portrait | 485 × 541px, `inset-inline-start` |
+| Eyebrow | "LEADERSHIP" — uppercase, letter-spaced, small, white |
+| Title size | `66px` bold, white |
+| Green divider bar | 48 × 4px, `#00a875` |
+| Watermark: top | "Chairman" — rgba(255,255,255,0.04) |
+| Watermark: bottom | "Message" — same |
+| Signature line | "H.E. Marwan bin Ghalita · Director General, Dubai Land Department" |
+| Close button | 51 × 51px, absolute top-right corner |
+| Breadcrumb | Home > About DLD > Message from the Chairman |
+
+- Type: REUSE `LeadershipMessageModalComponent` — verify existing green theme matches `#0a2e24 → #1b7a5d`
+
+---
+
+### 2.5 DG Modal — `2225:71626` (full, 1282px tall)
+
+**Theme:** Navy gradient `#0a142e → #0f1f42 → #1c3366`
+
+- Same layout as Chairman modal but portrait on `inset-inline-end` (right), text on left
+- 5 full paragraphs visible (1282px tall = scrollable modal)
+- Short version (`2225:70648`) is 710px: shows 1–2 paragraphs with scroll affordance
+- Type: REUSE `LeadershipMessageModalComponent` — navy theme
+
+---
+
+### 2.6 Partnerships — `2791:57935` (1536 × ~2800px)
+
+#### Hero
+- Heading: "Partnership & International Relations"
+- Subtitle describing strategic partnerships
+- Type: REUSE `PageHeroComponent`
+
+#### Editorial Section
+- Left column: image, **570 × 517px**
+- Right column: eyebrow "OUR COMMITMENT" + heading "Building Partnerships Through Excellence" + body text + green divider bar
+- Type: Page-specific split layout
+
+#### Contact Bar
+- Text: "Interested in Partnering with DLD?"
+- Email: `partnership@dubailand.gov.ae`
+- CTA button (green pill)
+- Type: REUSE `CtaBandComponent` (already in shared)
+
+#### Partner Filter Tabs
+- 4 filter buttons (tab group)
+- ❓ AMBIGUITY #4: Category names not readable in metadata — need clarification. Assumed: All · Governmental · Private · International
+
+#### Our Partners Grid
+- Section heading: "Governmental Partners"
+- Grid: 6 rows × 5 logos
+- Each logo slot: 192 × 101px, white bg, `--radius-md`, border
+- Type: REUSE `PartnerLogoGridComponent` (adjust grid columns)
+
+---
+
+### 2.7 Achievements — `4066:87849` (1536 × ~4000px)
+
+#### Hero
+- Heading: "Our Achievements"
+- Watermark: "AWARDS"
+- Type: REUSE `PageHeroComponent`
+
+#### Achievements Timeline
+
+Events rendered as a vertical timeline with a start-side line and year pills:
+
+| Year pill | Event(s) |
+|---|---|
+| 2014 | Idea of Year (Ejari + DREI) · Stevies Silver · Guinness World Record |
+| 2015 | UNEP DSCS launch (30 speakers, 500 guests) · Ideas Arabia 2 awards |
+| 2016 | 20th World Land Registration Congress (500 guests, 50+ countries, 50 speakers, 18 topics) |
+| **2017** | **"WORLD FIRST" blockchain pill** — first government entity to adopt blockchain for property registry |
+| 2018 | 69th FIABCI World Congress · 3 DGEP awards |
+| (no year) | Sustained Recognition: 4× consecutive Best Dept + Customer Satisfaction · Investors in People Silver · Hamdan bin Mohammed Award |
+| 2021 | Stevie Silver (Mollak) · MENA Stevie Gold (Smart Valuation) |
+
+**Special blocks (after timeline):**
+
+| Block | Content |
+|---|---|
+| ON THE GLOBAL INDEX | #1 region RE transparency 2018 · 7th globally / 1st regionally World Bank 2019 |
+| CERTIFIED EXCELLENCE | 12 ISO certificates in 3×4 grid, each with `shield-tick` icon |
+
+- ❓ AMBIGUITY #5: Achievements currently exist as sections inside `about.component` (`AchievementStatsComponent`). Figma shows this as a full routed page at `/about-dld/achievements`. Decision needed.
+- Type: Page-specific — needs new `AchievementsComponent` feature page
+
+---
+
+## 3. Token Reconciliation
+
+### 3.1 Figma Variable → SCSS Token Mapping
+
+From `get_variable_defs` on node `4589:89260`:
+
+| Figma Variable | Figma Value | SCSS Token | SCSS Value | Status |
+|---|---|---|---|---|
+| `Neutral/0` | `#FFFFFF` | `--color-white` | `#FFFFFF` | ✅ MATCH |
+| `surface/surface` | `#ffffff` | `--color-white` | `#FFFFFF` | ✅ MATCH |
+| `surface/outline` | `#e4e2e6` | `--color-border` | `#E9EBEA` | ≈ CLOSE (4-5 point delta) |
+| `gap/gap-xs` | `4px` | `--space-1` | `4px` | ✅ MATCH |
+| `gap/gap-md` | `12px` | `--space-3` | `12px` | ✅ MATCH |
+| `gap/gap-lg` | `16px` | `--space-4` | `16px` | ✅ MATCH |
+| `gap/gap-3xl` | `64px` | `--space-16` | `64px` | ✅ MATCH |
+| `padding/padding-sm` | `8px` | `--space-2` | `8px` | ✅ MATCH |
+| `padding/padding-md` | `12px` | `--space-3` | `12px` | ✅ MATCH |
+| `padding/padding-xxl` | `32px` | `--space-8` | `32px` | ✅ MATCH |
+| `padding/padding-3xl` | `64px` | `--space-16` | `64px` | ✅ MATCH |
+| `radius-pill` | `999` | `--radius-pill` | `999px` | ✅ MATCH |
+| `line-height/body` | `24` | `--line-height-body` | `1.6` (≈24/15) | ✅ MATCH (conceptual) |
+| `font-size/body` | `16px` | `--text-base` | `0.9375rem` (≈15px) | ⚠️ MISMATCH (15 vs 16) |
+| `font-size/caption` | `14px` | `--text-sm` | `0.8125rem` (≈13px) | ⚠️ MISMATCH (13 vs 14) |
+| `font-family/font-family` | `"Dubai"` | `--font-family-base` | `'Poppins', system-ui` | ⚠️ MISMATCH — see AMBIGUITY #6 |
+| `Neutral/35` | `#353535` | _(none)_ | — | ❓ AMBIGUITY #7 — no token |
+| `Neutral/400` | `#ADB8B4` | _(none)_ | — | ❓ AMBIGUITY #8 — no token |
+| `--primary/400` (from code) | `#00a875` | `--color-primary` | `#00A776` | ❓ AMBIGUITY #9 — 1-hex delta |
+
+### 3.2 Colors Found in Design Code (Not in Variable Defs)
+
+| Location | Value | Nearest existing token | Notes |
+|---|---|---|---|
+| Hub card icon tile bg | `#e0f6ef` | `--color-primary-bg: #E6F7ED` | ≈ close, slightly more saturated |
+| Hub card title text | `#1f2421` | `--color-heading: #16233B` | Different hue (warm vs cool) |
+| Hub card subtitle text | `#6b7873` | `--color-muted: #6B7280` | ≈ close, slight warm shift |
+| Chairman modal gradient start | `#0a2e24` | `--color-primary-dark: #0C6B4A` | Darker — for modal only |
+| Chairman modal gradient end | `#1b7a5d` | `--color-primary: #00A776` | For modal only |
+| DG modal gradient start | `#0a142e` | `--color-navy: #141D2D` | Darker — for modal only |
+| DG modal gradient mid | `#0f1f42` | _(none)_ | For modal only |
+| DG modal gradient end | `#1c3366` | _(none)_ | For modal only |
+| Green divider bar | `#00a875` | `--color-primary: #00A776` | See AMBIGUITY #9 |
+| Achievements "WORLD FIRST" pill | bright green | `--color-primary` | Confirm in build |
+
+---
+
+## 4. Icon-Name Map
+
+### 4.1 Vuesax Icons Required
+
+The Figma design uses the **Vuesax Outline** icon set. These icons **do not exist** in the current codebase (`src/assets/icons/` only has `dld-emblem.svg`, `x.svg`, `youtube.svg`). There is also **no `<app-icon>` component** in the codebase.
+
+> ❓ **AMBIGUITY #10 — Icon strategy:** The build prompt spec calls for `<app-icon name="...">`. Three options:
+> (a) Create `IconComponent` that lazy-loads SVGs from `assets/icons/vuesax/*.svg` files (download the Vuesax icon set)
+> (b) Keep the current pattern of inline SVG `<path>` strings in TypeScript arrays (CLAUDE.md convention)
+> (c) Use a CDN icon font
+> **Current CLAUDE.md convention = inline SVG paths. Decision needed before implementation.**
+
+| Icon name (Vuesax) | Used in | Notes |
+|---|---|---|
+| `courthouse` | Hub → Who We Are card | |
+| `profile-2user` | Hub → Leadership card | |
+| `global` | Hub → Partnerships card; About factoid chip | |
+| `medal-star` | Hub → Achievements card | |
+| `archive-book` | About → Our Story 01 | |
+| `security` | About → Commitment sector | |
+| `buildings-2` | About → Commitment sector | |
+| `folder` | About → Commitment sector | |
+| `people` | About → Commitment sector | |
+| `global-search` | About → Beyond Boundaries | |
+| `judge` | About → Sculpting the Future; Hero factoid | |
+| `calendar` | About → Hero factoid (Established date) | |
+| `profile-circle` | About → Hero factoid (Chairman) | |
+| `shield-tick` | Achievements → ISO certificates (×12) | |
+
+---
+
+## 5. Image Slots
+
+| Slot | Component | Dimensions | Current asset | Status |
+|---|---|---|---|---|
+| Hub hero bg | `AboutHubComponent` hero | 1536 × 420px | — | ❓ Needs image or gradient |
+| Who We Are hero | `PageHeroComponent` | 1536 × 630px | `about-dubai.jpg` | exists |
+| Who We Are illustration | `IllustrationCardComponent` | 570 × 380px | `about-illustration.svg` | exists |
+| Leadership hero | `PageHeroComponent` | 1536 × 630px | `leadership-illustration.svg` | exists |
+| Chairman portrait (modal) | `LeadershipMessageModalComponent` | **485 × 541px** | `chairman-portrait.jpg` | exists |
+| DG portrait (modal) | `LeadershipMessageModalComponent` | **485 × 541px** | `dg-portrait.jpg` | exists |
+| Chairman portrait (card) | `LeadershipCardComponent` | 202 × 225px | `chairman-portrait.jpg` | exists |
+| DG portrait (card) | `LeadershipCardComponent` | 202 × 225px | `dg-portrait.jpg` | exists |
+| Partnerships hero | `PageHeroComponent` | 1536 × 630px | `partnerships-illustration.svg` | exists |
+| Partnerships editorial | `PartnershipsComponent` | **570 × 517px** | — | MISSING — placeholder needed |
+| Partner logos (grid) | `PartnerLogoGridComponent` | 192 × 101px each | only `partner-dubai-pulse.svg` | MISSING — most logos |
+| Achievements hero | `PageHeroComponent` | 1536 × 630px | — | MISSING — new page |
+
+---
+
+## 6. i18n Keys
+
+### New keys to add (About Hub page)
 
 ```json
-// en.json / ar.json structure (nested by namespace)
+// en.json
 {
-  "nav": {
-    "home": "Home",
-    "about": "About Us",
-    "services": "Services",
-    "trainings": "Trainings & Programs",
-    "open_data": "Open Data & Insights",
-    "news": "News and Media",
-    "help": "Help and Support",
-    "search": "Search",
-    "notifications": "Notifications",
-    "profile": "My Profile",
-    "language": "العربية"
-  },
-  "hero": {
-    "title": "Dubai Land Department",
-    "subtitle": "...",
-    "search_placeholder": "Search for services, properties...",
-    "search_cta": "Search"
-  },
-  "services": {
-    "popular_label": "POPULAR SERVICES",
-    "title": "Popular Services & Tools",
-    "subtitle": "Discover additional tools including property indexes, valuations, certificates, and digital services",
-    "view_more": "View More"
-  },
-  "service": {
-    "rental_index": { "title": "Rental Index", "desc": "..." },
-    "charge_index": { "title": "Service Charge Index", "desc": "..." },
-    "valuation": { "title": "Property Valuation", "desc": "..." },
-    "ejari": { "title": "Download Rental Certificate (Ejari)", "desc": "..." },
-    "cert": { "title": "To Whom It May Concern Certificate", "desc": "..." },
-    "status": { "title": "Property Status Enquiry", "desc": "..." }
-  },
-  "initiatives": {
-    "title": "DLD Initiatives",
-    "subtitle": "Fostering innovation & collaboration through cutting-edge research, technology development, & strategic partnerships"
-  },
-  "transactions": {
-    "title": "Real Estate Transactions",
-    "subtitle": "Stay ahead with the latest real estate transactions in Dubai...",
-    "analytics_tab": "Analytics",
-    "map_tab": "Map"
-  },
-  "app": {
-    "download_title": "Download Dubai REST APP Now",
-    "download_subtitle": "...",
-    "available_on": "Available on All Platforms"
-  },
-  "about": {
-    "who_we_are": "Who We Are",
-    "tagline": "...",
-    "stats": {
-      "transactions": "500K+ Annual Transactions",
-      "index": "AED 1288 Dubai Data 2025",
-      "rating": "4.5+"
-    },
-    "cornerstone_title": "The Cornerstone of Dubai's Real Estate Ecosystem.",
-    "cornerstone_body": "...",
-    "values": {
-      "trust": "TRUST", "vision": "VISION", "growth": "GROWTH", "integrity": "INTEGRITY"
-    },
-    "empower_title": "Empowering the Real Estate Community",
-    "empower_subtitle": "Through seamless services, smart legislation, integrated data, digital infrastructure, and skilled human capital",
-    "strategic_map_title": "Our Strategic Map",
-    "achievements_title": "Our Achievements"
-  },
-  "leadership": {
-    "title": "Leadership & Organization",
-    "messages_title": "Messages from Leadership",
-    "org_chart_title": "Organization Chart"
-  },
-  "news": {
-    "latest_label": "LATEST NEWS",
-    "latest_title": "Latest News",
-    "all_title": "All News",
-    "all_subtitle": "Explore all of our news and stay updated",
-    "read_more": "Read More",
-    "load_more": "Load More",
-    "showing_count": "Showing {{shown}} out of {{total}} results"
-  },
-  "footer": {
-    "tagline": "Shaping Dubai's real estate future through innovation and excellence.",
-    "copyright": "© 2026 Dubai Land Department – All Right Reserved",
-    "last_updated": "Last updated on {{date}}"
-  },
-  "common": {
-    "loading": "Loading...",
-    "error": "Something went wrong. Please try again.",
-    "back": "Back",
-    "learn_more": "Learn more",
-    "apply_now": "Apply now"
+  "about_hub": {
+    "hero_title": "About DLD",
+    "hero_subtitle": "Learn more about Dubai Land Department, our leadership, partnerships and achievements",
+    "cards": {
+      "who_we_are_title": "Who We Are",
+      "who_we_are_subtitle": "Discover DLD",
+      "who_we_are_bullets": {
+        "about": "About DLD",
+        "values": "Values",
+        "vision": "Vision Mission",
+        "strategic_map": "Strategic Map"
+      },
+      "leadership_title": "Leadership & Organization",
+      "leadership_subtitle": "How we are led",
+      "leadership_bullets": {
+        "messages": "Management's Message",
+        "org_chart": "Organization Chart"
+      },
+      "partnerships_title": "Partnership & International Relations",
+      "partnerships_subtitle": "Our network",
+      "partnerships_bullets": {
+        "partnership": "Partnership",
+        "our_partners": "Our Partners",
+        "contact": "Contact the Partnerships Team"
+      },
+      "achievements_title": "Our Achievements",
+      "achievements_subtitle": "What you'll find inside at a glance",
+      "achievements_bullets": {
+        "milestones": "Milestones Year By Year",
+        "world_first": "World First",
+        "sustained": "Sustained Recognition",
+        "global_index": "On The Global Index",
+        "certified": "Certified Excellence"
+      }
+    }
   }
 }
 ```
 
+### New keys to add (About DLD / Who We Are)
+
+```json
+{
+  "about": {
+    "our_story_title": "Our Story",
+    "our_story_items": {
+      "genesis_title": "Our Genesis",
+      "genesis_caption": "Founded as Dubai's official land registry in the 1960s",
+      "aegis_title": "Under the Aegis of Excellence",
+      "aegis_caption": "Growth under visionary leadership",
+      "commitment_title": "Our Commitment",
+      "commitment_caption": "RERA and four key sectors established",
+      "boundaries_title": "Beyond Boundaries",
+      "boundaries_caption": "Dubai 2040 Urban Master Plan and National Wellbeing 2031",
+      "future_title": "Sculpting the Future",
+      "future_caption": "Law No.(7) 2013 — the cornerstone of real estate regulation"
+    },
+    "factoids": {
+      "established": "Established 23 Jan 1960",
+      "law": "Law No.(7) 2013",
+      "chairman": "Chairman HH Sheikh Hamdan",
+      "reach": "Regional & international reach"
+    }
+  }
+}
+```
+
+### New keys to add (Achievements page)
+
+```json
+{
+  "achievements": {
+    "hero_title": "Our Achievements",
+    "hero_subtitle": "A legacy of innovation, recognition, and global leadership in real estate",
+    "timeline_title": "Milestones Year By Year",
+    "world_first_label": "WORLD FIRST",
+    "world_first_title": "First Government Entity to Adopt Blockchain",
+    "world_first_body": "In 2017, DLD became the first government entity in the world to adopt blockchain technology for real estate transactions.",
+    "global_index_title": "On The Global Index",
+    "global_index_stat1": "#1 region in real estate transparency, 2018",
+    "global_index_stat2": "7th globally, 1st regionally — World Bank, 2019",
+    "certified_title": "Certified Excellence",
+    "sustained_title": "Sustained Recognition",
+    "sustained_items": {
+      "best_dept": "4× consecutive Best Department Award",
+      "customer_sat": "Customer Satisfaction Award",
+      "investors": "Investors in People Silver",
+      "hamdan": "Hamdan bin Mohammed Award"
+    },
+    "iso_label": "ISO Certificates"
+  }
+}
+```
+
+### New keys to add (Partnerships page)
+
+```json
+{
+  "partnerships": {
+    "hero_title": "Partnership & International Relations",
+    "hero_subtitle": "Building strategic alliances to strengthen Dubai's global real estate leadership",
+    "editorial_eyebrow": "OUR COMMITMENT",
+    "editorial_title": "Building Partnerships Through Excellence",
+    "editorial_body": "...",
+    "contact_title": "Interested in Partnering with DLD?",
+    "contact_email": "partnership@dubailand.gov.ae",
+    "contact_cta": "Get in Touch",
+    "filter_all": "All",
+    "filter_governmental": "Governmental",
+    "filter_private": "Private Sector",
+    "filter_international": "International",
+    "partners_section_title": "Governmental Partners"
+  }
+}
+```
+
+### Existing keys with hardcoded strings (i18n gap — CLAUDE.md gap #14)
+
+The following strings in `about.component.ts` are hardcoded in English inside TypeScript arrays and must be moved to i18n keys:
+
+- `STATS` array: 5 stat labels (`'Annual Transactions'`, `'Market Value 2024'`, etc.)
+- `STRATEGIC_CARDS` array: `eyebrow`, `title`, and `bullets` for all 5 cards
+- `ACHIEVEMENT_STATS` array: 4 `label` strings
+- `TIMELINE_ITEMS` array: `title` and `caption` for all 6 items
+- `valuesItems` array: 5 value strings
+
 ---
 
-## 6. Asset List
+## 7. Open Questions / AMBIGUITY List
 
-### SVG Icons (`src/assets/icons/`)
-
-```
-logo/
-  dld-emblem.svg           (crest/seal icon)
-  dld-wordmark-en.svg      (English logotype)
-  dld-wordmark-ar.svg      (Arabic logotype)
-
-nav/
-  search.svg
-  bell.svg
-  user.svg
-  hamburger.svg
-  close.svg
-  flag-uae.svg
-  chevron-down.svg
-
-services/
-  rental-index.svg
-  charge-index.svg
-  valuation.svg
-  ejari.svg
-  cert.svg
-  property-status.svg
-
-social/
-  x.svg
-  youtube.svg
-
-stores/
-  app-store.svg
-  google-play.svg
-  appgallery.svg
-
-toolbar/
-  chat.svg
-  survey.svg
-  location.svg
-  announcement.svg
-  contact.svg
-  globe.svg
-  ai.svg
-  services.svg
-
-common/
-  arrow-right.svg
-  arrow-left.svg
-  external-link.svg
-  calendar.svg
-  map-pin.svg
-```
-
-### Raster Images (`src/assets/images/`)
-
-```
-hero-dubai.jpg              (Dubai skyline — placeholder; real asset from client)
-about-dubai-day.jpg         (Dubai buildings — about page)
-about-dubai-night.jpg       (Dubai skyline night — values section)
-app-mockup.png              (phone screens — app download section)
-news-placeholder.jpg        (generic news thumbnail)
-leader-placeholder.jpg      (generic portrait — leadership cards)
-```
-
-### Partner Logos (`src/assets/images/partners/`)
-
-```
-dubai-careers.svg
-dubai-pulse.svg
-```
-
----
-
-## 7. Open Questions / Ambiguities
-
-| # | Area | Ambiguity | Assumption Made |
+| # | Area | Question | Default assumption if not answered |
 |---|---|---|---|
-| 1 | Colors | All hex values approximate; exact brand palette not confirmed | Using inferred values; marked `⚠️ APPROX` throughout |
-| 2 | Typography | "Dubai" Google Font weight range not confirmed | Assume 300–700 available; verify before Phase 1 |
-| 3 | Bottom Toolbar | Always visible or context-dependent? | Building as always-visible; mark `// AMBIGUITY:` in component |
-| 4 | Footer Column C | Third footer nav column content not fully legible | Left empty; add links when confirmed |
-| 5 | Hero Quick Links | Exact text of quick-link chips below search not legible | Using placeholder text |
-| 6 | Donut Chart Segments | Colors and labels of chart segments not confirmed | Green + navy + purple/accent; update in Phase 3 |
-| 7 | About Tagline | Exact tagline text under "Who We Are" partially illegible | Using approximate; flag `// AMBIGUITY:` in translation key |
-| 8 | Stats Bar | Third stat label on About page not legible | Using placeholder `"4.5+"` |
-| 9 | Achievements Stats | Exact values and labels not fully legible | Using placeholder values; `// AMBIGUITY:` in mock data |
-| 10 | Leadership Cards | Number of leaders and exact titles not legible | Using 2 placeholder cards; `// TODO(backend):` |
-| 11 | SSR | Brief says off; may impact SEO for a government site | Off; marked `// AMBIGUITY: SSR omitted per brief; consider for SEO` |
-| 12 | Map Tile Provider | Leaflet needs tile server; licensing concern | OpenStreetMap tiles; `// TODO(backend): confirm approved tile provider` |
-| 13 | Service Tab Behavior | Switching tabs: filter in place or navigate? | Filter in place (no route change); `// AMBIGUITY:` in component |
-| 14 | Real Images | Hero/about/news images are brand assets; not extractable from screenshots | Placeholder JPGs; `// TODO(backend): replace with official assets` |
+| 1 | **Routing (BREAKING)** | Should `/about-dld` become a hub index page (requires moving `AboutComponent` to `/about-dld/who-we-are`)? | Wait for approval — do not reroute without explicit sign-off |
+| 2 | **Hub card component** | Should `AboutHubCardComponent` be a new shared component, or page-specific? | Page-specific until used in 2+ places |
+| 3 | **Story timeline** | Existing `TimelineComponent` uses `{ year, title, caption }`. The "Our Story" section needs icons and sub-items. Extend or create new? | Extend `TimelineComponent` with optional `icon` and `subItems[]` inputs |
+| 4 | **Partnerships filter tabs** | What are the 4 filter category names? Only visual placeholders visible in metadata. | Assume: All / Governmental / Private Sector / International |
+| 5 | **Achievements page** | Figma shows `/about-dld/achievements` as a full page. Should it be extracted from `about.component` sections? | Extract to new page — add route after approval |
+| 6 | **Font (Dubai vs Poppins)** | Figma uses `Dubai` font. Codebase uses `Poppins` (font files not in repo). Add the WOFF2 files for Phase 1 of this feature? | Keep Poppins until WOFF2 files provided — no visual change required in Phase 1 |
+| 7 | **`Neutral/35: #353535`** | No matching token. Is this a dark body text alternative, or one-off? | Do not add token — use `--color-heading` (`#16233B`) as nearest dark alternative |
+| 8 | **`Neutral/400: #ADB8B4`** | No matching token. Is this a mid-gray for disabled or border states? | Do not add token — flag with `// AMBIGUITY:` in component where used |
+| 9 | **Primary green exact value** | Figma code shows `#00a875`, tokens file has `#00A776`. One-hex difference. Which is canonical? | Use existing `--color-primary: #00A776` until brand confirms |
+| 10 | **Icon strategy** | CLAUDE.md convention = inline SVG `<path>` strings. Build prompt spec says `<app-icon name="...">`. Which wins? | Follow CLAUDE.md — use inline SVG paths. No new `IconComponent` unless user says otherwise |
+| 11 | **Vuesax icon SVG paths** | The 14 vuesax icons (courthouse, judge, global, etc.) don't exist as files or path strings in the codebase. Where to source them? | User to provide SVG path `d` strings OR link to the vuesax outline set download |
+| 12 | **Hub hero height** | Hub hero is 420px (no illustration slot). `PageHeroComponent` has an illustration slot by default. Use `PageHeroComponent` without illustration, or create variant? | Pass `illustrationSrc` as empty/undefined and let hero collapse to compact mode |
+| 13 | **Hub card border-radius** | Design shows `20px`. `--radius-xl` is `24px`, `--radius-lg` is `16px`. Which token to use? | Use `--radius-xl` (24px) — visually close enough; or add `--radius-card: 20px` token |
+| 14 | **Hub card icon tile border-radius** | Design shows `13px`. No matching token. | Use `--radius-md` (8px) or `--radius-lg` (16px) — flagged with `// AMBIGUITY:` |
+| 15 | **Partnerships editorial image** | 570×517px image slot on partnerships page. No asset exists. | Use `about-dubai.jpg` as placeholder with `// TODO: replace with partnerships editorial image` |
+| 16 | **Partner logos** | Only `partner-dubai-pulse.svg` exists. Grid expects 30 logos (6×5). | Use name-as-text fallback (already implemented in `PartnerLogoCardComponent`) |
+| 17 | **Leadership modal scroll** | DG modal is 1282px on a ~900px viewport. Is it a scrollable modal, or does the page scroll beneath? | Scrollable modal (overflow-y: auto on inner content) |
+| 18 | **Achievements page route** | Should achievements be `/about-dld/achievements` (child of about) or a top-level route? | Child route: `/about-dld/achievements` |
 
 ---
 
-## 8. Component Registry (to be kept updated)
+## 8. Reusable vs Page-Specific Classification
 
-### Shell (`layout/`)
-- `NavbarComponent`
-- `FooterComponent`
-- `BottomToolbarComponent`
-
-### Shared (`shared/components/`)
-- `PageHeroComponent` — dark-green banner, breadcrumb, heading, tagline
-- `SectionHeaderComponent` — label chip, title, subtitle
-- `ServiceCardComponent` — icon + title + desc + arrow link
-- `InitiativeCardComponent` — dark image card + title + desc + CTAs
-- `NewsCardComponent` — hero variant + list variant
-- `StatBarComponent` — inline stat row
-- `StatCounterComponent` — animated counter
-- `TabGroupComponent` — pill-style tab bar
-- `SearchBarComponent` — input + green submit button
-- `PartnersRowComponent` — logo row
-- `LeaderCardComponent` — photo + name + title + excerpt
-- `BreadcrumbComponent` — accessible breadcrumb trail
-
-### Features (`features/`)
-- `HomeComponent` — `/`
-- `AboutComponent` — `/about`
-- `LeadershipComponent` — `/about/leadership`
-- `NewsComponent` — `/news`
-- `ArticleDetailComponent` — `/news/:id` (stub)
-- `NotFoundComponent` — `**`
-- Placeholder components for out-of-scope routes
-
-### Core (`core/`)
-
-**Services:**
-- `TranslationService` — signal-based i18n, `currentLang` signal, JSON loading, `<html>` dir/lang mutation
-- `AuthService` — stub; `isAuthenticated$` signal always `false`; `// TODO(backend):`
-- `NewsService` — mock news data through adapter
-- `ServicesDataService` — mock service cards through adapter
-
-**Guards:**
-- `AuthGuard` — functional guard; returns `true` (stub); `// TODO(backend): real auth check`
-
-**Adapters:**
-- `NewsAdapter` — `RawNewsItem → NewsArticle`
-- `ServiceAdapter` — `RawServiceItem → ServiceCard`
-- `InitiativeAdapter` — `RawInitiative → Initiative`
-
-**Models:**
-- `NewsArticle` — `{ id, title, excerpt, date, imageUrl, category, slug }`
-- `ServiceCard` — `{ id, iconName, title, description, linkUrl }`
-- `Initiative` — `{ id, title, description, imageUrl, deadline, status, ctaPrimary, ctaSecondary }`
-- `LeaderProfile` — `{ id, name, title, photoUrl, messageExcerpt }`
-- `StatItem` — `{ value, label, suffix }`
+| Component | Source | Reuse status |
+|---|---|---|
+| `PageHeroComponent` | shared | ✅ REUSE — all 5 pages |
+| `StatBarComponent` | shared | ✅ REUSE — about-dld |
+| `SectionHeaderComponent` | shared | ✅ REUSE — all pages |
+| `WatermarkTextComponent` | shared | ✅ REUSE — about-dld values |
+| `NumberedCardComponent` | shared | ✅ REUSE — strategic map |
+| `IconListComponent` | shared | ✅ REUSE — values section |
+| `TimelineComponent` | shared | ⚠️ REUSE with extension — see AMBIGUITY #3 |
+| `IllustrationCardComponent` | shared | ✅ REUSE — about-dld |
+| `PartnersSectionComponent` | features/home | ✅ REUSE — hub + about-dld |
+| `CtaBandComponent` | shared | ✅ REUSE — partnerships contact bar |
+| `PartnerLogoGridComponent` | shared | ✅ REUSE — partnerships |
+| `LeadershipCardComponent` | shared | ✅ REUSE — leadership page |
+| `LeadershipMessageModalComponent` | shared | ✅ REUSE — leadership page (×2) |
+| `StatCardComponent` | shared | ✅ REUSE — achievements stats |
+| `AboutHubCardComponent` | NEW | ❓ AMBIGUITY #2 |
+| `AchievementsTimelineComponent` | NEW | needed for achievements page |
 
 ---
 
----
+## 9. Definition of Done — Phase 0
 
-## 9. Phase 1 — Project Setup Notes
-
-**Completed:** Phase 1 scaffold + token layer + i18n + auth scaffold.
-
-**Packages installed:**
-- `bootstrap@5` (SCSS import; deprecation warning from Bootstrap's internal `@import` — harmless)
-- `ng2-charts`, `chart.js` (for Real Estate Transactions donut chart — Phase 3)
-- `leaflet`, `@asymmetrik/ngx-leaflet`, `@types/leaflet` (for map — Phase 3)
-
-**npm note:** npm cache had root-owned files (run `sudo chown -R $(whoami) ~/.npm` to fix permanently). Workaround: `npm install --cache /tmp/npm-cache`.
-
-**RTL approach:**
-- Bootstrap LTR loaded via `@import` in `styles.scss`
-- `TranslationService` dynamically appends/removes a `<link>` for Bootstrap RTL CSS (CDN) on `lang` switch
-- All custom CSS uses CSS logical properties (`inset-inline-*`, `padding-inline-*`, `margin-block-*`, `text-align: start`)
-
-**TranslationService:** Signal-based; statically imports EN/AR JSON (TypeScript `resolveJsonModule`); updates `<html lang dir>` via `effect()`.
-
-**Folder structure:**
-```
-src/app/
-├── core/
-│   ├── models/         (5 models: NewsArticle, ServiceCard, Initiative, LeaderProfile, StatItem)
-│   ├── adapters/       (3 adapters: news, service, initiative)
-│   ├── services/       (TranslationService, AuthService)
-│   └── guards/         (authGuard — functional, stub returns true)
-├── layout/             (navbar/, footer/, bottom-toolbar/ — stubs, built Phase 2)
-├── shared/components/  (built Phase 2+)
-├── features/
-│   ├── home/           (stub — Phase 3)
-│   ├── about/          (stub + leadership/ child — Phase 4)
-│   ├── news/           (stub — Phase 5)
-│   └── not-found/      (functional)
-src/styles/
-│   ├── _tokens.scss
-│   ├── _typography.scss
-│   ├── _breakpoints.scss
-│   └── _mixins.scss
-src/assets/
-│   ├── i18n/en.json
-│   └── i18n/ar.json
-```
+- [x] All 8 Figma nodes fetched via `get_design_context`
+- [x] Hub card anatomy fully documented (dimensions, colors, typography)
+- [x] Leadership modal gradients confirmed (chairman green, DG navy)
+- [x] Achievements timeline event list recorded
+- [x] Partnerships page structure documented
+- [x] Figma variable defs extracted and mapped to SCSS tokens
+- [x] Token mismatches flagged
+- [x] Icon-name list compiled (14 vuesax icons)
+- [x] Image slots catalogued with dimensions
+- [x] i18n keys drafted for all new content
+- [x] 18 open questions/ambiguities documented
+- [ ] **STOP — awaiting user approval before Phase 1**
 
 ---
 
-## 10. Phase 2 — Shell Notes
+## 10. Historical Notes (Pre-Phase 0)
 
-**Completed:** NavbarComponent + FooterComponent + BottomToolbarComponent wired into AppComponent.
+> Sections below are preserved from the earlier SSOT draft. They document the initial scaffold (Phases 1–2) built before Figma MCP was available. Some details may conflict with Phase 0 Figma findings above — Phase 0 is authoritative.
 
-**NavbarComponent (`layout/navbar/`):**
-- Sticky top, `z-index: 1040`, dark navy background
-- Desktop: 7 nav links (dropdowns placeholder — content added in future phases); 4 right-action buttons (search, bell, user, lang toggle)
-- Mobile: hamburger → fixed side drawer (`z-index: 1042`), overlay backdrop (`z-index: 1041`)
-- RTL: drawer slides from `inset-inline-start`/`inset-inline-end` (logical properties)
-- Escape key closes drawer + dropdowns via `@HostListener`
-- Keyboard accessible: `aria-expanded`, `aria-haspopup`, `aria-modal`, focus ring
+### Phase 1 — Project Setup Notes
 
-**FooterComponent (`layout/footer/`):**
-- Dark navy; 3-column grid (brand + 2 nav cols); collapses to 2-col on `lg`, 1-col on `sm`
-- `lastUpdated` timestamp set at component init; `// TODO(backend): fetch from CMS/deployment metadata`
-- AMBIGUITY: Third footer nav column content not confirmed — left empty with comment
+**Packages installed:** `bootstrap@5`, `ng2-charts`, `chart.js`, `leaflet`, `@asymmetrik/ngx-leaflet`, `@types/leaflet`
 
-**BottomToolbarComponent (`layout/bottom-toolbar/`):**
-- `position: fixed; inset-block-end: 0` — always visible
-- 9 items with inline SVG icons; labels hidden on mobile (`xs`)
-- Body gets `padding-block-end: 64px` to avoid content overlap
+**RTL approach:** Bootstrap LTR via `@import`; Bootstrap RTL via CDN `<link>` injected/removed by `TranslationService` on lang switch. All custom CSS uses CSS logical properties.
 
-**SVG assets created (placeholder):**
-- `assets/icons/logo/dld-emblem.svg` — geometric placeholder; replace with official brand crest
-- `assets/icons/social/x.svg`, `youtube.svg`
+**TranslationService:** Signal-based; statically imports EN/AR JSON; updates `<html lang dir>` via `effect()`.
 
-**SCSS fixes:**
-- `_breakpoints.scss`: migrated from deprecated `map-get()` to `@use 'sass:map'` + `map.get()`
-- Remaining deprecation warning: Bootstrap's own `@import` — cannot fix without Bootstrap library update
+### Phase 2 — Shell Notes
 
-*End of SSOT — Phase 2*
+**NavbarComponent:** Sticky top, `z-index: 1040`, dark navy background. Desktop: 7 nav links; mobile: hamburger → fixed side drawer. RTL: logical property `inset-inline-start`. Escape key closes drawer.
+
+**FooterComponent:** Dark navy, 3-column grid, collapses to 1-col on mobile.
+
+**BottomToolbarComponent:** `position: fixed; inset-block-end: 0`, 9 items, always visible.

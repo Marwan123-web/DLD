@@ -13,6 +13,12 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
+          import('./features/about/about-hub/about-hub.component').then(m => m.AboutHubComponent),
+        title: 'About DLD | Dubai Land Department',
+      },
+      {
+        path: 'who-we-are',
+        loadComponent: () =>
           import('./features/about/about.component').then(m => m.AboutComponent),
         title: 'Who We Are | Dubai Land Department',
       },
@@ -31,6 +37,14 @@ export const routes: Routes = [
             m => m.PartnershipsComponent
           ),
         title: 'Partnership & International Relations | Dubai Land Department',
+      },
+      {
+        path: 'achievements',
+        loadComponent: () =>
+          import('./features/about/achievements/achievements.component').then(
+            m => m.AchievementsComponent
+          ),
+        title: 'Our Achievements | Dubai Land Department',
       },
     ],
   },

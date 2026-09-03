@@ -1,106 +1,288 @@
 <main id="main-content">
-  <!-- HERO -->
-  <app-page-hero
-    title="Who We Are"
-    subtitle="Trusted by millions. Built on integrity. Driving Dubai's property market since 1960."
-    [breadcrumbs]="breadcrumbs"
-    illustrationSrc="assets/images/about-illustration.svg"
-    illustrationAlt=""
-    watermark="About DLD"
-  />
 
-  <!-- STATS BAR -->
-  <app-stat-bar [stats]="stats" />
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="about-hero">
+    <!-- Decorative ellipse (left) -->
+    <img class="about-hero__ellipse" src="assets/images/Ellipse.svg" alt="" aria-hidden="true" />
+    <!-- Corner decoration (top-right) -->
+    <img class="about-hero__corner" src="assets/images/hero-corner-deco.svg" alt="" aria-hidden="true" />
+    <!-- Dot grid (CSS-generated) -->
+    <div class="about-hero__dots" aria-hidden="true"></div>
+    <!-- Ghost watermarks -->
+    <span class="about-hero__wm about-hero__wm--about" aria-hidden="true">About</span>
+    <span class="about-hero__wm about-hero__wm--dld" aria-hidden="true">DLD</span>
 
-  <!-- WHO WE ARE -->
-  <section id="about" class="wwa-section">
-    <div class="main-container">
-      <div class="wwa-layout">
-        <div class="wwa-visual">
-          <app-illustration-card
-            src="assets/images/property-ownership.svg"
-            alt="Property Ownership"
-          />
+    <div class="main-container about-hero__content">
+      <!-- Breadcrumb -->
+      <nav class="about-hero__bc" aria-label="Breadcrumb">
+        <ol class="about-hero__bc-list">
+          <li class="about-hero__bc-item">
+            <a routerLink="/" class="about-hero__bc-link">{{ tr.t('nav.home') }}</a>
+            <span class="about-hero__bc-sep" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </li>
+          <li class="about-hero__bc-item">
+            <a routerLink="/about-dld" class="about-hero__bc-link">{{ tr.t('nav.about') }}</a>
+            <span class="about-hero__bc-sep" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </li>
+          <li class="about-hero__bc-item about-hero__bc-item--current" aria-current="page">
+            {{ tr.t('about.who_we_are') }}
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Title -->
+      <h1 class="about-hero__title">{{ tr.t('about.who_we_are') }}</h1>
+
+      <!-- Glass intro card -->
+      <div class="about-hero__glass">
+        <p>{{ tr.t('about.hero_intro') }}</p>
+      </div>
+
+      <!-- Factoid chips -->
+      <div class="about-hero__chips">
+        <div class="about-hero__chip">
+          <img src="assets/icons/calendar.svg" alt="" aria-hidden="true" width="16" height="16" />
+          <span>{{ tr.t('about.hero_chip_established') }}</span>
         </div>
-        <div class="wwa-content">
-          <app-section-header
-            eyebrow="WHO WE ARE"
-            title="The Cornerstone of Dubai's Real Estate Ecosystem."
-            [underline]="true"
-          />
-          <p class="wwa-para">
-            Dubai Land Department was established to create a thriving, transparent, and sustainable
-            real estate market in Dubai. As the regulatory authority, DLD oversees all property
-            transactions, ensures investor confidence, and drives innovation across the sector.
-          </p>
-          <p class="wwa-para">
-            From digitizing property registration to pioneering real estate tokenization, DLD leads
-            the transformation of Dubai into a global real estate capital attracting investors from
-            over 175 nationalities.
-          </p>
+        <div class="about-hero__chip">
+          <img src="assets/icons/judge2.svg" alt="" aria-hidden="true" width="16" height="16" />
+          <span>{{ tr.t('about.hero_chip_law') }}</span>
+        </div>
+        <div class="about-hero__chip">
+          <img src="assets/icons/profile-circle.svg" alt="" aria-hidden="true" width="16" height="16" />
+          <span>{{ tr.t('about.hero_chip_chairman') }}</span>
+        </div>
+        <div class="about-hero__chip">
+          <img src="assets/icons/global.svg" alt="" aria-hidden="true" width="16" height="16" />
+          <span>{{ tr.t('about.hero_chip_reach') }}</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VALUES -->
+  <!-- ── OUR STORY ─────────────────────────────────────────── -->
+  <section class="story-section">
+    <div class="main-container">
+      <div class="story-header">
+        <p class="story-label">{{ tr.t('about.story_label') }}</p>
+        <h2 class="story-title">{{ tr.t('about.story_title') }}</h2>
+      </div>
+
+      <div class="story-timeline">
+
+        <!-- 01 — Our Genesis (light card) -->
+        <div class="story-step">
+          <div class="story-step__node" aria-hidden="true">
+            <div class="story-step__dot"><span class="story-step__num">01</span></div>
+            <div class="story-step__line"></div>
+          </div>
+          <div class="sc sc--light">
+            <span class="sc__wm" aria-hidden="true">1960s</span>
+            <img class="sc__icon" src="assets/icons/archive-book.svg" alt="" aria-hidden="true" width="34" height="34" />
+            <div class="sc__eyebrow-pill sc__eyebrow-pill--teal">{{ tr.t('about.ch01_eyebrow') }}</div>
+            <h3 class="sc__title">{{ tr.t('about.ch01_title') }}</h3>
+            <p class="sc__body">{{ tr.t('about.ch01_body') }}</p>
+          </div>
+        </div>
+
+        <!-- 02 — Under the Aegis (dark card) -->
+        <div class="story-step">
+          <div class="story-step__node" aria-hidden="true">
+            <div class="story-step__dot"><span class="story-step__num">02</span></div>
+            <div class="story-step__line"></div>
+          </div>
+          <div class="sc sc--dark">
+            <span class="sc__wm sc__wm--ghost" aria-hidden="true">DLD</span>
+            <img class="sc__icon" src="assets/icons/courthouse.svg" alt="" aria-hidden="true" width="40" height="40" />
+            <div class="sc__eyebrow-pill sc__eyebrow-pill--dark">{{ tr.t('about.ch02_eyebrow') }}</div>
+            <h3 class="sc__title sc__title--white">{{ tr.t('about.ch02_title') }}</h3>
+            <p class="sc__body sc__body--white">{{ tr.t('about.ch02_body1') }}</p>
+            <p class="sc__body sc__body--muted">{{ tr.t('about.ch02_body2') }}</p>
+          </div>
+        </div>
+
+        <!-- 03 — Our Commitment (light card + agency chips + quote) -->
+        <div class="story-step">
+          <div class="story-step__node" aria-hidden="true">
+            <div class="story-step__dot"><span class="story-step__num">03</span></div>
+            <div class="story-step__line"></div>
+          </div>
+          <div class="sc sc--light">
+            <div class="sc__eyebrow-pill sc__eyebrow-pill--mission">{{ tr.t('about.ch03_eyebrow') }}</div>
+            <h3 class="sc__title">{{ tr.t('about.ch03_title') }}</h3>
+            <p class="sc__body">{{ tr.t('about.ch03_body') }}</p>
+
+            <div class="sc__agency-chips">
+              <div class="sc__agency-chip">
+                <img src="assets/icons/security.svg" alt="" aria-hidden="true" width="16" height="16" />
+                <span>{{ tr.t('about.ch03_agency1') }}</span>
+              </div>
+              <div class="sc__agency-chip">
+                <img src="assets/icons/buildings-2.svg" alt="" aria-hidden="true" width="16" height="16" />
+                <span>{{ tr.t('about.ch03_agency2') }}</span>
+              </div>
+              <div class="sc__agency-chip">
+                <img src="assets/icons/folder.svg" alt="" aria-hidden="true" width="16" height="16" />
+                <span>{{ tr.t('about.ch03_agency3') }}</span>
+              </div>
+              <div class="sc__agency-chip">
+                <img src="assets/icons/people.svg" alt="" aria-hidden="true" width="16" height="16" />
+                <span>{{ tr.t('about.ch03_agency4') }}</span>
+              </div>
+            </div>
+
+            <div class="sc__quote-wrap">
+              <span class="sc__quote-openmark" aria-hidden="true">"</span>
+              <div class="sc__quote-inner">
+                <div class="sc__quote-border"></div>
+                <div class="sc__quote-right">
+                  <p class="sc__quote-text">
+                    <strong>{{ tr.t('about.ch03_quote_speaker') }}</strong>{{ tr.t('about.ch03_quote_text') }}
+                  </p>
+                  <p class="sc__quote-attr">{{ tr.t('about.ch03_quote_attr') }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 — Beyond Boundaries (light card + invite banner + dark chips) -->
+        <div class="story-step">
+          <div class="story-step__node" aria-hidden="true">
+            <div class="story-step__dot"><span class="story-step__num">04</span></div>
+            <div class="story-step__line"></div>
+          </div>
+          <div class="sc sc--light">
+            <!-- Concentric circles decoration -->
+            <div class="sc__circles-wrap" aria-hidden="true">
+              <img src="assets/icons/global-search2.svg" alt="" width="48" height="48" />
+            </div>
+            <div class="sc__eyebrow-pill sc__eyebrow-pill--outline">{{ tr.t('about.ch04_eyebrow') }}</div>
+            <h3 class="sc__title">{{ tr.t('about.ch04_title') }}</h3>
+            <p class="sc__body">{{ tr.t('about.ch04_body1') }}</p>
+
+            <div class="sc__invite-banner">
+              <p>{{ tr.t('about.ch04_invite') }}</p>
+            </div>
+
+            <p class="sc__body">{{ tr.t('about.ch04_body2') }}</p>
+
+            <div class="sc__dark-chips">
+              <span class="sc__dark-chip">{{ tr.t('about.ch04_chip1') }}</span>
+              <span class="sc__dark-chip">{{ tr.t('about.ch04_chip2') }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 — Sculpting the Future (white card + mandate chip) -->
+        <div class="story-step story-step--last">
+          <div class="story-step__node" aria-hidden="true">
+            <div class="story-step__dot"><span class="story-step__num">05</span></div>
+          </div>
+          <div class="sc sc--white">
+            <span class="sc__wm sc__wm--year" aria-hidden="true">2013</span>
+            <div class="sc__eyebrow-pill sc__eyebrow-pill--teal">{{ tr.t('about.ch05_eyebrow') }}</div>
+            <h3 class="sc__title">{{ tr.t('about.ch05_title') }}</h3>
+            <div class="sc__mandate-chip">
+              <img src="assets/icons/judge2.svg" alt="" aria-hidden="true" width="16" height="16" />
+              <span>{{ tr.t('about.ch05_chip') }}</span>
+            </div>
+            <p class="sc__body">{{ tr.t('about.ch05_body1') }}</p>
+            <p class="sc__body">{{ tr.t('about.ch05_body2') }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALUES ─────────────────────────────────────────────── -->
   <section id="values" class="values-section">
     <div class="main-container values-layout">
-      <div class="values-watermark-side">
-        <app-watermark-text
-          [lines]="['TRUST', 'VISION', 'GROWTH', 'INTEGRITY']"
-          color="rgba(0,167,118,0.12)"
-        />
+      <!-- Staggered watermark words -->
+      <div class="values-wm-side" aria-hidden="true">
+        <span class="values-wm values-wm--indented">{{ tr.t('about.values.trust') }}</span>
+        <span class="values-wm">{{ tr.t('about.values.vision') }}</span>
+        <span class="values-wm values-wm--indented">{{ tr.t('about.values.growth') }}</span>
+        <span class="values-wm">{{ tr.t('about.values.integrity') }}</span>
       </div>
+      <!-- Values card -->
       <div class="values-card">
-        <span class="values-eyebrow">VALUES</span>
-        <h2 class="values-heading">Our Core Values</h2>
-        <app-icon-list [items]="valuesItems" />
+        <div class="values-card__bar">
+          <span class="values-card__bar-label">{{ tr.t('about.values.label') }}</span>
+        </div>
+        <ul class="values-list" role="list">
+          @for (item of valuesItems(); track item) {
+            <li class="values-list__item">
+              <span class="values-list__dot" aria-hidden="true"></span>
+              <span class="values-list__text">{{ item }}</span>
+            </li>
+          }
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- VISION / MISSION -->
+  <!-- ── VISION / MISSION ───────────────────────────────────── -->
   <section id="vision" class="vm-section">
     <div class="vm-grid">
       <div
         class="vm-photo"
-        style="background-image: url('assets/images/about-dubai.jpg')"
+        style="background-image: url('assets/images/Media-Container-Wide1.svg')"
         role="img"
-        aria-label="Dubai skyline"
+        [attr.aria-label]="tr.t('nav.home')"
       ></div>
       <div class="vm-green">
-        <h3 class="vm-label">Our Vision</h3>
-        <p class="vm-text">The World Leader in Real Estate Investments</p>
+        <h3 class="vm-label">{{ tr.t('about.vision_label') }}</h3>
+        <p class="vm-text">{{ tr.t('about.vision_text') }}</p>
       </div>
       <div class="vm-navy">
-        <h3 class="vm-label">Our Mission</h3>
-        <p class="vm-text">Empowering the Real Estate Community</p>
-        <p class="vm-sub">
-          Through seamless services, smart legislation, integrated data, digital infrastructure,
-          and skilled human capital.
-        </p>
+        <h3 class="vm-label">{{ tr.t('about.mission_label') }}</h3>
+        <p class="vm-text">{{ tr.t('about.empower_title') }}</p>
+        <p class="vm-sub">{{ tr.t('about.empower_subtitle') }}</p>
       </div>
       <div
         class="vm-photo"
-        style="background-image: url('assets/images/about-dubai-night.jpg')"
+        style="background-image: url('assets/images/Media-Container-Wide2.svg')"
         role="img"
-        aria-label="Dubai waterfront at night"
+        [attr.aria-label]="tr.t('nav.home')"
       ></div>
     </div>
   </section>
 
-  <!-- STRATEGIC MAP -->
+  <!-- ── STRATEGIC MAP ──────────────────────────────────────── -->
   <section id="strategic-map" class="strat-section">
     <div class="main-container">
       <app-section-header
-        eyebrow="BUILDING THE FUTURE"
-        title="OUR STRATEGIC MAP"
-        subtitle="The DLD strategy map guiding our transformation of Dubai's real-estate sector."
+        [eyebrow]="tr.t('about.sm_header_eyebrow')"
+        [title]="tr.t('about.strategic_map_label')"
+        [subtitle]="tr.t('about.sm_header_subtitle')"
+        [underline]="true"
         align="start"
       />
-      <div class="strat-grid">
-        @for (card of strategicCards; track card.number) {
+      <!-- Row 1: 3 equal cards -->
+      <div class="strat-grid strat-grid--top">
+        @for (card of strategicCards().slice(0, 3); track card.number) {
+          <app-numbered-card
+            [number]="card.number"
+            [eyebrow]="card.eyebrow"
+            [icon]="card.icon"
+            [title]="card.title"
+            [bullets]="card.bullets"
+          />
+        }
+      </div>
+      <!-- Row 2: 2 wider cards -->
+      <div class="strat-grid strat-grid--bottom">
+        @for (card of strategicCards().slice(3); track card.number) {
           <app-numbered-card
             [number]="card.number"
             [eyebrow]="card.eyebrow"
@@ -113,28 +295,7 @@
     </div>
   </section>
 
-  <!-- ACHIEVEMENTS -->
-  <section id="achievements" class="ach-section">
-    <div class="main-container">
-      <app-section-header
-        eyebrow="MILESTONES & RECOGNITION"
-        title="OUR ACHIEVEMENTS"
-        subtitle="Highlighting the achievements, awards, and milestones driving Dubai Land Department's vision for a smarter real estate future."
-        align="start"
-      />
-      <div class="ach-stat-grid">
-        @for (stat of achievementStats; track stat.label) {
-          <app-stat-card
-            [value]="stat.value"
-            [label]="stat.label"
-            [icon]="stat.icon"
-          />
-        }
-      </div>
-      <app-timeline [items]="timelineItems" />
-    </div>
-  </section>
-
-  <!-- PARTNERS -->
+  <!-- ── PARTNERS ────────────────────────────────────────────── -->
   <app-partners-section />
+
 </main>

@@ -1,74 +1,429 @@
-/* =========================================================
-   Partnerships Page — layout styles
-   ========================================================= */
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/breakpoints' as *;
 
-#main-content {
-  padding-block-start: 0;
-}
-
-/* COMMITMENT SECTION
-   --------------------------------------------------------- */
-.commitment-section {
-  padding-block: var(--space-20);
-  background: var(--color-white);
-}
-
-.commitment-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-12);
-  align-items: center;
-}
-
-.commitment-photo {
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: var(--radius-xl);
-    max-height: 480px;
-    display: block;
-  }
-}
-
-.commitment-content {
-  p {
-    font-size: var(--text-base);
-    color: var(--color-body);
-    line-height: 1.75;
-    margin: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .commitment-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .commitment-photo {
-    order: -1;
-  }
-}
-
-/* PARTNERS FILTER SECTION
-   --------------------------------------------------------- */
-.partners-filter-section {
-  padding-block: var(--space-20);
-  background: var(--color-bg);
+// ── HERO ─────────────────────────────────────────────────────────────────────
+.ps-hero {
   position: relative;
-}
-
-.pf-top {
-  margin-block-end: var(--space-10);
-}
-
-.pf-content {
-  position: relative;
-}
-
-.pf-watermark-wrap {
-  position: absolute;
-  inset: 0;
   overflow: hidden;
+  background: linear-gradient(149deg, #083220 0%, var(--color-primary) 62.5%);
+  padding-block-start: 180px;
+  padding-block-end: var(--space-16);
+  min-height: 447px;
+
+  [dir='rtl'] & {
+    background: linear-gradient(211deg, #083220 0%, var(--color-primary) 62.5%);
+  }
+
+  @include bp-down('md') {
+    padding-block-start: 130px;
+    min-height: 0;
+  }
+}
+
+.ps-hero__circle {
+  position: absolute;
+  border-radius: 50%;
   pointer-events: none;
+  user-select: none;
+
+  &--lg {
+    inset-block-start: 71px;
+    inset-inline-end: -78px;
+    width: 458px;
+    height: 458px;
+    background: rgba(255 255 255 / 0.06);
+  }
+
+  &--sm {
+    inset-block-start: 80px;
+    inset-inline-end: 10px;
+    width: 140px;
+    height: 140px;
+    background: rgba(255 255 255 / 0.05);
+  }
+}
+
+.ps-hero__dots {
+  position: absolute;
+  inset-block-start: 0;
+  inset-block-end: 0;
+  inset-inline-start: 58%;
+  inset-inline-end: 8%;
+  background-image: radial-gradient(circle, rgba(255 255 255 / 0.3) 1.5px, transparent 1.5px);
+  background-size: 42px 72px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ps-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 900px;
+}
+
+.ps-hero__bc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.ps-hero__bc-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.ps-hero__bc-item--current {
+  color: #fff;
+}
+
+.ps-hero__bc-link {
+  color: rgba(255 255 255 / 0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover { color: var(--color-white); }
+}
+
+.ps-hero__bc-sep {
+  color: rgba(255 255 255 / 0.4);
+  display: flex;
+  align-items: center;
+  [dir='rtl'] & svg { transform: scaleX(-1); }
+}
+
+.ps-hero__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  line-height: var(--line-height-heading);
+  margin: 0;
+}
+
+.ps-hero__subtitle {
+  font-size: var(--text-md);
+  color: rgba(255 255 255 / 0.85);
+  margin: 0;
+  max-width: 680px;
+  line-height: var(--line-height-body);
+}
+
+// ── COMMITMENT ───────────────────────────────────────────────────────────────
+.ps-commitment {
+  background: #f0f7f2;
+  overflow: hidden;
+}
+
+.ps-commitment__inner {
+  display: grid;
+  // Figma: photo 570px / text 748px out of 1376px content
+  grid-template-columns: minmax(0, 570fr) minmax(0, 748fr);
+  gap: var(--space-10);
+  align-items: center;
+  // Figma: pt=56px, pb=40px (gap before CTA band)
+  padding-block-start: 56px;
+  padding-block-end: var(--space-10);
+
+  @include bp-down('lg') {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    padding-block: var(--space-12);
+  }
+}
+
+.ps-commitment__photo {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 570 / 517;
+
+  @include bp-down('lg') {
+    max-height: 320px;
+    aspect-ratio: unset;
+  }
+}
+
+.ps-commitment__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ps-commitment__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ps-commitment__eyebrow {
+  // Figma: 16px, 3px tracking (not 11px / 0.18em)
+  font-size: 1rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.ps-commitment__title {
+  // Figma: 66px bold
+  font-size: clamp(2rem, 5vw, 4.125rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  line-height: var(--line-height-heading);
+  margin: 0;
+}
+
+.ps-commitment__bar {
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.ps-commitment__body {
+  // Figma: 20px, line-height 26px
+  font-size: 1.25rem;
+  line-height: 26px;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+// ── CTA BAND ─────────────────────────────────────────────────────────────────
+.ps-cta-band {
+  background: var(--color-primary);
+  border-block-start: 1px solid rgba(255 255 255 / 0.1);
+}
+
+.ps-cta-band__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-block: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.ps-cta-band__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ps-cta-band__title {
+  // Figma: 26px
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  margin: 0;
+}
+
+.ps-cta-band__sub {
+  // Figma: 14px
+  font-size: 0.875rem;
+  color: rgba(255 255 255 / 0.88);
+  margin: 0;
+}
+
+.ps-cta-band__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  height: 50px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover { background: rgba(255 255 255 / 0.9); }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-white);
+    outline-offset: 3px;
+  }
+}
+
+// ── FILTER STRIP ─────────────────────────────────────────────────────────────
+.ps-filter-strip {
+  background: var(--color-white);
+  padding-block: 52px; // Figma: 52px gap above and below filter button row
+  border-block-start: 1px solid var(--color-border);
+}
+
+// ── PARTNERS SECTION ─────────────────────────────────────────────────────────
+.ps-partners {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a2e24 0%, #1b7a5d 100%);
+  padding-block: var(--space-16);
+
+  @include bp-down('md') { padding-block: var(--space-12); }
+}
+
+.ps-partners__wm {
+  position: absolute;
+  font-size: clamp(5rem, 11vw, 10.5rem);
+  font-weight: var(--weight-bold);
+  color: rgba(255 255 255 / 0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+
+  &--1 {
+    inset-block-start: -6px;
+    inset-inline-start: 40px;
+  }
+
+  &--2 {
+    inset-block-end: 60px;
+    inset-inline-start: 37%;
+    font-size: clamp(6rem, 17vw, 17rem);
+    text-transform: capitalize;
+  }
+}
+
+.ps-partners__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+// Filter tabs — Figma: centered, 16px gap between buttons
+.ps-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.ps-filter-btn {
+  padding: var(--space-3) var(--space-5);
+  height: 50px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &--active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// Section header
+.ps-partners__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 900px;
+}
+
+.ps-partners__eyebrow {
+  // Figma: 16px, 3px tracking
+  font-size: 1rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.ps-partners__title {
+  // Figma: 66px bold
+  font-size: clamp(2rem, 5vw, 4.125rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  margin: 0;
+  line-height: var(--line-height-heading);
+}
+
+.ps-partners__bar {
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.ps-partners__subtitle {
+  // Figma: 20px, line-height 26px
+  font-size: 1.25rem;
+  line-height: 26px;
+  color: rgba(255 255 255 / 0.8);
+  margin: 0;
+}
+
+// Logo grid — Figma: 5 cols, col-gap=24px, row-gap=16px (frames 255.8px wide, gap 279.8-255.8=24px)
+.ps-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: var(--space-6); // 24px
+  row-gap: var(--space-4);    // 16px
+
+  @include bp-down('xl') { grid-template-columns: repeat(4, 1fr); }
+  @include bp-down('lg') { grid-template-columns: repeat(3, 1fr); }
+  @include bp-down('sm') { grid-template-columns: repeat(2, 1fr); }
+}
+
+.ps-logo-card {
+  background: var(--color-white);
+  border: 1px solid #e5ede8;
+  // Figma: 20px radius (not var(--radius-lg) = 16px)
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4) var(--space-5);
+  min-height: 101px;
+  overflow: hidden;
+}
+
+.ps-logo-img {
+  width: 192px;
+  height: 101px;
+  object-fit: contain;
+  display: block;
+  max-width: 100%;
+}
+
+.ps-logo-name {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-body);
+  text-align: center;
+  line-height: 1.4;
 }
