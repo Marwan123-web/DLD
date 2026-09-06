@@ -7,6 +7,7 @@ export interface RawNewsItem {
   title: string;
   summary?: string;
   description?: string;
+  body?: string;
   thumbnail?: string;
   image?: string;
   published_at?: string;
@@ -21,6 +22,7 @@ export function adaptNewsItem(raw: RawNewsItem): NewsArticle {
     slug: raw.slug ?? String(raw.id),
     title: raw.title,
     excerpt: raw.summary ?? raw.description ?? '',
+    body: raw.body,
     imageUrl: raw.thumbnail ?? raw.image ?? 'assets/images/news-placeholder.jpg',
     date: raw.published_at ?? raw.created_at ?? new Date().toISOString(),
     category: raw.category ?? 'General',

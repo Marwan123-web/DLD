@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, inject, signal, computed, Signal } 
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NewsService } from '../../../core/services/news.service';
+import { FilterPillsComponent, FilterPill } from '../../../shared/components/filter-pills/filter-pills.component';
 import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
 import { TranslationService } from '../../../core/services/translation.service';
 import { NewsArticle } from '../../../core/models/news-article.model';
@@ -11,7 +12,7 @@ const PAGE_SIZE = 6;
 @Component({
   selector: 'app-announcements',
   standalone: true,
-  imports: [RouterLink, DatePipe, PartnersSectionComponent],
+  imports: [RouterLink, DatePipe, FilterPillsComponent, PartnersSectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './announcements.component.html',
   styleUrl: './announcements.component.scss',
@@ -22,6 +23,13 @@ export class AnnouncementsComponent {
 
   readonly featuredAnnouncement = computed(() => this.svc.allArticles()[0] ?? null) as Signal<NewsArticle | null>;
   readonly categories = computed(() => this.svc.getCategories());
+
+  readonly categoryPills = computed<FilterPill[]>(() =>
+    this.categories().map(cat => ({
+      key: cat,
+      label: cat === 'all' ? this.tr.t('news.filter_all') : cat,
+    }))
+  );
 
   readonly searchQuery = signal('');
   readonly selectedCategory = signal('all');

@@ -350,6 +350,7 @@
     "breadcrumb": "الأخبار والإعلام",
     "featured_label": "المميزة",
     "top_stories": "أبرز القصص",
+    "filter_all": "الكل",
     "filter_search": "بحث",
     "filter_date_from": "من تاريخ",
     "filter_date_to": "إلى تاريخ",
@@ -364,9 +365,10 @@
     "showing_count": "عرض {{shown}} من أصل {{total}} نتيجة"
   },
   "announcements": {
-    "title": "الإعلانات",
+    "title": "الإعلانات والمبادرات",
     "subtitle": "اكتشف أحدث الفعاليات والرؤى التي تشكّل المشهد العقاري في دبي.",
-    "section_title": "المبادرات",
+    "featured_section_title": "أحدث المبادرات",
+    "section_title": "جميع المبادرات",
     "section_subtitle": "استعرض جميع أخبارنا وابقَ على اطلاع دائم",
     "no_results": "لا توجد مبادرات تطابق معاييرك.",
     "view_details": "عرض التفاصيل"
@@ -415,8 +417,8 @@
   "news_hub": {
     "hero_title": "الأخبار والإعلام",
     "hero_eyebrow": "الأخبار والإعلام",
-    "hero_title_main": "ابقَ على اطلاع بآخر أخبار دائرة الأراضي والأملاك",
-    "hero_subtitle": "آخر الأخبار والإعلانات الرسمية والمبادرات الاستراتيجية ومكتبة الوسائط.",
+    "hero_title_main": "كل ما يحدث في دائرة الأراضي والأملاك",
+    "hero_subtitle": "الأخبار والإعلانات والمبادرات والجوائز والمنشورات الإلكترونية من دائرة الأراضي والأملاك.",
     "breadcrumb": "الأخبار والإعلام",
     "cards": {
       "latest_title": "آخر الأخبار",
@@ -428,11 +430,15 @@
     },
     "bullets": {
       "latest_news": "آخر الأخبار",
+      "latest_dld_news": "آخر اخبار dld",
+      "all_news": "كل الأخبار",
       "market_updates": "تحديثات السوق",
       "regulatory_news": "الأخبار التنظيمية",
       "events": "الفعاليات والأبرز",
       "announcements": "الإعلانات الرسمية",
       "initiatives": "المبادرات الاستراتيجية",
+      "latest_initiatives": "آخر المبادرات",
+      "all_initiatives": "كل المبادرات",
       "press_releases": "البيانات الصحفية",
       "photos": "معرض الصور",
       "videos": "معرض الفيديوهات",

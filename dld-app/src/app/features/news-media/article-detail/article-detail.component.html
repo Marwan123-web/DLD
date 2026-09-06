@@ -3,94 +3,60 @@
   @if (article(); as a) {
 
   <!-- Article hero -->
-  <div class="article-hero" role="banner">
+  <div class="ad-hero" role="banner">
     <img [src]="a.imageUrl" [alt]="a.title" loading="eager" />
-    <div class="article-hero-content">
-      <nav class="article-breadcrumb-pill" aria-label="Breadcrumb">
-        <a routerLink="/">{{ tr.t('nav.home') }}</a>
-        <span class="sep" aria-hidden="true">/</span>
-        <a routerLink="/news-media/latest-news">{{ tr.t('news.breadcrumb') }}</a>
-        <span class="sep" aria-hidden="true">/</span>
-        <a routerLink="/news-media/latest-news">{{ tr.t('news.latest_title') }}</a>
-        <span class="sep" aria-hidden="true">/</span>
-        <span class="current" aria-current="page">{{ tr.t('article.breadcrumb') }}</span>
-      </nav>
 
-      <h1 class="article-hero-title">{{ a.title }}</h1>
+    <!-- Breadcrumb pill — top of hero -->
+    <nav class="ad-breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/">{{ tr.t('nav.home') }}</a>
+      <span class="ad-sep" aria-hidden="true">/</span>
+      <a routerLink="/news-media/latest-news">{{ tr.t('news.breadcrumb') }}</a>
+      <span class="ad-sep" aria-hidden="true">/</span>
+      <span class="ad-current" aria-current="page">{{ tr.t('article.breadcrumb') }}</span>
+    </nav>
 
-      <div class="article-meta">
+    <!-- Title / excerpt / date — bottom of hero -->
+    <div class="ad-hero-overlay">
+      <h1 class="ad-hero-title">{{ a.title }}</h1>
+      <p class="ad-hero-excerpt">{{ a.excerpt }}</p>
+      <div class="ad-hero-meta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
         <time [attr.datetime]="a.date">{{ a.date | date:'d MMMM yyyy' }}</time>
-        <span class="article-cat">{{ a.category }}</span>
+        <span class="ad-cat">{{ a.category }}</span>
       </div>
     </div>
   </div>
 
   <!-- Article body -->
-  <div class="article-body">
+  <div class="ad-body">
     <div class="main-container">
-      <div class="article-content">
-        @if (a.body) {
-        <p>{{ a.body }}</p>
-        } @else {
-        <p>{{ a.excerpt }}</p>
-        <p>
-          Dubai Land Department continues to lead the way in real estate innovation and governance.
-          This development marks a significant milestone in the emirate's journey towards becoming
-          the world's most advanced and transparent real estate market.
-        </p>
-        <p>
-          The initiative demonstrates DLD's commitment to leveraging technology and data-driven
-          insights to enhance the real estate ecosystem. Stakeholders across the industry have
-          welcomed this development as a step towards greater transparency and efficiency.
-        </p>
-        <p>
-          Through continued investment in infrastructure and regulatory frameworks, Dubai Land
-          Department ensures that all market participants — from individual buyers to institutional
-          investors — benefit from a world-class real estate environment built on trust and
-          innovation.
-        </p>
-        <p>
-          This initiative is part of DLD's broader strategic roadmap aligned with the Dubai
-          Economic Agenda D33 and the UAE's vision for a knowledge-based, innovation-driven economy.
-          Further details and updates will be shared through official DLD channels.
-        </p>
-        <p>
-          Dubai Land Department continues to lead the way in real estate innovation and governance.
-          This development marks a significant milestone in the emirate's journey towards becoming
-          the world's most advanced and transparent real estate market.
-        </p>
-        <p>
-          The initiative demonstrates DLD's commitment to leveraging technology and data-driven
-          insights to enhance the real estate ecosystem. Stakeholders across the industry have
-          welcomed this development as a step towards greater transparency and efficiency.
-        </p>
-        <p>
-          Through continued investment in infrastructure and regulatory frameworks, Dubai Land
-          Department ensures that all market participants — from individual buyers to institutional
-          investors — benefit from a world-class real estate environment built on trust and
-          innovation.
-        </p>
-        <p>
-          This initiative is part of DLD's broader strategic roadmap aligned with the Dubai
-          Economic Agenda D33 and the UAE's vision for a knowledge-based, innovation-driven economy.
-          Further details and updates will be shared through official DLD channels.
-        </p>
+      <div class="ad-content">
+        @for (para of bodyParagraphs(); track $index) {
+          <p>{{ para }}</p>
         }
       </div>
     </div>
   </div>
-  <!-- Related articles -->
-  <section class="related-section" aria-labelledby="related-heading">
-    <div class="main-container">
-      <h2 id="related-heading" class="section-title">{{ tr.t('article.related_title') }}</h2>
 
-      <div class="related-tags" role="list" aria-label="Related categories">
+  <!-- Related articles -->
+  <section class="ad-related" aria-labelledby="ad-related-heading">
+    <div class="main-container">
+      <h2 id="ad-related-heading" class="ad-related-title">{{ tr.t('article.related_title') }}</h2>
+
+      <div class="ad-related-tags" role="list" aria-label="Related categories">
         @for (cat of relatedCategories(); track cat) {
-        <span class="tag-pill" role="listitem">{{ cat }}</span>
+          <span class="ad-tag-pill" role="listitem">{{ cat }}</span>
         }
       </div>
-      <div class="show-more-wrap">
-        <a routerLink="/news-media/latest-news" class="btn-show-more">{{ tr.t('article.show_more') }}</a>
+
+      <div class="ad-show-more">
+        <a routerLink="/news-media/latest-news" class="ad-btn-more">{{ tr.t('article.show_more') }}</a>
       </div>
     </div>
   </section>
@@ -98,13 +64,15 @@
   } @else {
 
   <!-- Article not found -->
-  <div class="not-found-state main-container">
-    <p class="not-found-msg">{{ tr.t('article.not_found') }}</p>
-    <a routerLink="/news-media/latest-news" class="back-link">
+  <div class="ad-not-found main-container">
+    <p class="ad-not-found-msg">{{ tr.t('article.not_found') }}</p>
+    <a routerLink="/news-media/latest-news" class="ad-back">
       <span class="rtl-flip" aria-hidden="true">←</span>
       {{ tr.t('article.back_link') }}
     </a>
   </div>
+
   }
+
   <app-partners-section />
 </main>

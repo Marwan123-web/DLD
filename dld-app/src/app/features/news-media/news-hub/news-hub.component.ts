@@ -19,10 +19,8 @@ const HUB_CARDS: HubCard[] = [
     subtitleKey: 'news_hub.cards.latest_subtitle',
     icon: 'archive-book',
     bullets: [
-      'news_hub.bullets.latest_news',
-      'news_hub.bullets.market_updates',
-      'news_hub.bullets.regulatory_news',
-      'news_hub.bullets.events',
+      'news_hub.bullets.latest_dld_news',
+      'news_hub.bullets.all_news',
     ],
   },
   {
@@ -31,22 +29,21 @@ const HUB_CARDS: HubCard[] = [
     subtitleKey: 'news_hub.cards.ann_subtitle',
     icon: 'buildings-2',
     bullets: [
-      'news_hub.bullets.announcements',
-      'news_hub.bullets.initiatives',
-      'news_hub.bullets.press_releases',
+      'news_hub.bullets.latest_initiatives',
+      'news_hub.bullets.all_initiatives',
     ],
   },
-  {
-    route: '/news-media/latest-news',
-    titleKey: 'news_hub.cards.media_title',
-    subtitleKey: 'news_hub.cards.media_subtitle',
-    icon: 'folder',
-    bullets: [
-      'news_hub.bullets.photos',
-      'news_hub.bullets.videos',
-      'news_hub.bullets.press_kit',
-    ],
-  },
+  // {
+  //   route: '/news-media/latest-news',
+  //   titleKey: 'news_hub.cards.media_title',
+  //   subtitleKey: 'news_hub.cards.media_subtitle',
+  //   icon: 'folder',
+  //   bullets: [
+  //     'news_hub.bullets.photos',
+  //     'news_hub.bullets.videos',
+  //     'news_hub.bullets.press_kit',
+  //   ],
+  // },
 ];
 
 @Component({

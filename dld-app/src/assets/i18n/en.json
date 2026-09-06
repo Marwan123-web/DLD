@@ -383,6 +383,7 @@
     "breadcrumb": "News & Media",
     "featured_label": "Featured",
     "top_stories": "Top Stories",
+    "filter_all": "All",
     "filter_search": "Search",
     "filter_date_from": "Open From",
     "filter_date_to": "Open To",
@@ -397,9 +398,10 @@
     "showing_count": "Showing {{shown}} out of {{total}} results"
   },
   "announcements": {
-    "title": "Announcements",
+    "title": "Announcements & Initiatives",
     "subtitle": "Discover the latest events and insights shaping Dubai's real estate landscape.",
-    "section_title": "Initiatives",
+    "featured_section_title": "Latest Initiatives",
+    "section_title": "All Initiatives",
     "section_subtitle": "Explore all of our news and stay updated",
     "no_results": "No initiatives found matching your criteria.",
     "view_details": "View Details"
@@ -450,8 +452,8 @@
   "news_hub": {
     "hero_title": "News and Media",
     "hero_eyebrow": "NEWS AND MEDIA",
-    "hero_title_main": "Stay informed with Dubai Land Department",
-    "hero_subtitle": "Latest news, official announcements, strategic initiatives, and our media library.",
+    "hero_title_main": "Everything happening at Dubai Land Department",
+    "hero_subtitle": "News, announcements, initiatives, awards and electronic publications from Dubai Land Department.",
     "breadcrumb": "News and Media",
     "cards": {
       "latest_title": "Latest News",
@@ -463,11 +465,15 @@
     },
     "bullets": {
       "latest_news": "Latest News",
+      "latest_dld_news": "Latest DLD News",
+      "all_news": "All News",
       "market_updates": "Market Updates",
       "regulatory_news": "Regulatory News",
       "events": "Events & Highlights",
       "announcements": "Official Announcements",
       "initiatives": "Strategic Initiatives",
+      "latest_initiatives": "Latest Initiatives",
+      "all_initiatives": "All Initiatives",
       "press_releases": "Press Releases",
       "photos": "Photo Gallery",
       "videos": "Video Gallery",

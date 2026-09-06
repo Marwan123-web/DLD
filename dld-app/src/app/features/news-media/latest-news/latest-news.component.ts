@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@a
 import { RouterLink } from '@angular/router';
 import { NewsService } from '../../../core/services/news.service';
 import { NewsCardComponent } from '../../../shared/components/news-card/news-card.component';
+import { FilterPillsComponent, FilterPill } from '../../../shared/components/filter-pills/filter-pills.component';
 import { PartnersSectionComponent } from '../../home/sections/partners-section/partners-section.component';
 import { TranslationService } from '../../../core/services/translation.service';
 
@@ -10,7 +11,7 @@ const PAGE_SIZE = 6;
 @Component({
   selector: 'app-latest-news',
   standalone: true,
-  imports: [RouterLink, NewsCardComponent, PartnersSectionComponent],
+  imports: [RouterLink, NewsCardComponent, FilterPillsComponent, PartnersSectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './latest-news.component.html',
   styleUrl: './latest-news.component.scss',
@@ -21,6 +22,13 @@ export class LatestNewsComponent {
 
   readonly featured = this.svc.featured;
   readonly categories = computed(() => this.svc.getCategories());
+
+  readonly categoryPills = computed<FilterPill[]>(() =>
+    this.categories().map(cat => ({
+      key: cat,
+      label: cat === 'all' ? this.tr.t('news.filter_all') : cat,
+    }))
+  );
 
   readonly searchQuery = signal('');
   readonly selectedCategory = signal('all');

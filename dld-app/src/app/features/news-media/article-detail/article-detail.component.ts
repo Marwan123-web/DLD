@@ -48,4 +48,11 @@ export class ArticleDetailComponent {
     const cats = new Set(this.relatedArticles().map(a => a.category));
     return Array.from(cats);
   });
+
+  readonly bodyParagraphs = computed(() => {
+    const a = this.article();
+    if (!a) return [];
+    const text = a.body ?? a.excerpt;
+    return text.split('\n\n').filter(p => p.trim().length > 0);
+  });
 }
