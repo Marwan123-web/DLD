@@ -29,7 +29,7 @@ export class LeadershipComponent {
     role: this.tr.t('leadership.chairman_role'),
     name: this.tr.t('leadership.chairman_name'),
     excerpt: this.tr.t('leadership.chairman_excerpt'),
-    portraitSrc: 'assets/images/chairman-portrait.jpg',
+    portraitSrc: 'assets/images/chairman-portrait.svg',
     portraitAlt: this.tr.t('leadership.chairman_name'),
     theme: 'green',
   }));
@@ -39,7 +39,7 @@ export class LeadershipComponent {
     role: this.tr.t('leadership.dg_role'),
     name: this.tr.t('leadership.dg_name'),
     excerpt: this.tr.t('leadership.dg_excerpt'),
-    portraitSrc: 'assets/images/dg-portrait.jpg',
+    portraitSrc: 'assets/images/dg-portrait.svg',
     portraitAlt: this.tr.t('leadership.dg_name'),
     theme: 'navy',
   }));
@@ -47,7 +47,7 @@ export class LeadershipComponent {
   readonly chairmanModal = computed<LeadershipModalData>(() => ({
     theme: 'green',
     watermarkLines: [this.tr.t('leadership.chairman_wm1'), this.tr.t('leadership.chairman_wm2')],
-    portraitSrc: 'assets/images/chairman-portrait.jpg',
+    portraitSrc: 'assets/images/chairman-portrait.svg',
     portraitAlt: this.tr.t('leadership.chairman_name'),
     portraitSide: 'start',
     eyebrow: this.tr.t('leadership.chairman_badge'),
@@ -68,7 +68,7 @@ export class LeadershipComponent {
   readonly dgModal = computed<LeadershipModalData>(() => ({
     theme: 'navy',
     watermarkLines: [this.tr.t('leadership.dg_wm1'), this.tr.t('leadership.dg_wm2')],
-    portraitSrc: 'assets/images/dg-portrait.jpg',
+    portraitSrc: 'assets/images/dg-portrait.svg',
     portraitAlt: this.tr.t('leadership.dg_name'),
     portraitSide: 'end',
     eyebrow: this.tr.t('leadership.dg_badge'),

@@ -39,6 +39,8 @@ export interface TimelineEntry {
   quoteSuffixKey?: string;
   quoteSuffixLabelKey?: string;
   isoKeys?: string[];
+  decorIcon?: string;
+  sideStatBoxes?: StatBox[];
 }
 
 const TIMELINE: TimelineEntry[] = [
@@ -50,7 +52,7 @@ const TIMELINE: TimelineEntry[] = [
     chips: [
       { icon: 'magic-star', labelKey: 'achievements.y2014_award1' },
       { icon: 'star',        labelKey: 'achievements.y2014_award2' },
-      { icon: 'medal-star',  labelKey: 'achievements.y2014_award3' },
+      { icon: 'medal-star-g',  labelKey: 'achievements.y2014_award3' },
     ],
   },
   {
@@ -59,7 +61,7 @@ const TIMELINE: TimelineEntry[] = [
     headlineKey: 'achievements.y2015_headline',
     bodyKey: 'achievements.y2015_body1',
     bodyKey2: 'achievements.y2015_body2',
-    statBoxes: [
+    sideStatBoxes: [
       { valueKey: 'achievements.y2015_stat1_val', labelKey: 'achievements.y2015_stat1_lbl' },
       { valueKey: 'achievements.y2015_stat2_val', labelKey: 'achievements.y2015_stat2_lbl' },
     ],
@@ -81,10 +83,13 @@ const TIMELINE: TimelineEntry[] = [
     ],
   },
   {
-    kind: 'world-first',
+    kind: 'year',
     year: '2017',
-    headlineKey: 'achievements.world_first_title',
+    dark: true,
+    sectionLabelKey: 'achievements.world_first_label',
+    headlineKey: 'achievements.y2017_headline',
     bodyKey: 'achievements.y2017_body',
+    decorIcon: 'security-safe',
   },
   {
     kind: 'year',
@@ -94,7 +99,7 @@ const TIMELINE: TimelineEntry[] = [
     bodyKey2: 'achievements.y2018_body2',
     bodyKey3: 'achievements.y2018_body3',
     awardCards: [
-      { icon: 'medal-star', titleKey: 'achievements.y2018_card1_title', subtitleKey: 'achievements.y2018_card1_sub' },
+      { icon: 'medal-star-g', titleKey: 'achievements.y2018_card1_title', subtitleKey: 'achievements.y2018_card1_sub' },
       { icon: 'medal',      titleKey: 'achievements.y2018_card2_title', subtitleKey: 'achievements.y2018_card2_sub' },
       { icon: 'medal',      titleKey: 'achievements.y2018_card3_title', subtitleKey: 'achievements.y2018_card3_sub' },
     ],
@@ -107,6 +112,8 @@ const TIMELINE: TimelineEntry[] = [
     quoteKey: 'achievements.sustained_quote',
     quoteSuffixKey: 'achievements.sustained_stat',
     quoteSuffixLabelKey: 'achievements.sustained_stat_lbl',
+    decorIcon: 'ranking',
+
   },
   {
     kind: 'year',
@@ -116,7 +123,7 @@ const TIMELINE: TimelineEntry[] = [
     bodyKey2: 'achievements.y2021_body2',
     chips: [
       { icon: 'star',       labelKey: 'achievements.y2021_award1' },
-      { icon: 'medal-star', labelKey: 'achievements.y2021_award2' },
+      { icon: 'medal-star-g', labelKey: 'achievements.y2021_award2' },
     ],
   },
   {

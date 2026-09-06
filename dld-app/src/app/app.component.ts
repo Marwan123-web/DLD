@@ -10,7 +10,7 @@ import { FooterComponent } from './layout/footer/footer.component';
   imports: [RouterOutlet, NavbarComponent, FooterComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a href="#main-content" class="skip-to-content">{{ tr.t('common.skip_to_content') }}</a>
+    <!-- <a href="#main-content" class="skip-to-content">{{ tr.t('common.skip_to_content') }}</a> -->
     <app-navbar />
     <router-outlet />
     <app-footer />

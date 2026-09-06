@@ -78,7 +78,7 @@ export interface LeadershipModalData {
 
           <!-- Content -->
           <div class="modal-content-area">
-            @if (data().breadcrumbs?.length) {
+            <!-- @if (data().breadcrumbs?.length) {
               <nav class="modal-bc" aria-label="Breadcrumb">
                 <ol class="modal-bc__list">
                   @for (crumb of data().breadcrumbs!; track $index; let last = $last) {
@@ -99,7 +99,7 @@ export interface LeadershipModalData {
                   }
                 </ol>
               </nav>
-            }
+            } -->
             <span class="modal-eyebrow">{{ data().eyebrow }}</span>
             <h2 class="modal-title">{{ data().title }}</h2>
             <div class="modal-underline" aria-hidden="true"></div>

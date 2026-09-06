@@ -63,7 +63,7 @@
   width: 207px;
   height: 207px;
   border-radius: 50%;
-  background: rgba(255 255 255 / 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.30);
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -75,7 +75,8 @@
     width: 145px;
     height: 145px;
     border-radius: 50%;
-    background: rgba(255 255 255 / 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+
   }
 
   &-icon {
@@ -255,15 +256,39 @@
   grid-template-columns: clamp(80px, 12vw, 128px) 1fr;
   align-items: flex-start;
   gap: 0;
+
+  &:last-child {
+    .ach-timeline__node::before {
+        height: 0;
+    }
+    .ach-timeline__dot {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
 }
 
 .ach-timeline__node {
   display: flex;
-  justify-content: flex-end;
-  padding-inline-end: var(--space-5);
+  justify-content: center;
   padding-block-start: var(--space-1);
   position: relative;
-  z-index: 1;
+
+  // Vertical connecting line runs the full height of the entry
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 50%;
+    width: 2px;
+    background: #e0f6ef;
+    transform: translateX(-50%);
+    z-index: 0;
+    height: 55vh;
+  }
+  &:last-child::before {
+    height: 0;
+  }
 }
 
 // Year pill
@@ -280,6 +305,8 @@
   white-space: nowrap;
   line-height: 1.4;
   box-shadow: 0px 8px 18px rgba(0, 168, 117, 0.35);
+  position: relative;
+  z-index: 1;
 
   &--wf {
     background: #f5a623;
@@ -292,33 +319,35 @@
 
 // Dot (dot-labeled and iso-grid)
 .ach-timeline__dot {
-  width: 14px;
-  height: 14px;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 50%;
   background: var(--color-primary);
-  border: 2px solid var(--color-white);
-  box-shadow: 0 0 0 2px var(--color-primary);
+  // border: 2px solid var(--color-white);
+  box-shadow: 0 8px 18px rgba(0, 168, 117, 0.35);
   margin-block-start: 4px;
+  position: relative;
+  z-index: 1;
 }
 
 // Content column — the border IS the timeline vertical line
 .ach-timeline__content {
-  border-inline-start: 4px solid #e0f6ef;
+  // border-inline-start: 4px solid #e0f6ef;
   padding-inline-start: var(--space-8);
   padding-block-end: var(--space-8);
   position: relative;
 
   // Small dot on the line at entry start
-  &::before {
-    content: '';
-    position: absolute;
-    inset-inline-start: -6px;
-    inset-block-start: 6px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-primary);
-  }
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   inset-inline-start: -6px;
+  //   inset-block-start: 6px;
+  //   width: 8px;
+  //   height: 8px;
+  //   border-radius: 50%;
+  //   background: var(--color-primary);
+  // }
 
   @include bp-down('md') {
     padding-inline-start: var(--space-5);
@@ -378,9 +407,10 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  background: #e0f6ef;
+  background: rgba(255, 255, 255, 0.10);
   border-radius: var(--radius-lg);
   min-width: 100px;
+  background: #E0F6EF;
 
   &--large {
     flex: 1 1 280px;
@@ -404,6 +434,9 @@
   font-weight: var(--weight-bold);
 }
 
+.ach-stat-box--large {
+  background: rgba(255, 255, 255, 0.10);
+}
 .ach-stat-box--large .ach-stat-box__value {
   font-size: clamp(1.75rem, 3vw, 2.125rem);
   color: #99f2d1;
@@ -431,16 +464,106 @@
   box-shadow: 0px 8px 22px rgba(8, 50, 32, 0.05);
   padding: var(--space-6);
   overflow: hidden;
-  position: relative;
+  position: relative;  
 
   &--dark {
     background: linear-gradient(153deg, #083220 0%, #006b4d 71.4%);
     border: none;
 
-    .ach-entry__label { color: #99f2d1; }
+    .ach-entry__label {
+      color: #99f2d1;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-pill);
+      padding: var(--space-1) var(--space-3);
+      display: inline-block;
+    }
     .ach-entry__headline { color: #fff; }
     .ach-entry__body { color: #d9ede5; }
   }
+}
+
+// Large background year watermark (Figma: 120px, bottom-right of card)
+.ach-entry__year-wm {
+  position: absolute;
+  inset-block-end: -0.1em;
+  inset-inline-end: var(--space-6);
+  font-size: clamp(5rem, 8vw, 7.5rem);
+  font-weight: var(--weight-bold);
+  color: #e0f6ef;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
+  z-index: 0;
+
+  .ach-entry__card--dark & {
+    color: rgba(255, 255, 255, 0.14);
+  }
+}
+
+.ach-entry__decor-icon {
+  position: absolute;
+  inset-block-start: var(--space-4);
+  inset-inline-end: var(--space-6);
+  opacity: 0.6;
+  color: var(--color-white);
+  pointer-events: none;
+  background-image: radial-gradient(circle, #E0F6EF 1.5px, transparent 1.5px);
+}
+
+// Side-stats layout (e.g. 2015 card)
+.ach-entry__card--has-side {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+
+  @include bp-down('md') {
+    flex-direction: column;
+  }
+}
+
+.ach-entry__main {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ach-entry__side-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex-shrink: 0;
+  width: 220px;
+
+  @include bp-down('md') {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.ach-side-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: #e0f6ef;
+  border-radius: var(--radius-lg);
+}
+
+.ach-side-stat__value {
+  font-size: 1.5rem;
+  font-weight: var(--weight-bold);
+  color: #006b4d;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.ach-side-stat__label {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-muted);
 }
 
 // ── AWARD CARDS (2018 DGEP) ───────────────────────────────────────────────
@@ -456,11 +579,12 @@
   align-items: flex-start;
   gap: var(--space-3);
   padding: var(--space-4) var(--space-5);
-  background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   flex: 1 1 200px;
+  background-color: #E0F6EF;
+
 }
 
 .ach-award-card__icon-wrap {
@@ -473,6 +597,7 @@
   background: #e0f6ef;
   color: var(--color-primary);
   flex-shrink: 0;
+  background-color: #fff;
 }
 
 .ach-award-card__text {
@@ -501,11 +626,11 @@
   grid-template-rows: auto;
   gap: 0 var(--space-5);
   align-items: start;
-  background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-5) var(--space-6);
   margin-block: var(--space-4);
+  background-color: #E0F6EF;
 
   @include bp-down('sm') {
     grid-template-columns: 4px 1fr;
@@ -608,8 +733,9 @@
 
 .ach-entry__iso-cert {
   display: flex;
+  // flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: var(--space-1);
   padding: var(--space-4);
   background: #f8faf9;
   border: 1px solid var(--color-border);
@@ -618,6 +744,16 @@
   min-height: 80px;
 }
 
+.ach-iso__ellipse {
+  background-color: #E0F6EF;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+}
+.ach-iso__content {
+  display: flex;
+  flex-direction: column;
+}
 .ach-iso__num {
   font-size: 9px;
   font-weight: var(--weight-bold);

@@ -78,9 +78,8 @@
         <button class="org-export-btn" (click)="printOrgChart()" type="button" [attr.aria-label]="tr.t('leadership.org_export')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
                stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
-            <path d="M6 9V2h12v7" />
-            <rect x="3" y="9" width="18" height="10" rx="2" />
-            <path d="M9 15h6M9 19h6" />
+            <path d="M12 16l-4-4h3V4h2v8h3l-4 4z"/>
+            <path d="M20 18H4v2h16v-2z"/>
           </svg>
           {{ tr.t('leadership.org_export') }}
         </button>
@@ -88,29 +87,37 @@
 
       <div id="org-print-area" class="org-chart-wrap" role="tree" [attr.aria-label]="tr.t('leadership.org_chart_title')">
 
-        <!-- TOP: Chairman -->
+        <!-- TOP: Chairman + DG hierarchy -->
         <div class="org-top-level">
-          <div class="org-top-row">
+
+          <!-- CHAIRMAN level: left spacer | CHAIRMAN pill | → Chairman Office -->
+          <div class="org-node-level">
+            <div class="org-level-side org-level-side--start" aria-hidden="true"></div>
             <div class="org-top-node org-chairman" role="treeitem">
               <span class="otn-title">{{ tr.t('leadership.org_chairman') }}</span>
             </div>
-            <div class="org-side-connector" aria-hidden="true"></div>
-            <div class="org-side-node" role="treeitem">
-              <span class="osn-label">{{ tr.t('leadership.org_chairman_office') }}</span>
+            <div class="org-level-side org-level-side--end">
+              <div class="org-h-connector" aria-hidden="true"></div>
+              <div class="org-side-pill" role="treeitem">
+                <span class="osn-label">{{ tr.t('leadership.org_chairman_office') }}</span>
+              </div>
             </div>
           </div>
 
           <div class="org-v-connector" aria-hidden="true"></div>
 
-          <!-- Director General -->
-          <div class="org-top-row">
+          <!-- DG level: DG Office ← | Director General pill | right spacer -->
+          <div class="org-node-level">
+            <div class="org-level-side org-level-side--start">
+              <div class="org-side-pill" role="treeitem">
+                <span class="osn-label">{{ tr.t('leadership.org_dg_office') }}</span>
+              </div>
+              <div class="org-h-connector" aria-hidden="true"></div>
+            </div>
             <div class="org-top-node org-dg" role="treeitem">
               <span class="otn-title">{{ tr.t('leadership.org_dg') }}</span>
             </div>
-            <div class="org-side-connector" aria-hidden="true"></div>
-            <div class="org-side-node" role="treeitem">
-              <span class="osn-label">{{ tr.t('leadership.org_dg_office') }}</span>
-            </div>
+            <div class="org-level-side org-level-side--end" aria-hidden="true"></div>
           </div>
         </div>
 
@@ -124,8 +131,7 @@
               <li>{{ tr.t('leadership.org_rental_technical') }}</li>
               <li>{{ tr.t('leadership.org_rental_conciliation') }}</li>
               <li>{{ tr.t('leadership.org_rental_support') }}</li>
-              <li>
-                {{ tr.t('leadership.org_rental_execution') }}
+              <li>{{ tr.t('leadership.org_rental_execution') }}
                 <ul class="odc-sub-list">
                   <li>{{ tr.t('leadership.org_rental_eviction') }}</li>
                   <li>{{ tr.t('leadership.org_rental_claims') }}</li>
@@ -169,7 +175,15 @@
 
           <!-- Corporate Support Sector -->
           <div class="org-sector-card" role="treeitem">
-            <div class="org-sector-title">{{ tr.t('leadership.org_sector_corporate') }}</div>
+            <div class="org-sector-header">
+              <span class="org-sector-icon-wrap" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </span>
+              <span class="org-sector-name">{{ tr.t('leadership.org_sector_corporate') }}</span>
+            </div>
             <div class="org-sector-depts">
               <div class="org-dept-card odc-sm">
                 <h4 class="odc-title">{{ tr.t('leadership.org_hr') }}</h4>
@@ -221,7 +235,15 @@
 
           <!-- Real Estate Registration Sector -->
           <div class="org-sector-card" role="treeitem">
-            <div class="org-sector-title">{{ tr.t('leadership.org_sector_registration') }}</div>
+            <div class="org-sector-header">
+              <span class="org-sector-icon-wrap" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 21h18M3 7v14M21 7v14M6 3h12v4H6V3zM9 21v-6h6v6"/>
+                  <path d="M3 7h18"/>
+                </svg>
+              </span>
+              <span class="org-sector-name">{{ tr.t('leadership.org_sector_registration') }}</span>
+            </div>
             <div class="org-sector-depts">
               <div class="org-dept-card odc-sm">
                 <h4 class="odc-title">{{ tr.t('leadership.org_transactions') }}</h4>
@@ -264,8 +286,15 @@
           </div>
 
           <!-- RERA Sector -->
-          <div class="org-sector-card org-sector-rera" role="treeitem">
-            <div class="org-sector-title">{{ tr.t('leadership.org_sector_rera') }}</div>
+          <div class="org-sector-card" role="treeitem">
+            <div class="org-sector-header">
+              <span class="org-sector-icon-wrap" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </span>
+              <span class="org-sector-name">{{ tr.t('leadership.org_sector_rera') }}</span>
+            </div>
             <div class="org-sector-depts">
               <div class="org-dept-card odc-sm">
                 <h4 class="odc-title">{{ tr.t('leadership.org_licensing') }}</h4>

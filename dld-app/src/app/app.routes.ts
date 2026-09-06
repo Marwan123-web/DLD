@@ -52,6 +52,12 @@ export const routes: Routes = [
     path: 'news-media',
     children: [
       {
+        path: '',
+        loadComponent: () =>
+          import('./features/news-media/news-hub/news-hub.component').then(m => m.NewsHubComponent),
+        title: 'News and Media | Dubai Land Department',
+      },
+      {
         path: 'latest-news',
         loadComponent: () =>
           import('./features/news-media/latest-news/latest-news.component').then(

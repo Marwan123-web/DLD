@@ -98,7 +98,8 @@
   border-block: 1px solid rgba(255, 255, 255, 0.08);
   padding-block: 0.75rem;
   border-radius: 50px;
-
+  margin-inline: 3rem;
+  padding-inline:0 !important;
 }
 
 .utility-inner {
@@ -107,6 +108,7 @@
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  padding-inline:2rem !important;
 }
 
 .utility-left,
