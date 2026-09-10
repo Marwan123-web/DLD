@@ -117,7 +117,7 @@
   padding:         12px;
   min-width:       56px;
   min-height:      56px;
-  border-radius:   var(--radius-md);    // rounded square by default → animates to circle
+  border-radius:   var(--radius-full);    // rounded square by default → animates to circle
   background:      var(--color-card-bg);
   transition:
     background     200ms ease,
