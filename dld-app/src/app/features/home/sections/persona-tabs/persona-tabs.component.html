@@ -13,11 +13,13 @@
           (click)="setTab(tab.id)"
           (keydown)="onKeydown($event, tab.id)"
         >
-          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
-               width="24" height="24" aria-hidden="true">
-            <path [attr.d]="tab.icon"/>
-          </svg>
+          <span class="tab-icon-wrap">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                 width="24" height="24" aria-hidden="true">
+              <path [attr.d]="tab.icon"/>
+            </svg>
+          </span>
           <span class="tab-label text-start">{{ tab.label }}</span>
           @if (activeTabId() === tab.id) {
             <span class="tab-tail" aria-hidden="true"></span>

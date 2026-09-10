@@ -147,7 +147,7 @@
   }
 
   &:hover {
-    background: rgba(0, 167, 118, 0.15);
+    background: rgba(var(--c-green-500-rgb), 0.15);
   }
 }
 
