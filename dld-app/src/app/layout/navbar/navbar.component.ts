@@ -43,7 +43,7 @@ export class NavbarComponent {
       { label: t('nav.home'), path: '/', hasDropdown: false, exact: true },
       {
         label: t('nav.about'),
-        path: '/about-dld',
+        path: '/about', // /about-dld
         hasDropdown: true,
         // No megaKey/megaMenu — About DLD navigates to the hub route (routed-hub flow)
       },
@@ -52,7 +52,7 @@ export class NavbarComponent {
       { label: t('nav.open_data'), path: '/open-data', hasDropdown: true },
       {
         label: t('nav.news'),
-        path: '/news-media',
+        path: '/new', // /news-media
         hasDropdown: true,
         // No megaKey/megaMenu — News navigates to the hub route (routed-hub flow)
       },
