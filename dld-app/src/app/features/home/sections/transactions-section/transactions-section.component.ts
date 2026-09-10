@@ -8,9 +8,9 @@ interface DonutSegment {
 }
 
 const SEGMENTS: DonutSegment[] = [
-  { id: 'mortgaged', label: 'Mortgaged', value: 435, color: '#00A776' },
-  { id: 'cash',      label: 'Cash',      value: 280, color: '#2F80ED' },
-  { id: 'gift',      label: 'Gift',       value: 85,  color: '#7A5AF8' },
+  { id: 'mortgaged', label: 'Mortgaged', value: 435, color: '#00A776' }, // matches --chart-green
+  { id: 'cash',      label: 'Cash',      value: 280, color: '#2F80ED' }, // matches --chart-blue
+  { id: 'gift',      label: 'Gift',       value: 85,  color: '#7A5AF8' }, // matches --chart-purple
 ];
 
 const PRICE_MARKERS = [

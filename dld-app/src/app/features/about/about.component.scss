@@ -5,14 +5,13 @@
 .about-hero {
   position: relative;
   overflow: hidden;
-  // AMBIGUITY: #005c3f has no token — dark green gradient start
-  background: linear-gradient(149deg, #083220 0%, var(--color-primary) 62.5%);
+  background: linear-gradient(149deg, var(--c-green-900) 0%, var(--color-primary) 62.5%);
   padding-block-start: 200px;
   padding-block-end: var(--space-16);
   min-height: 630px; // Figma hero frame height: 630px
 
   [dir='rtl'] & {
-    background: linear-gradient(211deg, #083220 0%, var(--color-primary) 62.5%);
+    background: linear-gradient(211deg, var(--c-green-900) 0%, var(--color-primary) 62.5%);
   }
 
   @include bp-down('md') {
@@ -224,8 +223,7 @@
 .story-title {
   font-size: var(--text-lg);
   font-weight: var(--weight-bold);
-  // AMBIGUITY: #1f2421 has no token — closest is --color-heading (#16233B)
-  color: #1f2421;
+  color: var(--c-warm-900);
   margin: 0;
   line-height: var(--line-height-heading);
 }
@@ -273,8 +271,7 @@
   &__line {
     flex: 1;
     width: 4px;
-    // AMBIGUITY: #e0f6ef has no token — light teal
-    background: #e0f6ef;
+    background: var(--c-green-100);
     border-radius: 2px;
     min-height: var(--space-6);
   }
@@ -303,7 +300,7 @@
   overflow: hidden;
   border-radius: 20px; // AMBIGUITY: 20px from Figma
   padding: var(--space-10);
-  box-shadow: 0px 8px 22px 0px rgba(8 50 32 / 0.05);
+  box-shadow: 0px 8px 22px 0px rgba(var(--c-green-900-rgb) / 0.05);
 
   @include bp-down('md') {
     padding: var(--space-6);
@@ -312,22 +309,20 @@
 
 // Light gradient (01, 03, 04)
 .sc--light {
-  // AMBIGUITY: raw gradient from Figma — no token
-  background: linear-gradient(158deg, #e0f6ef 0%, #ffffff 50%);
-  border: 1.2px solid rgba(0 168 117 / 0.25);
+  background: linear-gradient(158deg, var(--c-green-100) 0%, #ffffff 50%);
+  border: 1.2px solid rgba(var(--c-green-500-rgb) / 0.25);
 }
 
 // Dark gradient (02)
 .sc--dark {
-  // AMBIGUITY: raw gradient from Figma — no token
-  background: linear-gradient(147deg, #083220 0%, #006b4d 71%);
+  background: linear-gradient(147deg, var(--c-green-900) 0%, var(--c-green-700) 71%);
   border: none;
 }
 
 // White (05)
 .sc--white {
   background: var(--color-white);
-  border: 1.2px solid rgba(0 168 117 / 0.25);
+  border: 1.2px solid rgba(var(--c-green-500-rgb) / 0.25);
 }
 
 // ── Watermarks inside cards ────────────────────────────────────────────────
@@ -341,8 +336,7 @@
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
-  // AMBIGUITY: #e0f6ef has no token
-  color: #e0f6ef;
+  color: var(--c-green-100);
 }
 
 .sc__wm--ghost {
@@ -381,36 +375,34 @@
 
 // Light teal pill (01 light, 05 white)
 .sc__eyebrow-pill--teal {
-  // AMBIGUITY: #e0f6ef no token, #006b4d no token
-  background: #e0f6ef;
-  color: #006b4d;
+  background: var(--c-green-100);
+  color: var(--c-green-700);
 }
 
 // Dark card pill (02 dark)
 .sc__eyebrow-pill--dark {
-  // AMBIGUITY: rgba from Figma, #99f2d1 no token
   background: rgba(255 255 255 / 0.14);
-  color: #99f2d1;
+  color: var(--c-green-300);
 }
 
 // Mission pill — slightly different teal (03)
 .sc__eyebrow-pill--mission {
-  background: #f8fffd; // AMBIGUITY: no token
-  color: #006b4d; // AMBIGUITY: no token
+  background: var(--c-green-025);
+  color: var(--c-green-700);
 }
 
 // Outlined pill (04)
 .sc__eyebrow-pill--outline {
   background: var(--color-white);
   border: 1px solid var(--color-primary);
-  color: #006b4d; // AMBIGUITY: no token
+  color: var(--c-green-700);
 }
 
 // ── Titles ────────────────────────────────────────────────────────────────
 .sc__title {
   font-size: clamp(1.25rem, 2vw, 1.875rem); // 30px at desktop
   font-weight: var(--weight-bold);
-  color: #1f2421; // AMBIGUITY: no token
+  color: var(--c-warm-900);
   line-height: var(--line-height-heading);
   margin: 0 0 var(--space-4);
 }
@@ -422,7 +414,7 @@
 // ── Body text ─────────────────────────────────────────────────────────────
 .sc__body {
   font-size: var(--text-base);
-  color: #1f2421; // AMBIGUITY: no token
+  color: var(--c-warm-900);
   line-height: 22px; // AMBIGUITY: from Figma
   margin: 0 0 var(--space-4);
   position: relative;
@@ -435,8 +427,7 @@
 }
 
 .sc__body--muted {
-  // AMBIGUITY: #d4ebe0 no token
-  color: #d4ebe0;
+  color: var(--c-green-250);
 }
 
 // ── Agency chips (ch03) ───────────────────────────────────────────────────
@@ -457,7 +448,7 @@
   border-radius: 18px; // AMBIGUITY: from Figma
   font-size: 10.5px; // AMBIGUITY: from Figma
   font-weight: var(--weight-medium);
-  color: #006b4d; // AMBIGUITY: no token
+  color: var(--c-green-700);
   white-space: nowrap;
 
   img { flex-shrink: 0; }
@@ -503,7 +494,7 @@
 .sc__quote-text {
   font-size: var(--text-base);
   line-height: 25px;
-  color: #006b4d; // AMBIGUITY: no token
+  color: var(--c-green-700);
   margin: 0 0 var(--space-2);
 
   strong {
@@ -528,7 +519,7 @@
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  border: 1px solid rgba(0 168 117 / 0.2);
+  border: 1px solid rgba(var(--c-green-500-rgb) / 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -539,7 +530,7 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 1px solid rgba(0 168 117 / 0.3);
+    border: 1px solid rgba(var(--c-green-500-rgb) / 0.3);
   }
 
   &::after {
@@ -548,7 +539,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 1px solid rgba(0 168 117 / 0.5);
+    border: 1px solid rgba(var(--c-green-500-rgb) / 0.5);
   }
 
   img { position: relative; z-index: 1; }
@@ -560,8 +551,7 @@
 
 // ── Invite banner (ch04) ─────────────────────────────────────────────────
 .sc__invite-banner {
-  // AMBIGUITY: raw gradient from Figma
-  background: linear-gradient(158deg, #083220 0%, var(--color-primary) 83%);
+  background: linear-gradient(158deg, var(--c-green-900) 0%, var(--color-primary) 83%);
   border-radius: var(--radius-lg);
   padding: var(--space-6) var(--space-8);
   margin-block: var(--space-4);
@@ -588,8 +578,7 @@
   display: inline-flex;
   align-items: center;
   padding: var(--space-2) var(--space-3);
-  // AMBIGUITY: #083220 no token
-  background: #083220;
+  background: var(--c-green-900);
   border-radius: 16px; // AMBIGUITY: from Figma
   font-size: 10.5px; // AMBIGUITY: from Figma
   font-weight: var(--weight-medium);
@@ -603,7 +592,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  background: #083220; // AMBIGUITY: no token
+  background: var(--c-green-900);
   border-radius: 18px;
   font-size: 11.5px; // AMBIGUITY: from Figma
   font-weight: var(--weight-bold);
@@ -616,8 +605,7 @@
 // ── VALUES ────────────────────────────────────────────────────────────────
 .values-section {
   padding-block: var(--space-20);
-  // AMBIGUITY: #f0f7f2 — light mint from Figma
-  background: #f0f7f2;
+  background: var(--c-green-050);
   position: relative;
   overflow: hidden;
 }
@@ -650,10 +638,10 @@
   pointer-events: none;
 
   // Four shades, lightest to darker — from Figma
-  &:nth-child(1) { color: #e0ede5; } // TRUST
-  &:nth-child(2) { color: #d9e8de; } // VISION
-  &:nth-child(3) { color: #d1e3d9; } // GROWTH
-  &:nth-child(4) { color: #c9ded4; } // INTEGRITY
+  &:nth-child(1) { color: var(--c-green-100); } // TRUST
+  &:nth-child(2) { color: var(--c-green-250); } // VISION
+  &:nth-child(3) { color: var(--c-green-250); } // GROWTH
+  &:nth-child(4) { color: var(--c-green-250); } // INTEGRITY
 }
 
 // Alternating indent (TRUST and GROWTH are indented in Figma)
@@ -663,10 +651,9 @@
 
 // Values card (right column)
 .values-card {
-  // AMBIGUITY: #f0f7f2 from Figma — same as section bg but card has shadow
-  background: #f0f7f2;
+  background: var(--c-green-050);
   border-radius: var(--radius-lg);
-  box-shadow: 0px 8px 22px 0px rgba(8 50 32 / 0.05);
+  box-shadow: 0px 8px 22px 0px rgba(var(--c-green-900-rgb) / 0.05);
   overflow: hidden;
 }
 
@@ -716,8 +703,7 @@
 }
 
 .values-list__text {
-  // AMBIGUITY: #0f1424 from Figma — very dark navy
-  color: #0f1424;
+  color: var(--c-navy-950);
   font-size: 1.375rem; // 22px from Figma
   line-height: 1.5;
 }
@@ -751,8 +737,8 @@
 }
 
 .vm-green {
-  // Figma: gradient left-to-right, #005c3f → #00a875
-  background: linear-gradient(90deg, #005c3f 0%, var(--color-primary) 100%);
+  // Figma: gradient left-to-right, --c-green-750 → var(--color-primary)
+  background: linear-gradient(90deg, var(--c-green-750) 0%, var(--color-primary) 100%);
   padding: var(--space-16) var(--space-12);
   display: flex;
   flex-direction: column;
@@ -761,8 +747,7 @@
 }
 
 .vm-navy {
-  // Figma: linear-gradient(142deg, #101828 0%, #1e2939 100%)
-  background: linear-gradient(142deg, #101828 0%, #1e2939 100%);
+  background: linear-gradient(142deg, var(--c-navy-900) 0%, var(--c-navy-700) 100%);
   padding: var(--space-16) var(--space-12);
   display: flex;
   flex-direction: column;
@@ -808,8 +793,7 @@
 // ── STRATEGIC MAP ─────────────────────────────────────────────────────────
 .strat-section {
   padding-block: var(--space-20);
-  // Figma: linear-gradient(195deg, #f3f8f5 36.6%, #e9f2ed 109.8%)
-  background: linear-gradient(195deg, #f3f8f5 36.6%, #e9f2ed 109.8%);
+  background: linear-gradient(195deg, var(--c-green-075) 36.6%, var(--c-green-075) 109.8%);
   position: relative;
   overflow: hidden;
 }

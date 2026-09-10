@@ -51,7 +51,7 @@
     background: var(--color-primary);
     border-color: var(--color-primary);
     color: #fff;
-    box-shadow: 0 4px 16px rgba(0, 167, 118, 0.3);
+    box-shadow: 0 4px 16px rgba(var(--c-green-500-rgb), 0.3);
     .tab-icon{
       background: var(--color-bg-light);
       color: green;

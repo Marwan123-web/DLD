@@ -6,7 +6,7 @@
 // ── HERO ───────────────────────────────────────────────────────────────
 .hub-hero {
   position: relative;
-  background: linear-gradient(149deg, #083220 0%, var(--color-primary) 62.5%);
+  background: linear-gradient(149deg, var(--c-green-900) 0%, var(--color-primary) 62.5%);
   min-height: 420px;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
   overflow: hidden;
 
   [dir='rtl'] & {
-    background: linear-gradient(211deg, #083220 0%, var(--color-primary) 62.5%);
+    background: linear-gradient(211deg, var(--c-green-900) 0%, var(--color-primary) 62.5%);
   }
 
   &__wm {
@@ -102,7 +102,7 @@
 }
 
 .hub-hero__eyebrow {
-  color: #99f2d1;
+  color: var(--c-green-300);
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   letter-spacing: 0.15em;
@@ -120,7 +120,7 @@
 }
 
 .hub-hero__subtitle {
-  color: #dbf0e8;
+  color: var(--c-green-225);
   font-size: var(--text-sm);
   line-height: var(--line-height-body);
   max-width: 700px;
@@ -156,7 +156,7 @@
   padding: var(--space-6);
   background: var(--color-white);
   border-radius: 20px;
-  box-shadow: 0px 8px 22px 0px rgba(8, 35, 32, 0.05);
+  box-shadow: 0px 8px 22px 0px rgba(var(--c-green-900-rgb), 0.05);
   overflow: hidden;
   text-decoration: none;
   color: inherit;
@@ -179,7 +179,7 @@
     height: 140px;
     top: -50px;
     inset-inline-end: -40px;
-    background: #e0f6ef;
+    background: var(--c-green-100);
     border-radius: 50%;
     pointer-events: none;
   }
@@ -197,7 +197,7 @@
     align-items: center;
     justify-content: center;
     padding: 11px;
-    background: #e0f6ef;
+    background: var(--c-green-100);
     border-radius: 13px;
     flex-shrink: 0;
     color: var(--color-primary-dark);
@@ -212,7 +212,7 @@
   }
 
   &__title {
-    color: #1f2421;
+    color: var(--c-warm-900);
     font-size: 17px;
     font-weight: var(--weight-bold);
     line-height: 1.53;
@@ -243,7 +243,7 @@
     gap: var(--space-2);
     font-size: var(--text-xs);
     font-weight: var(--weight-medium);
-    color: #1f2421;
+    color: var(--c-warm-900);
     line-height: 1.67;
   }
 

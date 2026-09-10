@@ -5,13 +5,13 @@
 .ps-hero {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(149deg, #083220 0%, var(--color-primary) 62.5%);
+  background: linear-gradient(149deg, var(--c-green-900) 0%, var(--color-primary) 62.5%);
   padding-block-start: 180px;
   padding-block-end: var(--space-16);
   min-height: 447px;
 
   [dir='rtl'] & {
-    background: linear-gradient(211deg, #083220 0%, var(--color-primary) 62.5%);
+    background: linear-gradient(211deg, var(--c-green-900) 0%, var(--color-primary) 62.5%);
   }
 
   @include bp-down('md') {
@@ -117,7 +117,7 @@
 
 // ── COMMITMENT ───────────────────────────────────────────────────────────────
 .ps-commitment {
-  background: #f0f7f2;
+  background: var(--c-green-050);
   overflow: hidden;
 }
 
@@ -268,7 +268,7 @@
 .ps-partners {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #0a2e24 0%, #1b7a5d 100%);
+  background: linear-gradient(135deg, var(--c-green-950) 0%, #1b7a5d 100%);
   padding-block: var(--space-16);
 
   @include bp-down('md') { padding-block: var(--space-12); }
@@ -401,7 +401,7 @@
 
 .ps-logo-card {
   background: var(--color-white);
-  border: 1px solid #e5ede8;
+  border: 1px solid var(--c-grey-225);
   // Figma: 20px radius (not var(--radius-lg) = 16px)
   border-radius: 20px;
   display: flex;

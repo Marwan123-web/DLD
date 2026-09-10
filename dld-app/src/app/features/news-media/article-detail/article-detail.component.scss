@@ -40,7 +40,7 @@
   font-size: var(--text-sm);
 
   a {
-    color: #b9ebd8;
+    color: var(--c-green-350);
     text-decoration: none;
 
     &:hover { color: #fff; }
@@ -76,7 +76,7 @@
 
 .ad-hero-excerpt {
   font-size: 1.25rem;
-  color: #f8f8f8;
+  color: var(--c-grey-075);
   line-height: 1.5;
   margin: 0 0 var(--space-5);
   max-width: 700px;
@@ -124,7 +124,7 @@
   p {
     font-size: 1.25rem;
     line-height: 1.75;
-    color: #4a5565;
+    color: var(--c-navy-400);
     margin-block-end: var(--space-6);
   }
 }
@@ -138,7 +138,7 @@
 .ad-related-title {
   font-size: 1.5rem;
   font-weight: var(--weight-bold);
-  color: #4a5565;
+  color: var(--c-navy-400);
   margin: 0 0 var(--space-5);
 }
 
@@ -152,7 +152,7 @@
 .ad-tag-pill {
   padding: 0.375rem 1rem;
   background: rgba(16, 52, 28, 0.12);
-  color: #2f7d4e;
+  color: var(--c-green-650);
   border-radius: var(--radius-pill);
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
@@ -168,10 +168,10 @@
   justify-content: center;
   height: 44px;
   padding-inline: 2rem;
-  border: 1.5px solid #00a875;
+  border: 1.5px solid var(--c-green-500);
   border-radius: 22px;
   background: transparent;
-  color: #00a875;
+  color: var(--c-green-500);
   font-size: var(--text-base);
   font-weight: var(--weight-medium);
   font-family: inherit;
@@ -180,7 +180,7 @@
   transition: background 0.2s, color 0.2s;
 
   &:hover {
-    background: #00a875;
+    background: var(--c-green-500);
     color: #fff;
   }
 }
