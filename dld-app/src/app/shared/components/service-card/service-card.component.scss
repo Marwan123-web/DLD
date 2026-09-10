@@ -1,5 +1,10 @@
 :host { display: block; }
 
+@keyframes arrow-cycle {
+  0%, 100% { background: var(--color-white);   color: var(--color-primary); }
+  50%       { background: var(--color-primary); color: var(--color-white);   }
+}
+
 @keyframes icon-pop {
   0%   { transform: scale(0.92); }
   100% { transform: scale(1); }
@@ -45,6 +50,7 @@
     .card-arrow {
       background: var(--color-white);
       color:      var(--color-primary);
+      animation:  arrow-cycle 1200ms ease-in-out 300ms infinite;
     }
   }
 
@@ -142,5 +148,5 @@
 
   .card-title,
   .card-desc  { transition: color 80ms ease; }
-  .card-arrow { transition: background 80ms ease, color 80ms ease; }
+  .card-arrow { animation: none !important; transition: background 80ms ease, color 80ms ease; }
 }

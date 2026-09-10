@@ -3,6 +3,16 @@
   100% { transform: scale(1); }   // cubic-bezier overshoot takes it to ~1.06 then settles
 }
 
+@keyframes dot-bob {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50%       { transform: scale(1) translate(calc(var(--dir, 1) * 20px), -20px); }
+}
+
+@keyframes icon-bg-cycle {
+  0%, 100% { background: var(--color-white);   color: var(--color-primary); }
+  50%       { background: var(--color-primary); color: var(--color-white);   }
+}
+
 @keyframes svc-icon-pop {
   0%   { transform: scale(0.92); }
   100% { transform: scale(1); }   // cubic-bezier overshoot takes it to ~1.05 then settles
@@ -52,11 +62,11 @@
   font-family:    var(--font-family-base);
   flex-shrink:    0;
   transition:
-    background    200ms ease,
-    border-color  200ms ease,
-    box-shadow    200ms ease,
-    color         200ms ease,
-    transform     200ms ease;
+    background    300ms ease,
+    border-color  300ms ease,
+    box-shadow    300ms ease,
+    color         300ms ease,
+    transform     300ms ease;
 
   // ── HOVER ANIMATION (non-active tabs only) ────────────────────────────────
   &:hover:not(.active),
@@ -65,19 +75,25 @@
     border-color: var(--color-primary);
     color:        var(--color-white);
     box-shadow:   0 8px 24px rgba(var(--c-green-500-rgb), 0.28);
-    transform:    translateY(-4px);
+    transform:    translateY(-0.5rem);
 
     .tab-icon-wrap {
       background:    var(--color-white);
-      border-radius: 50%;                 // square → circle
+      border-radius: 50%;
       color:         var(--color-primary);
-      // spring pop: 0.9 → overshoot ~1.06 → 1 via easing
-      animation:     tab-icon-pop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      // 1. spring pop (transform), 2. bg cycles white ↔ green after pop settles
+      animation:
+        tab-icon-pop   300ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        icon-bg-cycle  800ms ease-in-out 600ms infinite;
 
-      // Accent dot: fade + scale in with 60ms delay
+      // White dot: scale-in then bobs up/down
       &::after {
         opacity:   1;
         transform: scale(1);
+        transition:
+          opacity   1300ms ease 60ms,
+          transform 1300ms ease 60ms;
+        animation: dot-bob 900ms ease-in-out 800ms infinite;
       }
     }
   }
@@ -120,27 +136,27 @@
   border-radius:   var(--radius-full);    // rounded square by default → animates to circle
   background:      var(--color-card-bg);
   transition:
-    background     200ms ease,
-    border-radius  200ms ease,
-    color          200ms ease,
-    transform      150ms ease;    // smooth scale-out on mouse-leave
+    background     300ms ease,
+    border-radius  300ms ease,
+    color          300ms ease,
+    transform      300ms ease;    // smooth scale-out on mouse-leave
 
   // ── Accent dot ─────────────────────────────────────────────────────────────
   &::after {
     content:          '';
     position:         absolute;
-    inset-block-start: -3px;
+    inset-block-start: 20px;
     inset-inline-end:  -3px;
     width:            10px;
     height:           10px;
     border-radius:    50%;
-    background:       var(--color-primary);
+    background:       var(--color-white);
     pointer-events:   none;
     opacity:          0;
     transform:        scale(0);
     transition:
-      opacity   180ms ease 60ms,
-      transform 180ms ease 60ms;
+      opacity   1300ms ease 60ms,
+      transform 300ms ease;          // quick scale-out on mouse-leave
   }
 }
 
@@ -168,7 +184,7 @@
 // ─── Panel (content area) ────────────────────────────────────────────────────
 
 .persona-panel {
-  background:  var(--color-card-bg);
+  background:  var(--c-white);
   padding-block: 3rem;
 }
 
@@ -213,7 +229,7 @@
 }
 
 .svc-card {
-  background:     var(--color-white);
+  background:  var(--color-card-bg);
   border-radius:  var(--radius-lg);
   padding:        1.5rem;
   border:         1px solid var(--color-border);
@@ -222,10 +238,10 @@
   justify-content: space-between;
   gap:            1rem;
   transition:
-    background   200ms ease,
-    border-color 200ms ease,
-    box-shadow   200ms ease,
-    transform    200ms ease;
+    background   300ms ease,
+    border-color 300ms ease,
+    box-shadow   300ms ease,
+    transform    300ms ease;
 
   // ── ANIMATION 1: green fill, white-circle icon pop, white text, inverted arrow
   &:hover {
@@ -247,6 +263,7 @@
     .svc-arrow-btn {
       background: var(--color-white);
       color:      var(--color-primary);
+      animation:  icon-bg-cycle 1300ms ease-in-out 300ms infinite;
     }
   }
 }
@@ -268,10 +285,10 @@
   justify-content: center;
   color:           var(--color-gray);
   transition:
-    background    200ms ease,
-    border-radius 200ms ease,
-    color         200ms ease,
-    transform     150ms ease;           // smooth exit after pop
+    background    300ms ease,
+    border-radius 300ms ease,
+    color         300ms ease,
+    transform     300ms ease;           // smooth exit after pop
 
   svg { width: 24px; height: 24px; }
 }
@@ -283,7 +300,7 @@
   font-weight: var(--weight-bold);
   color:       var(--color-heading);
   margin:      0 0 0.25rem;
-  transition:  color 200ms ease;
+  transition:  color 300ms ease;
 }
 
 .svc-desc {
@@ -291,7 +308,7 @@
   color:       var(--color-body);
   margin:      0;
   line-height: 1.5;
-  transition:  color 200ms ease;
+  transition:  color 300ms ease;
 }
 
 .svc-card-bottom {
@@ -312,7 +329,7 @@
   justify-content: center;
   text-decoration: none;
   flex-shrink:     0;
-  transition:      background 200ms ease, color 200ms ease;
+  transition:      background 300ms ease, color 300ms ease;
 
   // RTL: arrow glyph direction flips via .rtl-flip class on the svg
 }
@@ -331,21 +348,21 @@
   font-weight:  var(--weight-medium);
   font-family:  var(--font-family-base);
   cursor:       pointer;
-  transition:   background 200ms ease, color 200ms ease;
+  transition:   background 300ms ease, color 300ms ease;
 
   &:hover { background: var(--color-primary); color: var(--color-white); }
 }
 
 // ─── Reduced motion ───────────────────────────────────────────────────────────
-// Keep instant (<= 80ms) color change; suppress lift, pop, and dot.
+// Keep instant (<= 300ms) color change; suppress lift, pop, and dot.
 
 @media (prefers-reduced-motion: reduce) {
   .persona-tab {
     transition:
-      background   80ms ease,
-      border-color 80ms ease,
-      color        80ms ease,
-      box-shadow   80ms ease;
+      background   300ms ease,
+      border-color 300ms ease,
+      color        300ms ease,
+      box-shadow   300ms ease;
 
     &:hover:not(.active),
     &:focus-visible:not(.active) { transform: none; }
@@ -354,22 +371,23 @@
   .tab-icon-wrap {
     animation:  none !important;
     transition:
-      background    80ms ease,
-      border-radius 80ms ease,
-      color         80ms ease;
+      background    300ms ease,
+      border-radius 300ms ease,
+      color         300ms ease;
 
     &::after {
+      animation: none !important;
       transition:
-        opacity   80ms ease,
-        transform 80ms ease;
+        opacity   300ms ease,
+        transform 300ms ease;
     }
   }
 
   .svc-card {
     transition:
-      background   80ms ease,
-      border-color 80ms ease,
-      box-shadow   80ms ease;
+      background   300ms ease,
+      border-color 300ms ease,
+      box-shadow   300ms ease;
 
     &:hover { transform: none; }
   }
@@ -377,12 +395,12 @@
   .svc-icon-wrap {
     animation:  none !important;
     transition:
-      background    80ms ease,
-      border-radius 80ms ease,
-      color         80ms ease;
+      background    300ms ease,
+      border-radius 300ms ease,
+      color         300ms ease;
   }
 
   .svc-title,
-  .svc-desc   { transition: color 80ms ease; }
-  .svc-arrow-btn { transition: background 80ms ease, color 80ms ease; }
+  .svc-desc   { transition: color 300ms ease; }
+  .svc-arrow-btn { animation: none !important; transition: background 300ms ease, color 300ms ease; }
 }
