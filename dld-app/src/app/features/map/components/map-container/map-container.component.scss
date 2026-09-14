@@ -1,0 +1,330 @@
+@use '../../../../../styles/mixins' as *;
+@use '../../../../../styles/breakpoints' as *;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.map-wrapper {
+  position: relative;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: radial-gradient(
+      1200px 600px at 15% 0%,
+      color-mix(in srgb, #4f46e5 18%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 520px at 90% 15%,
+      color-mix(in srgb, #06b6d4 16%, transparent),
+      transparent 55%
+    ),
+    var(--color-card-bg);
+  box-shadow: var(--shadow-map);
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// ── SVG canvas ─────────────────────────────────────────────────────────────────
+
+.map-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  cursor: grab;
+
+  &.is-dragging {
+    cursor: grabbing;
+  }
+}
+
+.district-polygon {
+  cursor: pointer;
+  transition: fill-opacity 200ms ease, stroke-width 200ms ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.marker-group {
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// ── State overlays (loading / error) ──────────────────────────────────────────
+
+.state-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  z-index: 100;
+
+  &--error .state-title {
+    color: #ef4444;
+  }
+}
+
+.state-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.state-title {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+}
+
+.state-desc {
+  margin: 0;
+  font-size: var(--text-base);
+  color: var(--color-body);
+}
+
+.state-hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.state-error-icon {
+  color: #ef4444;
+}
+
+// ── Info card popup overlay ────────────────────────────────────────────────────
+
+.popup-overlay {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 14px));
+  z-index: 2000;
+  pointer-events: auto;
+}
+
+// ── Price range legend ─────────────────────────────────────────────────────────
+
+.price-range {
+  position: absolute;
+  inset-inline-end: 10px;
+  bottom: 120px;
+  width: 220px;
+  padding: var(--space-4);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  z-index: 1000;
+}
+
+.price-range__title {
+  margin: 0 0 var(--space-3);
+  font-size: 1rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+}
+
+.price-range__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: var(--text-sm);
+  color: var(--color-body);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.price-dot {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+// ── Bottom stats bar ───────────────────────────────────────────────────────────
+
+.bottom-stats {
+  position: absolute;
+  inset-inline-start: 20px;
+  inset-inline-end: 20px;
+  bottom: 20px;
+  height: 90px;
+  display: flex;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  z-index: 1000;
+  margin: 0;
+}
+
+.bottom-stats__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-inline-end: 1px solid #eee;
+  padding: var(--space-2);
+
+  &:last-child {
+    border-inline-end: none;
+  }
+}
+
+.bottom-stats__value {
+  font-size: 1.5rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-map-stat-value);
+  margin: 0 0 2px;
+  line-height: 1.2;
+}
+
+.bottom-stats__label {
+  font-size: var(--text-xs);
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+// ── Zoom controls ──────────────────────────────────────────────────────────────
+
+.zoom-controls {
+  position: absolute;
+  inset-inline-end: 10px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 1000;
+}
+
+.zoom-btn {
+  width: 34px;
+  height: 34px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1.25rem;
+  line-height: 1;
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: background var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    background: var(--color-card-bg);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ── Reset View button ─────────────────────────────────────────────────────────
+
+.reset-view-btn {
+  position: absolute;
+  inset-inline-end: 52px;
+  top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-heading);
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: background var(--transition-base);
+  white-space: nowrap;
+  z-index: 1000;
+
+  &:hover {
+    background: var(--color-card-bg);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@include bp-down('sm') {
+  .bottom-stats {
+    height: auto;
+    flex-wrap: wrap;
+
+    .bottom-stats__item {
+      flex: 1 1 50%;
+      border-inline-end: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+
+      &:nth-child(2) {
+        border-inline-end: none;
+      }
+    }
+  }
+
+  .price-range {
+    width: 180px;
+    padding: var(--space-3);
+  }
+
+  .reset-view-btn {
+    font-size: 0;
+    padding: var(--space-2);
+    inset-inline-end: 52px;
+
+    svg {
+      font-size: 14px;
+    }
+  }
+}

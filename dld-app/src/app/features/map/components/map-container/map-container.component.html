@@ -1,0 +1,186 @@
+<div
+  class="map-wrapper"
+  #mapWrapper
+  role="application"
+  [attr.aria-label]="tr.t('map.aria_map')"
+  tabindex="0"
+  (keydown)="onMapKeydown($event)"
+>
+  <!-- Loading state -->
+  @if (store.loading()) {
+    <div class="state-overlay" aria-live="polite" aria-atomic="true">
+      <div class="state-spinner" aria-hidden="true"></div>
+      <p class="state-title">{{ tr.t('map.loading_title') }}</p>
+      <p class="state-desc">{{ tr.t('map.loading_desc') }}</p>
+    </div>
+  }
+
+  <!-- Error state -->
+  @if (store.error()) {
+    <div class="state-overlay state-overlay--error" role="alert">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="state-error-icon">
+        <path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="state-title state-title--error">{{ tr.t('map.error_title') }}</p>
+      <p class="state-desc">{{ store.error() }}</p>
+      <p class="state-hint">{{ tr.t('map.error_hint') }}</p>
+    </div>
+  }
+
+  <!-- Map canvas (shown when loaded and no error) -->
+  @if (!store.loading() && !store.error()) {
+    <svg
+      #mapSvg
+      class="map-svg"
+      viewBox="0 0 1000 600"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      (wheel)="onWheel($event)"
+      (pointerdown)="onPointerDown($event)"
+      (pointermove)="onPointerMove($event)"
+      (pointerup)="onPointerUp()"
+      (pointercancel)="onPointerUp()"
+      [class.is-dragging]="isDragging()"
+    >
+      <!-- Pan/zoom layer: all geographic content lives here -->
+      <g [attr.transform]="svgTransform()" class="pan-zoom-layer">
+
+        <!-- UAE background (swap-later asset — see OQ-8) -->
+        <image
+          href="assets/images/uae-map-bg.svg"
+          x="0" y="0" width="1000" height="600"
+          preserveAspectRatio="none"
+        />
+
+        <!-- District polygons (rendered below markers) -->
+        @for (loc of store.filteredLocations(); track loc.id) {
+          <polygon
+            class="district-polygon"
+            [attr.points]="pathPoints(loc)"
+            [attr.fill]="polyColor(loc)"
+            [attr.fill-opacity]="polyFillOpacity(loc)"
+            [attr.stroke]="polyStrokeColor(loc)"
+            [attr.stroke-opacity]="0.75"
+            [attr.stroke-width]="polyStrokeWidth(loc)"
+            stroke-linejoin="round"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="polyAriaLabel(loc)"
+            [attr.aria-pressed]="store.selectedLocationId() === loc.id"
+            (click)="onPolygonClick(loc, $event)"
+            (keydown)="onPolygonKeydown($event, loc)"
+          />
+        }
+
+        <!-- Markers — counter-scaled so visual size stays constant at any zoom level -->
+        @for (loc of store.filteredLocations(); track loc.id) {
+          <g
+            class="marker-group"
+            [attr.transform]="markerGroupTransform(loc)"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="markerAriaLabel(loc)"
+            [attr.aria-pressed]="store.selectedLocationId() === loc.id"
+            (click)="onMarkerClick(loc.id, $event)"
+            (keydown)="onMarkerKeydown($event, loc.id)"
+          >
+            <!-- Pill body -->
+            <rect
+              [attr.x]="-markerWidth(loc) / 2"
+              y="-52"
+              [attr.width]="markerWidth(loc)"
+              height="42"
+              rx="21"
+              ry="21"
+              [attr.fill]="markerBg(loc.id)"
+            />
+            <!-- Pointer triangle; anchor = origin (0,0) -->
+            <polygon
+              [attr.points]="markerTriangle(loc)"
+              [attr.fill]="markerBg(loc.id)"
+            />
+            <!-- Label -->
+            <text
+              x="0"
+              y="-31"
+              text-anchor="middle"
+              dominant-baseline="central"
+              fill="#ffffff"
+              font-family="Arial, sans-serif"
+              font-size="14"
+              font-weight="700"
+            >{{ formatPop(loc.population) }}</text>
+          </g>
+        }
+      </g>
+    </svg>
+
+    <!-- Info card popup overlay -->
+    @if (store.popupOpen() && store.selectedLocation()) {
+      <div
+        class="popup-overlay"
+        [style.left.px]="popupPixelPos()?.x ?? 0"
+        [style.top.px]="popupPixelPos()?.y ?? 0"
+      >
+        <app-location-popup />
+      </div>
+    }
+
+    <!-- Price range legend (OQ-1: bottom-inline-end; RTL: bottom-inline-start) -->
+    <div class="price-range" role="list" [attr.aria-label]="tr.t('map.legend_aria')">
+      <p class="price-range__title">{{ tr.t('map.legend_title') }}</p>
+      @for (item of legendItems; track item.key) {
+        <div class="price-range__row" role="listitem">
+          <span
+            class="price-dot"
+            [style.background]="item.colorVar"
+            aria-hidden="true"
+          ></span>
+          <span>{{ tr.t('map.legend_' + item.key) }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- Bottom stats bar (OQ-5: typed constant, swap with API later) -->
+    <dl class="bottom-stats" [attr.aria-label]="tr.t('map.stats_aria')">
+      @for (stat of bottomStats; track stat.key) {
+        <div class="bottom-stats__item">
+          <dd class="bottom-stats__value">{{ stat.value }}</dd>
+          <dt class="bottom-stats__label">{{ tr.t('map.stats_' + stat.key) }}</dt>
+        </div>
+      }
+    </dl>
+
+    <!-- Custom zoom controls (OQ-1) -->
+    <div class="zoom-controls" role="group" [attr.aria-label]="tr.t('map.zoom_controls')">
+      <button
+        class="zoom-btn"
+        type="button"
+        (click)="zoomIn()"
+        [attr.aria-label]="tr.t('map.zoom_in')"
+        [disabled]="scale() >= MAX_SCALE"
+      >+</button>
+      <button
+        class="zoom-btn"
+        type="button"
+        (click)="zoomOut()"
+        [attr.aria-label]="tr.t('map.zoom_out')"
+        [disabled]="scale() <= MIN_SCALE"
+      >−</button>
+    </div>
+
+    <!-- Reset View button: top inline-end (OQ-1 resolution) -->
+    <button
+      class="reset-view-btn"
+      type="button"
+      (click)="resetView()"
+      [attr.aria-label]="tr.t('map.reset_view')"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 3v5h5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      {{ tr.t('map.reset_view') }}
+    </button>
+  }
+</div>

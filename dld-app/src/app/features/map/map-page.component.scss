@@ -1,0 +1,65 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+.map-page {
+  padding: 14px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
+  // Fixed height so the 1fr row actually fills space (grid needs a sized container)
+  height: calc(100vh - 180px);
+  min-height: 580px;
+}
+
+.map-page__grid {
+  min-height: 0; // Allow flex/grid children to shrink below content size
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 12px;
+}
+
+.map-page__sidebar,
+.map-page__canvas {
+  min-height: 0;
+  height: 100%;
+}
+
+// ── RTL: swap sidebar/map column order ────────────────────────────────────────
+
+[dir='rtl'] .map-page__grid {
+  grid-template-columns: 1fr 320px;
+
+  .map-page__sidebar { order: 2; }
+  .map-page__canvas  { order: 1; }
+}
+
+// ── Responsive (980px breakpoint per spec §6a) ────────────────────────────────
+
+@media (max-width: 980px) {
+  .map-page {
+    height: auto;
+    min-height: 0;
+  }
+
+  .map-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .map-page__sidebar {
+    height: 260px;
+  }
+
+  .map-page__canvas {
+    height: calc(100vh - 380px);
+    min-height: 400px;
+  }
+
+  [dir='rtl'] .map-page__grid {
+    .map-page__sidebar { order: 1; }
+    .map-page__canvas  { order: 2; }
+  }
+}

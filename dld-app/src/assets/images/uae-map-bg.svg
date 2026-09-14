@@ -1,0 +1,89 @@
+<!-- UAE background map — PLACEHOLDER — swap with licensed asset before production -->
+<!-- Coordinate system: viewBox 0 0 1000 600 matching lat 23.5–26.2 / lng 51.5–57.0 -->
+<!-- Teal-green palette per MAP-SPEC.md §7 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
+  <defs>
+    <!-- Gulf water gradient -->
+    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6DD5CA"/>
+      <stop offset="100%" stop-color="#83D8CF"/>
+    </linearGradient>
+    <!-- Land gradient -->
+    <linearGradient id="landGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D4EBE0"/>
+      <stop offset="100%" stop-color="#DDEFE8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Water background (Persian Gulf + Gulf of Oman) -->
+  <rect width="1000" height="600" fill="url(#waterGrad)"/>
+
+  <!-- UAE mainland — simplified polygon (swap-later: commission accurate licensed boundary) -->
+  <!-- Points derived from equirectangular projection of approximate UAE coastline -->
+  <polygon
+    points="
+      0,519
+      9,420
+      18,312
+      50,328
+      91,340
+      152,345
+      273,350
+      400,345
+      455,340
+      520,328
+      555,316
+      618,280
+      645,262
+      691,190
+      709,160
+      718,150
+      736,122
+      800,76
+      830,56
+      845,30
+      870,64
+      872,102
+      855,142
+      854,196
+      870,232
+      918,280
+      943,385
+      800,481
+      673,519
+      455,519
+      91,519
+      0,519
+    "
+    fill="url(#landGrad)"
+  />
+
+  <!-- Eastern mountains (Hajar range — simplified) -->
+  <polygon
+    points="845,30 870,64 872,102 855,142 854,196 870,232 918,280 943,385 960,360 950,300 930,255 900,220 875,185 860,155 855,120 858,80 845,30"
+    fill="#C5E8D4"
+    opacity="0.7"
+  />
+
+  <!-- Road/highway hints (decorative; teal palette per spec §7) -->
+  <!-- E11 — Dubai–Abu Dhabi highway (approximate) -->
+  <path d="M 455 519 L 480 480 L 530 430 L 580 370 L 618 310 L 660 262 L 691 210" stroke="#35C6A0" stroke-width="2" fill="none" opacity="0.6"/>
+  <!-- E611 — ring road hint -->
+  <path d="M 645 262 L 691 190" stroke="#76D5B7" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+  <!-- Gulf coastline detail (decorative) -->
+  <path d="M 0 312 Q 100 330 273 340 Q 400 336 555 310 Q 618 280 691 190 Q 709 160 736 122 Q 800 76 845 30" stroke="#5CAEA5" stroke-width="1" fill="none" opacity="0.4"/>
+
+  <!-- City markers (decorative dots) -->
+  <!-- Abu Dhabi -->
+  <circle cx="510" cy="345" r="5" fill="#3C786B" opacity="0.5"/>
+  <!-- Dubai -->
+  <circle cx="691" cy="210" r="5" fill="#3C786B" opacity="0.5"/>
+  <!-- Sharjah -->
+  <circle cx="718" cy="168" r="4" fill="#3C786B" opacity="0.4"/>
+
+  <!-- Placeholder label -->
+  <text x="200" y="460" font-family="Arial, sans-serif" font-size="11" fill="#9CD8C4" opacity="0.8" transform="rotate(-5 200 460)">
+    UAE Map Placeholder — swap with licensed asset
+  </text>
+</svg>

@@ -141,6 +141,34 @@
 
 
   // =========================================================================
+  // MAP — dedicated palette (spec §8, §6d, §6e)
+  // =========================================================================
+
+  // Raw map palette
+  --c-map-navy:        #0D235A;    // marker default bg / legend under
+  --c-map-gold:        #F4C430;    // marker selected bg / legend luxury
+  --c-map-green-mid:   #0D8F4E;    // legend mid range
+  --c-map-blue-high:   #2B8CFF;    // legend high range
+  --c-map-teal-fill:   #42BFA0;    // polygon fallback fill
+  --c-map-teal-stroke: #26A88B;    // polygon fallback stroke
+  --c-map-stat-val:    #0b5e43;    // bottom stats value text
+
+  // Semantic map tokens
+  --color-map-marker-default:  var(--c-map-navy);
+  --color-map-marker-selected: var(--c-map-gold);
+  --color-map-legend-under:    var(--c-map-navy);
+  --color-map-legend-mid:      var(--c-map-green-mid);
+  --color-map-legend-high:     var(--c-map-blue-high);
+  --color-map-legend-luxury:   var(--c-map-gold);
+  --color-map-poly-fill:       var(--c-map-teal-fill);
+  --color-map-poly-stroke:     var(--c-map-teal-stroke);
+  --color-map-stat-value:      var(--c-map-stat-val);
+
+  // Shadow
+  --shadow-map: 0 18px 40px rgba(0, 0, 0, 0.22);
+
+
+  // =========================================================================
   // BORDER RADIUS
   // =========================================================================
   --radius-sm:   4px;

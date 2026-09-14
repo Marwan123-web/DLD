@@ -121,6 +121,12 @@ export const routes: Routes = [
     title: 'Open Data & Insights | Dubai Land Department',
   },
   {
+    path: 'map',
+    loadComponent: () =>
+      import('./features/map/map-page.component').then(m => m.MapPageComponent),
+    title: 'UAE Location Dashboard | Dubai Land Department',
+  },
+  {
     path: 'help',
     loadComponent: () =>
       import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),

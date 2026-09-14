@@ -1,0 +1,42 @@
+<aside class="sidebar">
+  <div class="sidebar__header">
+    <h2 class="sidebar__title">{{ tr.t('map.sidebar_title') }}</h2>
+    <span class="sidebar__badge">{{ store.filteredLocations().length }}</span>
+  </div>
+
+  @if (store.loading()) {
+    <p class="sidebar__empty">{{ tr.t('common.loading') }}</p>
+  } @else if (store.filteredLocations().length === 0) {
+    <p class="sidebar__empty">{{ tr.t('map.sidebar_no_results') }}</p>
+  } @else {
+    <ul class="sidebar__list" role="listbox" [attr.aria-label]="tr.t('map.sidebar_title')">
+      @for (loc of store.filteredLocations(); track loc.id) {
+        <li
+          class="sidebar__item"
+          role="option"
+          [attr.aria-selected]="isActive(loc)"
+          [class.sidebar__item--active]="isActive(loc)"
+          (click)="selectLocation(loc)"
+          (keydown.enter)="selectLocation(loc)"
+          (keydown.space)="selectLocation(loc)"
+          tabindex="0"
+        >
+          <span
+            class="sidebar__dot"
+            [style.background]="loc.color ?? 'var(--color-map-poly-fill)'"
+            aria-hidden="true"
+          ></span>
+
+          <div class="sidebar__info">
+            <span class="sidebar__name">{{ loc.name }}</span>
+            <span class="sidebar__emirate">{{ loc.emirate }}</span>
+          </div>
+
+          @if (loc.population) {
+            <span class="sidebar__pop" aria-hidden="true">{{ formatPop(loc.population) }}</span>
+          }
+        </li>
+      }
+    </ul>
+  }
+</aside>
