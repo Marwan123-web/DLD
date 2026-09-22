@@ -1,84 +1,222 @@
 <section class="tx-section">
   <div class="main-container">
+
+    <!-- Section header -->
     <div class="tx-header">
       <div>
-        <h2 class="tx-title">Real Estate Transactions</h2>
-        <p class="tx-sub">Stay ahead with the latest real estate transactions in Dubai. Gain accurate, real-time market insights to make smarter, data-driven decisions.</p>
+        <h2 class="tx-title">{{ tr.t('transactions.title') }}</h2>
+        <p class="tx-sub">{{ tr.t('transactions.subtitle') }}</p>
       </div>
       <div class="tx-date-input">
-        <input type="text" placeholder="DD/MM/YYYY" class="date-input" aria-label="Select date" />
-        <svg class="date-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
-          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        <input type="text" [placeholder]="tr.t('common.date_placeholder')" class="date-input"
+               [attr.aria-label]="tr.t('common.select_date')" />
+        <svg class="date-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" width="18" height="18" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <path d="M16 2v4M8 2v4M3 10h18"/>
         </svg>
       </div>
     </div>
 
-    <!-- Toggle pills -->
-    <div class="tx-toggle main-container" role="group" aria-label="View mode">
-      <button class="toggle-pill" [class.active]="activeView() === 'analytics'" (click)="activeView.set('analytics')">Analytics</button>
-      <button class="toggle-pill" [class.active]="activeView() === 'map'" (click)="activeView.set('map')">Map</button>
+    <!-- Toggle -->
+    <div class="tx-toggle" role="group" [attr.aria-label]="tr.t('transactions.view_toggle_aria')">
+      <button class="toggle-pill" [class.active]="activeView() === 'analytics'"
+              (click)="activeView.set('analytics')"
+              [attr.aria-pressed]="activeView() === 'analytics'">
+        {{ tr.t('transactions.analytics_tab') }}
+      </button>
+      <button class="toggle-pill" [class.active]="activeView() === 'map'"
+              (click)="activeView.set('map')"
+              [attr.aria-pressed]="activeView() === 'map'">
+        {{ tr.t('transactions.map_tab') }}
+      </button>
     </div>
 
     @switch (activeView()) {
+
       @case ('analytics') {
-        <!-- Donut chart panel -->
-        <div class="analytics-panel">
-          <div class="donut-wrap">
-            <svg viewBox="0 0 200 200" width="260" height="260" role="img" aria-label="Transaction type breakdown">
-              <!-- Background ring -->
-              <circle cx="100" cy="100" r="70" fill="none" stroke="var(--c-grey-200)" stroke-width="28"/>
-              <!-- Segments -->
-              @for (seg of donutSegments(); track seg.id) {
-                <circle
-                  cx="100" cy="100" r="70"
-                  fill="none"
-                  [attr.stroke]="seg.color"
-                  stroke-width="28"
-                  [attr.stroke-dasharray]="seg.dash + ' ' + seg.gap"
-                  [attr.stroke-dashoffset]="-seg.offset"
-                  stroke-linecap="round"
-                  transform="rotate(-90 100 100)"
-                />
-              }
-            </svg>
-            <div class="donut-center">
-              <span class="donut-label">Total Transactions</span>
-              <span class="donut-value">1.64 B</span>
-              <span class="donut-date-pill">12th May 2025</span>
-            </div>
+        <!-- Loading state -->
+        @if (analyticsData() === undefined) {
+          <div class="analytics-state analytics-loading" aria-busy="true">
+            <div class="loading-donut" aria-hidden="true"></div>
+            <span class="sr-only">{{ tr.t('transactions.loading') }}</span>
           </div>
+        }
 
-          <!-- Legend -->
-          <div class="donut-legend">
-            @for (seg of donutSegments(); track seg.id) {
-              <div class="legend-item">
-                <span class="legend-dot" [style.background]="seg.color"></span>
-                <span class="legend-label">{{ seg.label }}</span>
-                <span class="legend-value">{{ seg.value }}</span>
+        <!-- Error state -->
+        @else if (analyticsData() === null) {
+          <div class="analytics-state analytics-error" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 width="32" height="32" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <p>{{ tr.t('transactions.error') }}</p>
+          </div>
+        }
+
+        <!-- Empty state -->
+        @else if (analyticsData()!.segments.length === 0) {
+          <div class="analytics-state analytics-empty">
+            <p>{{ tr.t('transactions.empty') }}</p>
+          </div>
+        }
+
+        <!-- Main analytics panel -->
+        @else {
+          <div class="analytics-panel">
+
+            <!-- LEFT: donut chart -->
+            <div class="donut-col">
+              <div class="donut-wrap">
+                <svg
+                  viewBox="0 0 220 220"
+                  class="donut-svg"
+                  role="img"
+                  [attr.aria-label]="tr.t('transactions.donut_aria')">
+                  <title>{{ tr.t('transactions.donut_aria') }}</title>
+
+                  <!-- Track ring -->
+                  <circle
+                    [attr.cx]="cx" [attr.cy]="cy" [attr.r]="r"
+                    fill="none"
+                    stroke="var(--color-border)"
+                    [attr.stroke-width]="sw"/>
+
+                  <!-- Segments -->
+                  @for (seg of donutSegments(); track seg.key) {
+                    <circle
+                      [attr.cx]="cx" [attr.cy]="cy" [attr.r]="r"
+                      fill="none"
+                      [attr.stroke]="seg.colorToken"
+                      [attr.stroke-width]="sw"
+                      stroke-linecap="round"
+                      [attr.stroke-dasharray]="seg.dash + ' ' + seg.gap"
+                      [attr.stroke-dashoffset]="'-' + seg.offset"
+                      transform="rotate(-90 110 110)"/>
+                  }
+                </svg>
+
+                <!-- Center text overlay -->
+                <div class="donut-center" aria-hidden="true">
+                  <span class="donut-lbl">{{ tr.t('transactions.donut_total') }}</span>
+                  <span class="donut-val">{{ analyticsData()!.totalValue }}</span>
+                  <span class="donut-date-pill">
+                    <!-- Clock icon -->
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                         stroke-width="1.5" width="12" height="12" aria-hidden="true">
+                      <circle cx="8" cy="8" r="6.5"/>
+                      <polyline points="8 4.5 8 8 10.5 9.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {{ analyticsData()!.asOf }}
+                  </span>
+                </div>
+
+                <!-- Tooltip: near the mortgaged (blue) segment -->
+                @if (tooltipSegment(); as tip) {
+                  <div class="donut-tooltip" role="note">
+                    <span class="tooltip-dot" [style.background]="tip.colorToken" aria-hidden="true"></span>
+                    {{ tr.t(tip.labelKey) }} : {{ tip.tooltipValue }}
+                  </div>
+                }
               </div>
-            }
-          </div>
+            </div>
 
-          <!-- Tooltip pill -->
-          <div class="donut-tooltip" aria-live="polite">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            Mortgaged : 435
+            <!-- RIGHT: summary card + stat cards -->
+            <div class="summary-col">
+
+              <!-- Summary card -->
+              <div class="summary-card">
+                <div class="summary-info">
+                  <div class="summary-icon-tile" [attr.aria-label]="tr.t('transactions.summary_icon_aria')">
+                    <!-- Activity / pulse icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         width="22" height="22" aria-hidden="true"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                  </div>
+                  <div class="summary-text">
+                    <span class="summary-lbl">{{ tr.t('transactions.total_label') }}</span>
+                    <span class="summary-val">{{ analyticsData()!.totalValue }}</span>
+                  </div>
+                </div>
+                <button class="summary-view-btn" type="button" (click)="onViewAll()">
+                  {{ tr.t('transactions.view_all') }}
+                </button>
+              </div>
+
+              <!-- 3 stat cards -->
+              <div class="stat-cards-row" role="list">
+                @for (card of analyticsData()!.breakdown; track card.key) {
+                  <div class="stat-card" role="listitem"
+                       [style.background]="card.tintToken"
+                       [style.--card-accent]="card.accentToken"
+                       [style.--card-pill-bg]="card.pillTintToken">
+
+                    <div class="stat-card-header">
+                      <!-- Icon tile -->
+                      <div class="stat-icon-tile" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                             width="18" height="18" stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
+                          @switch (card.icon) {
+                            @case ('sales') {
+                              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                              <polyline points="14 2 14 8 20 8"/>
+                              <line x1="16" y1="13" x2="8" y2="13"/>
+                              <line x1="16" y1="17" x2="8" y2="17"/>
+                              <line x1="10" y1="9" x2="8" y2="9"/>
+                            }
+                            @case ('mortgaged') {
+                              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                              <polyline points="9 22 9 12 15 12 15 22"/>
+                            }
+                            @case ('gifts') {
+                              <polyline points="20 12 20 22 4 22 4 12"/>
+                              <rect x="2" y="7" width="20" height="5"/>
+                              <line x1="12" y1="22" x2="12" y2="7"/>
+                              <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+                              <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+                            }
+                          }
+                        </svg>
+                      </div>
+
+                      <!-- Percent pill -->
+                      <span class="stat-percent-pill">{{ card.percent }}%</span>
+                    </div>
+
+                    <span class="stat-lbl">{{ tr.t(card.labelKey) }}</span>
+                    <span class="stat-val">{{ card.value }}</span>
+
+                    <!-- Progress bar -->
+                    <div class="stat-progress-track" role="progressbar"
+                         [attr.aria-valuenow]="card.percent"
+                         aria-valuemin="0" aria-valuemax="100"
+                         [attr.aria-label]="tr.t(card.labelKey)">
+                      <div class="stat-progress-fill"
+                           [style.width.%]="card.percent">
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+
           </div>
-        </div>
+        }
       }
+
       @case ('map') {
-        <!-- Map panel -->
         <div class="map-panel">
           <div class="map-wrap">
-            <!-- Placeholder map -->
-            <div class="map-placeholder" aria-label="Dubai transaction map">
+            <div class="map-placeholder" [attr.aria-label]="tr.t('transactions.explore_map')">
               <div class="map-grid-overlay" aria-hidden="true"></div>
-              <span class="map-placeholder-text">Dubai Transactions Map</span>
+              <span class="map-placeholder-text">{{ tr.t('transactions.explore_map') }}</span>
             </div>
 
-            <!-- Price markers -->
             @for (marker of priceMarkers; track marker.id) {
               <div class="price-marker" [class.yellow]="marker.color === 'yellow'"
                    [style.top]="marker.top" [style.left]="marker.left">
@@ -86,47 +224,22 @@
               </div>
             }
 
-            <!-- Zoom controls -->
             <div class="zoom-controls">
-              <button class="zoom-btn" aria-label="Zoom in">+</button>
-              <button class="zoom-btn" aria-label="Zoom out">−</button>
+              <button class="zoom-btn" [attr.aria-label]="tr.t('common.zoom_in')">+</button>
+              <button class="zoom-btn" [attr.aria-label]="tr.t('common.zoom_out')">−</button>
             </div>
 
-            <!-- Legend -->
             <div class="map-legend">
-              <p class="legend-title">Price Range</p>
-              <div class="legend-item"><span class="legend-swatch navy"></span>Under AED 1M</div>
-              <div class="legend-item"><span class="legend-swatch green"></span>AED 1M–3M</div>
-              <div class="legend-item"><span class="legend-swatch blue"></span>AED 3M–6M</div>
-              <div class="legend-item"><span class="legend-swatch yellow"></span>Over AED 6M</div>
+              <p class="legend-title">{{ tr.t('transactions.price_range') }}</p>
+              <div class="legend-item"><span class="legend-swatch navy"></span>{{ tr.t('transactions.price_under_1m') }}</div>
+              <div class="legend-item"><span class="legend-swatch green"></span>{{ tr.t('transactions.price_1m_3m') }}</div>
+              <div class="legend-item"><span class="legend-swatch blue"></span>{{ tr.t('transactions.price_3m_6m') }}</div>
+              <div class="legend-item"><span class="legend-swatch yellow"></span>{{ tr.t('transactions.price_over_6m') }}</div>
             </div>
           </div>
-
-          <!-- Info card -->
-          <!-- <div class="area-info-card">
-            <span class="area-eyebrow">AREA</span>
-            <h3 class="area-name">CREEK HARBOUR</h3>
-            <div class="area-stats">
-              <div class="area-stat">
-                <span class="stat-label">Number of Transactions</span>
-                <span class="stat-value">847</span>
-              </div>
-              <div class="area-stat">
-                <span class="stat-label">Total Worth (AED)</span>
-                <span class="stat-value">3,124,580,000</span>
-              </div>
-              <div class="area-stat">
-                <span class="stat-label">Avg. Price / Sq.Ft</span>
-                <span class="stat-value">AED 1,920</span>
-              </div>
-              <div class="area-stat">
-                <span class="stat-label">Total Area (Sq.Mt)</span>
-                <span class="stat-value">412,360</span>
-              </div>
-            </div>
-          </div> -->
         </div>
       }
     }
+
   </div>
 </section>

@@ -1,17 +1,8 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
-
-interface DonutSegment {
-  id: string;
-  label: string;
-  value: number;
-  color: string;
-}
-
-const SEGMENTS: DonutSegment[] = [
-  { id: 'mortgaged', label: 'Mortgaged', value: 435, color: '#00A776' }, // matches --chart-green
-  { id: 'cash',      label: 'Cash',      value: 280, color: '#2F80ED' }, // matches --chart-blue
-  { id: 'gift',      label: 'Gift',       value: 85,  color: '#7A5AF8' }, // matches --chart-purple
-];
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, of } from 'rxjs';
+import { TranslationService } from '../../../../core/services/translation.service';
+import { TransactionsService } from '../../../../core/services/transactions.service';
 
 const PRICE_MARKERS = [
   { id: '1', label: 'AED 650K',  top: '30%', left: '12%', color: 'navy'   as const },
@@ -25,8 +16,13 @@ const PRICE_MARKERS = [
   { id: '9', label: 'AED 1.45M', top: '70%', left: '35%', color: 'navy'   as const },
 ];
 
-const DONUT_RADIUS = 70;
-const DONUT_CIRCUMFERENCE = 2 * Math.PI * DONUT_RADIUS;
+// SVG circle geometry: viewBox 220x220, center 110,110, r=80, stroke-width=30
+const CX = 110;
+const CY = 110;
+const R = 80;
+const SW = 30;
+const C = 2 * Math.PI * R; // ≈ 502.655
+const GAP = 5; // visual gap in px between segments
 
 @Component({
   selector: 'app-transactions-section',
@@ -37,18 +33,44 @@ const DONUT_CIRCUMFERENCE = 2 * Math.PI * DONUT_RADIUS;
   styleUrl: './transactions-section.component.scss',
 })
 export class TransactionsSectionComponent {
+  readonly tr = inject(TranslationService);
+  private readonly txService = inject(TransactionsService);
+
   readonly activeView = signal<'analytics' | 'map'>('analytics');
   readonly priceMarkers = PRICE_MARKERS;
-  readonly circumference = DONUT_CIRCUMFERENCE;
+
+  // undefined = loading, null = error, object = data
+  readonly analyticsData = toSignal(
+    this.txService.getAnalytics().pipe(catchError(() => of(null))),
+  );
 
   readonly donutSegments = computed(() => {
-    const total = SEGMENTS.reduce((s, x) => s + x.value, 0);
-    let offset = 0;
-    return SEGMENTS.map(seg => {
-      const dash = (seg.value / total) * DONUT_CIRCUMFERENCE;
-      const co = offset;
-      offset += dash;
-      return { ...seg, dash, offset: co, gap: DONUT_CIRCUMFERENCE - dash };
+    const data = this.analyticsData();
+    if (!data) return [];
+    let cumulative = 0;
+    return data.segments.map(seg => {
+      const raw = (seg.percent / 100) * C;
+      const dash = Math.max(raw - GAP, 0);
+      const gap = C - dash;
+      const offset = cumulative;
+      cumulative += raw;
+      return { ...seg, dash, gap, offset };
     });
   });
+
+  readonly tooltipSegment = computed(() => {
+    const data = this.analyticsData();
+    if (!data) return null;
+    return data.segments.find(s => s.key === data.tooltipSegmentKey) ?? null;
+  });
+
+  readonly cx = CX;
+  readonly cy = CY;
+  readonly r = R;
+  readonly sw = SW;
+  readonly circumference = C;
+
+  onViewAll(): void {
+    // TODO: navigate to full transactions listing
+  }
 }

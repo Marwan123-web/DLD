@@ -92,6 +92,14 @@
   // --- White ---------------------------------------------------------------
   --c-white: #FFFFFF;
 
+  // --- Blue palette (analytics card tints) ---------------------------------
+  --c-blue-050: #EAF3FF;      // light blue tint   (analytics mortgage card bg)
+  --c-blue-100: #D6E9FF;      // medium blue tint  (analytics mortgage pill/icon bg)
+
+  // --- Purple palette (analytics card tints) -------------------------------
+  --c-purple-050: #F0EBFF;    // light purple tint (analytics gift card bg)
+  --c-purple-100: #E4D6FF;    // medium purple tint (analytics gift pill/icon bg)
+
   // --- Chart palette -------------------------------------------------------
   --c-chart-blue:   #2F80ED;
   --c-chart-purple: #7A5AF8;
@@ -138,6 +146,18 @@
   --chart-blue:   var(--c-chart-blue);
   --chart-purple: var(--c-chart-purple);
   --chart-yellow: var(--c-chart-yellow);
+
+  // Analytics panel — transactions section
+  --color-analytics-summary-bg:    var(--c-green-100);
+  --color-analytics-sales-tint:    var(--c-green-100);
+  --color-analytics-sales-accent:  var(--c-green-700);
+  --color-analytics-sales-pill-bg: var(--c-green-150);
+  --color-analytics-mort-tint:     var(--c-blue-050);
+  --color-analytics-mort-accent:   var(--c-chart-blue);
+  --color-analytics-mort-pill-bg:  var(--c-blue-100);
+  --color-analytics-gift-tint:     var(--c-purple-050);
+  --color-analytics-gift-accent:   var(--c-chart-purple);
+  --color-analytics-gift-pill-bg:  var(--c-purple-100);
 
 
   // =========================================================================

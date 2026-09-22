@@ -133,7 +133,22 @@
     "stat_avg_val": "AED 1,920",
     "stat_area_label": "Total Area (Sq.Mt)",
     "stat_area_val": "412,360",
-    "explore_map": "Explore Transactions Map"
+    "explore_map": "Explore Transactions Map",
+    "view_all": "View All Transactions",
+    "sales_label": "Total Sales",
+    "mortgaged_label": "Total Mortgaged",
+    "gifts_label": "Gifts",
+    "donut_aria": "Donut chart: 69.8% Total Sales, 26.5% Mortgaged, 3.9% Gifts",
+    "view_toggle_aria": "Select analytics or map view",
+    "summary_icon_aria": "Transaction activity overview",
+    "loading": "Loading transaction data...",
+    "error": "Unable to load transaction data. Please try again.",
+    "empty": "No transaction data available.",
+    "price_range": "Price Range",
+    "price_under_1m": "Under AED 1M",
+    "price_1m_3m": "AED 1M-3M",
+    "price_3m_6m": "AED 3M-6M",
+    "price_over_6m": "Over AED 6M"
   },
   "app": {
     "download_title": "Download Dubai REST APP Now",
@@ -442,7 +457,11 @@
     "apply_now": "Apply now",
     "view_all": "View All",
     "close": "Close",
-    "skip_to_content": "Skip to main content"
+    "skip_to_content": "Skip to main content",
+    "date_placeholder": "DD/MM/YYYY",
+    "select_date": "Select date",
+    "zoom_in": "Zoom in",
+    "zoom_out": "Zoom out"
   },
   "not_found": {
     "title": "Page Not Found",
