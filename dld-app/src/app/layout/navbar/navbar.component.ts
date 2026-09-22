@@ -103,6 +103,10 @@ export class NavbarComponent {
     }
   }
 
+  openAccessibility(): void {    
+    (window as any).UserWay?.widgetOpen();
+  }
+
   get atHome(): boolean {
     const path = window.location.pathname;
     // Transparent navbar on home and all About DLD routes (they all have dark gradient heroes)

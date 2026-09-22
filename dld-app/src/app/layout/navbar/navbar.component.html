@@ -59,7 +59,7 @@
           </svg>
           {{ tr.t('nav.search_placeholder') }}
         </button>
-        <button class="util-icon-btn" [attr.aria-label]="tr.t('nav.accessibility')">
+        <button class="util-icon-btn" [attr.aria-label]="tr.t('nav.accessibility')" (click)="openAccessibility()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
             <circle cx="12" cy="5" r="2"/><path d="M12 22v-8m0 0l-4-4m4 4l4-4M6 9l6-2 6 2"/>
           </svg>
@@ -171,7 +171,7 @@
           </svg>
           {{ tr.t('nav.search_placeholder') }}
         </button>
-        <button class="util-icon-btn dark" [attr.aria-label]="tr.t('nav.accessibility')">
+        <button class="util-icon-btn dark" [attr.aria-label]="tr.t('nav.accessibility')" (click)="openAccessibility()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
             <circle cx="12" cy="5" r="2"/><path d="M12 22v-8m0 0l-4-4m4 4l4-4M6 9l6-2 6 2"/>
           </svg>
