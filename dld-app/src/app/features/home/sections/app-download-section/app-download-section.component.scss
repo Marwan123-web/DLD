@@ -1,78 +1,280 @@
-.app-section {
-  padding-block: 4rem;
-  overflow: hidden;
-  background: var(--color-bg);
+// =============================================================================
+// App Download Section
+// =============================================================================
+// Animation approach:
+//   • Default state (no .is-animating): all elements fully visible — safe
+//     fallback if JS/observer never fires.
+//   • Once IntersectionObserver adds .is-animating to :host, keyframe
+//     animations play with fill-mode:both. The "from" state snaps
+//     immediately (backwards fill), so there is no rendered visible→invisible
+//     flash — the first painted frame already shows the starting position.
+//   • Horizontal offsets use calc(var(--dir,1) * Xpx) so they mirror in RTL.
+//   • overflow:hidden on :host clips off-screen starting positions.
+// =============================================================================
 
+:host {
+  display: block;
+  overflow: hidden; // clip phone mockup overshooting the right edge during entrance
 }
 
+// ─── Section wrapper ───────────────────────────────────────────────────────────
+.app-section {
+  padding-block: 4rem;
+  background: var(--color-bg);
+}
+
+// ─── Green gradient card ──────────────────────────────────────────────────────
 .app-layout {
   background: var(--gradient-app);
   padding: 48px;
   border-radius: 32px;
-  display: grid; grid-template-columns: 1fr 420px;
-  gap: 2rem; align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 2rem;
+  align-items: center;
+  overflow: hidden; // also clip children that overshoot the rounded card edges
+
   @media (max-width: 991px) { grid-template-columns: 1fr; }
 }
 
+// ─── Left text column ─────────────────────────────────────────────────────────
+.app-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-text-body {
+  // Wrapper that receives the inline-start entrance animation;
+  // keeps margin-block-end in sync with the original flow.
+  margin-block-end: 1.5rem;
+}
+
 .app-pre {
-  font-size: var(--text-md); color: rgba(255, 255, 255, 0.8);
-  margin: 0; font-weight: var(--weight-regular);
+  font-size: var(--text-md);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  font-weight: var(--weight-regular);
 }
 
 .app-heading {
   font-size: clamp(2rem, 4vw, 3rem);
-  color: #fff; font-weight: var(--weight-regular);
-  margin: 0 0 1.25rem; line-height: 1.15;
+  color: #fff;
+  font-weight: var(--weight-regular);
+  margin: 0 0 1.25rem;
+  line-height: 1.15;
 }
 
 .app-heading-bold { font-weight: var(--weight-bold); }
 
 .app-desc {
-  font-size: var(--text-base); color: rgba(255, 255, 255, 0.85);
-  line-height: 1.7; margin: 0 0 1.5rem; max-width: 500px;
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+  max-width: 500px;
 }
 
 .app-platforms {
-  font-size: var(--text-sm); color: rgba(255, 255, 255, 0.75); margin: 0 0 1.25rem;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+
   strong { color: #fff; }
 }
 
+// ─── Store badges ─────────────────────────────────────────────────────────────
 .store-badges {
-  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .store-badge {
-  display: flex; align-items: center; gap: 0.625rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
   padding: 0.625rem 1.25rem;
   background: rgba(255, 255, 255, 0.12);
   border: 1.5px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-md);
-  color: #fff; text-decoration: none;
+  color: #fff;
+  text-decoration: none;
   transition: background var(--transition-base);
+
   &:hover { background: rgba(255, 255, 255, 0.22); }
 }
 
 .badge-text {
-  display: flex; flex-direction: column; line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+
   small { font-size: 10px; opacity: 0.75; }
   strong { font-size: var(--text-base); font-weight: var(--weight-medium); }
 }
 
+// ─── Phone mockups ────────────────────────────────────────────────────────────
 .app-phones {
   position: relative;
   height: 420px;
-  display: flex; align-items: flex-end; justify-content: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
   @media (max-width: 991px) { height: 280px; }
 }
 
 .phones-main {
-  height: 100%; width: auto; object-fit: contain;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
   filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.35));
 }
 
 .phones-overlay {
-  position: absolute; inset-block-end: 40px; inset-inline-start: -20px;
-  height: 45%; width: auto; object-fit: contain;
+  position: absolute;
+  inset-block-end: 40px;
+  inset-inline-start: -9rem;
+  height: 45%;
+  width: auto;
+  object-fit: contain;
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
-  @media (max-width: 991px) { height: 35%; inset-block-end: 20px; inset-inline-start: 0; }
+
+  @media (max-width: 991px) {
+    height: 35%;
+    inset-block-end: 20px;
+    inset-inline-start: 0;
+  }
+}
+
+
+// =============================================================================
+// SCROLL-TRIGGERED ENTRANCE ANIMATIONS
+// Applied only after IntersectionObserver adds .is-animating to :host.
+// fill-mode: both → "from" state snaps in before delay; "to" state persists.
+// =============================================================================
+
+// Easing shared across all entrance animations
+$ease-assemble: cubic-bezier(0.22, 1, 0.36, 1);
+
+// --- Keyframes ----------------------------------------------------------------
+
+// Panel: subtle scale + fade (stable frame effect)
+@keyframes app-panel-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+// Text column: enters from inline-start (mirrors in RTL via --dir)
+@keyframes app-slide-in-start {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--dir, 1) * -64px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Phone mockup: enters from inline-end (mirrors in RTL)
+@keyframes app-slide-in-end {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--dir, 1) * 80px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Store badges: rise from below with a slight scale
+@keyframes app-slide-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(44px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Floating status cards: descend from above
+@keyframes app-slide-in-top {
+  from {
+    opacity: 0;
+    transform: translateY(-52px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// --- Animation rules (only active when .is-animating present on :host) -------
+
+:host.is-animating {
+
+  // 1. Green panel — first, sets the stage (0ms, 900ms)
+  .app-layout {
+    animation: app-panel-in 900ms $ease-assemble 0ms both;
+  }
+
+  // 2. Text content — from inline-start (150ms, 1100ms)
+  .app-text-body {
+    animation: app-slide-in-start 1100ms $ease-assemble 150ms both;
+  }
+
+  // 3. Phone mockup — from inline-end (300ms, 1200ms)
+  .phones-main {
+    animation: app-slide-in-end 1200ms $ease-assemble 300ms both;
+  }
+
+  // 4. Store badges — from bottom, staggered every 150ms (480–780ms, 1000ms each)
+  .store-badge:nth-child(1) {
+    animation: app-slide-in-bottom 1000ms $ease-assemble 480ms both;
+  }
+  .store-badge:nth-child(2) {
+    animation: app-slide-in-bottom 1000ms $ease-assemble 630ms both;
+  }
+  .store-badge:nth-child(3) {
+    animation: app-slide-in-bottom 1000ms $ease-assemble 780ms both;
+  }
+
+  // 5. Floating status cards (phonestop.svg) — from top, lands last (700ms, 1100ms)
+  .phones-overlay {
+    animation: app-slide-in-top 1100ms $ease-assemble 700ms both;
+  }
+}
+
+
+// =============================================================================
+// REDUCED MOTION
+// Replace all movement with a short ≤80ms fade; never leave content hidden.
+// =============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes app-fade-only {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  :host.is-animating {
+    .app-layout,
+    .app-text-body,
+    .phones-main,
+    .phones-overlay,
+    .store-badge:nth-child(1),
+    .store-badge:nth-child(2),
+    .store-badge:nth-child(3) {
+      // Override the directional keyframes with a plain fade; keep stagger minimal
+      animation-name: app-fade-only !important;
+      animation-duration: 80ms !important;
+      animation-timing-function: ease-out !important;
+      animation-delay: 0ms !important;
+      animation-fill-mode: both !important;
+    }
+  }
 }
